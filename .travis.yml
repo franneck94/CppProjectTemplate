@@ -21,9 +21,9 @@ install:
   - cd $PARENTDIR/build
   - conan install $PARENTDIR
   - cd $PARENTDIR
-  - cmake -DCMAKE_BUILD_TYPE:STRING=Release -H$PARENTDIR/ -B$PARENTDIR/build -G "Unix Makefiles"
+  - cmake -DCMAKE_BUILD_TYPE:STRING=Debug -H$PARENTDIR/ -B$PARENTDIR/build -G "Unix Makefiles"
   - cmake --build $PARENTDIR/build --config Debug --target coverage -- -j 2
-  #- ctest -DENABLE_COVERAGE=On -j2 -C Debug -T test --output-on-failure
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - lcov --list coverage_out.info.cleaned
+  - bash <(curl -s https://codecov.io/bash) -f coverage_out.info.cleaned || echo "Codecov did not collect coverage reports"
