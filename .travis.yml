@@ -20,10 +20,8 @@ install:
   - mkdir $PARENTDIR/build
   - cd $PARENTDIR/build
   - conan install $PARENTDIR
-  - cd $PARENTDIR
-  - cmake -DCMAKE_BUILD_TYPE:STRING=Debug -H$PARENTDIR/ -B$PARENTDIR/build -G "Unix Makefiles"
-  - cmake --build $PARENTDIR/build --config Debug --target coverage -- -j 2
+  - cmake $PARENTDIR -DCMAKE_BUILD_TYPE=Coverage
+  - make coverage
 
 after_success:
-  - lcov --list coverage_out.info.cleaned
   - bash <(curl -s https://codecov.io/bash) -f coverage_out.info.cleaned || echo "Codecov did not collect coverage reports"
