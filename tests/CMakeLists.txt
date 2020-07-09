@@ -15,10 +15,10 @@ set(TEST_RUNNER_PARAMS "")  # Any arguemnts to feed the test runner (change as n
 
 add_executable(${TEST_MAIN} ${TESTFILES})
 if (WIN32)
-target_link_libraries(${TEST_MAIN} PRIVATE ${LIBRARY_NAME} gtest)
+    target_link_libraries(${TEST_MAIN} PRIVATE ${LIBRARY_NAME} gtest)
 endif (WIN32)
 if (UNIX)
-target_link_libraries(${TEST_MAIN} PRIVATE ${LIBRARY_NAME} gtest pthread)
+    target_link_libraries(${TEST_MAIN} PRIVATE ${LIBRARY_NAME} gtest pthread)
 endif (UNIX)
 set_target_properties(${TEST_MAIN} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
 
@@ -33,5 +33,12 @@ add_test(
     COMMAND ${TEST_MAIN} ${TEST_RUNNER_PARAMS})
 
 # Adds a 'coverage' target.
-#include(CodeCoverage)
+if (CMAKE_COMPILER_IS_GNUCXX)
+    option(ENABLE_COVERAGE "Enable coverage reporting for gcc/clang" FALSE)
 
+    if(ENABLE_COVERAGE)
+        add_compile_options(--coverage -O0)
+        target_link_libraries(${TEST_MAIN} --coverage)
+        include(CodeCoverage)
+    endif()
+endif()
