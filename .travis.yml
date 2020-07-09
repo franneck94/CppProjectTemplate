@@ -6,8 +6,6 @@ matrix:
     - os: linux
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
-        global:
-          - CODECOV_TOKEN=:aa21459c-4ced-4480-a48b-3c82595a461a
         
 before_install:
   - eval "${MATRIX_EVAL}"
@@ -23,9 +21,8 @@ install:
   - conan install $PARENTDIR
   - cd $PARENTDIR
   - cmake -DCMAKE_BUILD_TYPE:STRING=Release -H$PARENTDIR/ -B$PARENTDIR/build -G "Unix Makefiles"
-  - cmake --build $PARENTDIR/build --config Release --target unit_tests -- -j 2
-  - ctest -j2 -C Debug -T test --output-on-failure
-  - bash <(curl -s https://codecov.io/bash)
+  - cmake --build $PARENTDIR/build --config Debug --target coverage -- -j 2
+  #- ctest -DENABLE_COVERAGE=On -j2 -C Debug -T test --output-on-failure
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

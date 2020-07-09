@@ -25,11 +25,9 @@ endif()
 #                         Locate files (change as needed).
 # --------------------------------------------------------------------------------
 set(SOURCES          # All .cpp files in src/
-    src/dummy.cc
-)
+    src/dummy.cc)
 set(TESTFILES        # All .cpp files in tests/
-    tests/main.cc
-)
+    tests/main.cc)
 set(LIBRARY_NAME engine)  # Default name for the library built from src/*.cpp (change if you wish)
 
 # --------------------------------------------------------------------------------
@@ -54,9 +52,7 @@ set_target_properties(
     ${LIBRARY_NAME} main 
       PROPERTIES 
         CXX_STANDARD 17 
-        CXX_STANDARD_REQUIRED YES
-)
+        CXX_STANDARD_REQUIRED YES)
 
 # Set up tests (see tests/CMakeLists.txt).
 add_subdirectory(tests)
-
