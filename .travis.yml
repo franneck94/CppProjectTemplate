@@ -21,6 +21,9 @@ install:
   - cd $PARENTDIR/build
   - conan install $PARENTDIR
   - cmake $PARENTDIR -DCMAKE_BUILD_TYPE=Coverage
+  - make
+
+script:
   - make coverage
 
 after_success:
