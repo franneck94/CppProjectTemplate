@@ -21,7 +21,7 @@ install:
   - conan install $PARENTDIR
   - cd $PARENTDIR
   - cmake -DCMAKE_BUILD_TYPE:STRING=Release -H$PARENTDIR/ -B$PARENTDIR/build -G "Unix Makefiles"
-  # - cmake --build $PARENTDIR/build --config Release --target unit_tests
+  - cmake --build $PARENTDIR/build --config Release --target unit_tests -- -j 2
   # - $PARENTDIR/build/bin/unit_tests
-  - ctest -j 2
+  - ctest -j2 -C Debug -T test --output-on-failure
   - bash <(curl -s https://codecov.io/bash)
