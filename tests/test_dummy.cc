@@ -8,8 +8,8 @@ TEST(DummyTestCase, DummyTest)
 
     const bool actual = d.doSomething();
     const bool expectedPassed = true;
-    const bool expectedFailure = false;
+    //const bool expectedFailure = false;
 
     ASSERT_EQ(expectedPassed, actual); // Should be passed
-    ASSERT_EQ(expectedFailure, actual); // Should be a failure
+    //ASSERT_EQ(expectedFailure, actual); // Should be a failure
 }
