@@ -1,11 +1,7 @@
 #!/bin/bash
-
-set -e
-set -x
-
-rm -rf build
+rm -r build
 mkdir build
-pushd build
+cd build
 
 conan install ..
 cd ..
