@@ -16,11 +16,10 @@ install:
   - sudo apt-get install doxygen
   - pip install conan
   - conan user
-  - rm -r $PARENTDIR/build
   - mkdir $PARENTDIR/build
   - cd $PARENTDIR/build
-  - conan install ..
-  - cd ..
+  - conan install $PARENTDIR
+  - cd $PARENTDIR
   - cmake -DCMAKE_BUILD_TYPE:STRING=Release -H$PARENTDIR/ -B$PARENTDIR/build -G "Unix Makefiles"
   - cmake --build $PARENTDIR/build --config Release --target unit_tests
   - ./$PARENTDIR/build/bin/unit_tests
