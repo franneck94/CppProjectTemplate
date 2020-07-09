@@ -1,6 +1,6 @@
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
-[![Build Status](https://api.travis-ci.org/franneck94/Cpp-Project-Template.svg?branch=master)](https://travis-ci.org/github/franneck94/Cpp-Project-Template)
-[![codecov](https://codecov.io/gh/bsamseth/cpp-project/branch/master/graph/badge.svg)](https://codecov.io/gh/bsamseth/cpp-project)
+[![Project Status: Active.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![Travis CI](https://api.travis-ci.org/franneck94/Cpp-Project-Template.svg?branch=master)](https://travis-ci.org/github/franneck94/Cpp-Project-Template)
+[![Codecoverage](https://codecov.io/gh/bsamseth/cpp-project/branch/master/graph/badge.svg)](https://codecov.io/gh/bsamseth/cpp-project)
 
 
 # Template for C++ projects 

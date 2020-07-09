@@ -22,4 +22,4 @@ install:
   - cd $PARENTDIR
   - cmake -DCMAKE_BUILD_TYPE:STRING=Release -H$PARENTDIR/ -B$PARENTDIR/build -G "Unix Makefiles"
   - cmake --build $PARENTDIR/build --config Release --target unit_tests
-  - ./$PARENTDIR/build/bin/unit_tests
+  - $PARENTDIR/build/bin/unit_tests
