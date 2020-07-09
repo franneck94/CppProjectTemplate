@@ -10,7 +10,7 @@ This is a template for C++ projects. What you get:
 -   External libraries installed and managed by [Conan](https://conan.io/)
 -   Use of modern [CMake](https://cmake.org/) for building and compiling
 -   Setup for tests using [GTest](https://github.com/google/googletest)
--   Continuous testing with [Travis-CI](https://travis-ci.org/) (Linux/MacOS) and [Appveyor](https://www.appveyor.com) (Windows)
+-   Continuous testing with [Travis-CI](https://travis-ci.org/)
 -   Code coverage reports, including automatic upload to [Codecov.io](https://codecov.io)
 -   Code documentation with [Doxygen](http://www.stack.nl/~dimitri/doxygen/)
 -   Optional: Use of the [Visual Studio Code](https://code.visualstudio.com/) IDE with useful Extensions
