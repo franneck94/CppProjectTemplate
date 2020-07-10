@@ -4,17 +4,34 @@ dist: bionic
 matrix:
   include:
     - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+            - doxygen
+            - lcov
       env:
-        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
-        
+        - MATRIX_EVAL="CXX_COMPILER=g++-7; sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-7 90"
+
+    - os: osx
+        osx_image: xcode10.1
+        addons:
+          homebrew:
+            packages:
+            - lcov
+            - doxygen
+            update: true
+
+        env:
+          - MATRIX_EVAL="CXX_COMPILER=clang++"
+
 before_install:
   - eval "${MATRIX_EVAL}"
   - PARENTDIR=$(pwd)
 
 install:
-  - sudo apt-get install g++-7
-  - sudo apt-get install doxygen
-  - sudo apt-get install lcov
   - pip install conan
   - conan user
   - mkdir $PARENTDIR/build
