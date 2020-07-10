@@ -8,6 +8,7 @@ cmake_minimum_required(VERSION 3.8.2)
 project(CPP_PROJECT_TEMPLATE VERSION 0.1 LANGUAGES CXX)
 
 # Options: Things you can set via commandline options to cmake (e.g. -DENABLE_LTO=[ON|OFF])
+option(ENABLE_CPPCHECK "Enable static analysis with cppcheck" ON)
 option(ENABLE_WARNINGS_SETTINGS "Allow target_set_warnings to add flags and defines." ON)
 option(ENABLE_LTO "Enable link time optimization" ON)
 
@@ -18,6 +19,7 @@ include(CTest)
 include(Documentation)
 include(LTO)
 include(Warnings)
+include(StaticAnalyzer)
 
 # Check for LTO support.
 find_lto(CXX)
@@ -70,6 +72,18 @@ set_target_properties(
       PROPERTIES 
         CXX_STANDARD 17 
         CXX_STANDARD_REQUIRED YES)
+
+# Cppcheck target
+add_custom_target(cppcheck
+    COMMAND cppcheck
+    --enable=warning,performance,portability,information
+    --suppress=missingIncludeSystem
+    --std=c++17
+    --template="[{severity}][{id}] {message} {callstack} \(On {file}:{line}\)"
+    --verbose
+    ${PROJECT_SOURCE_DIR}/src 
+    DEPENDS main
+)
 
 # Set up tests (see tests/CMakeLists.txt).
 add_subdirectory(tests)

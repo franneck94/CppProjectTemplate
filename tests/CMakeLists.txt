@@ -31,10 +31,8 @@ add_test(
     COMMAND ${TEST_MAIN} ${TEST_RUNNER_PARAMS})
 
 # Adds a 'coverage' target.
-if(CMAKE_COMPILER_IS_GNUCXX)
-    include(CodeCoverage)
-    setup_target_for_coverage_lcov(
-        NAME coverage
-        EXECUTABLE ctest -j 2
-        DEPENDENCIES ${TEST_MAIN})
-endif()
+include(CodeCoverage)
+setup_target_for_coverage_lcov(
+    NAME coverage
+    EXECUTABLE ctest -j 2
+    DEPENDENCIES ${TEST_MAIN})

@@ -9,8 +9,8 @@ matrix:
   include:
     - name: "Linux (GCC compiler)"
       os: linux
-      compiler: gcc
-      env: OS=linux COMPILER=gcc GCC_VERSION=10
+      env: 
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
       addons:
         apt:
           sources:
@@ -33,14 +33,12 @@ branches:
     - master
 
 before_install:
-  # gcc
-  - if [ "$OS" != "osx" ] && [ "$COMPILER" = "gcc" ]; then export CC="gcc-${GCC_VERSION}" CXX="g++-${GCC_VERSION}"; fi
-  # clang, libc++, libc++abi
-  - if [ "$OS" != "osx" ] && [ "$COMPILER" = "clang" ]; then export CC="clang-${CLANG_VERSION}" CXX="clang++-${CLANG_VERSION}"; fi
   # brew, doxygen, lcov
   - if [ "$OS" == "osx" ]; then brew update; fi
   - if [ "$OS" == "osx" ]; then brew install doxygen; fi
   - if [ "$OS" == "osx" ]; then brew install lcov; fi
+  # linux matrix
+  - if [ "$OS" == "linux" ]; then eval "${MATRIX_EVAL}"; fi
   # project dir
   - PARENTDIR=$(pwd)
 
