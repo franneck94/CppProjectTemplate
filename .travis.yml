@@ -23,7 +23,7 @@ branches:
     - master
 
 before_install:
-  - "${MATRIX_EVAL}"
+  - eval "${MATRIX_EVAL}"
   - PARENTDIR=$(pwd)
 
 install:
