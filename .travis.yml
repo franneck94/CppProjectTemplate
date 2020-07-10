@@ -22,6 +22,7 @@ matrix:
             - doxygen
             - lcov
           update: true
+          
     - name: "Linux (Clang compiler)"
       os: linux
       compiler: clang
@@ -38,6 +39,7 @@ matrix:
             - doxygen
             - lcov
           update: true
+
     - name: "MacOS"
       os: osx
       compiler: clang
@@ -57,9 +59,7 @@ before_install:
   - if [ "$OS" == "osx" ]; then brew update; fi
   - if [ "$OS" == "osx" ]; then brew install doxygen; fi
   - if [ "$OS" == "osx" ]; then brew install lcov; fi
-  # cmake
-  - cmake --version
-  - eval "${MATRIX_EVAL}"
+  # project dir
   - PARENTDIR=$(pwd)
 
 install:
