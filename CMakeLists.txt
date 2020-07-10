@@ -4,43 +4,60 @@
 # This file specifies how the project should be built, using CMake.
 cmake_minimum_required(VERSION 3.8.2)
 
-set(CMAKE_PROJECT_VERSION_MAJOR 0)
-set(CMAKE_PROJECT_VERSION_MINOR 1)
-
 # Set project name, version and laguages here. (change as needed)
-project(CPP_BOILERPLATE VERSION 0.1 LANGUAGES CXX)
+project(CPP_PROJECT_TEMPLATE VERSION 0.1 LANGUAGES CXX)
+
+# Options: Things you can set via commandline options to cmake (e.g. -DENABLE_LTO=[ON|OFF])
+option(ENABLE_WARNINGS_SETTINGS "Allow target_set_warnings to add flags and defines." ON)
+option(ENABLE_LTO "Enable link time optimization" ON)
 
 # Include stuff. No change needed.
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
+include(ConfigSafeGuards)
 include(CTest)
 include(Documentation)
+include(LTO)
+include(Warnings)
 
-if (MSVC)
-    add_compile_options(/W4)
-else()
-    add_compile_options(-Wall -Wextra -Wpedantic)
-endif()
-
-# --------------------------------------------------------------------------------
-#                         Locate files (change as needed).
-# --------------------------------------------------------------------------------
-set(SOURCES          # All .cpp files in src/
-    src/dummy.cc)
-set(TESTFILES        # All .cpp files in tests/
-    tests/main.cc)
-set(LIBRARY_NAME engine)  # Default name for the library built from src/*.cpp (change if you wish)
+# Check for LTO support.
+find_lto(CXX)
 
 # --------------------------------------------------------------------------------
-#                            Build! (Change as needed)
+#                         Locally cloned libs (change as needed).
+# --------------------------------------------------------------------------------
+add_library(linalg INTERFACE)
+target_include_directories(linalg INTERFACE ${PROJECT_SOURCE_DIR}/external/linalg)
+
+# --------------------------------------------------------------------------------
+#                         Conan installed libs (change as needed).
 # --------------------------------------------------------------------------------
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
+# --------------------------------------------------------------------------------
+#                         Locate files (change as needed).
+# --------------------------------------------------------------------------------
+set(SOURCES          # All .cc files in src/
+    src/dummy.cc)
+set(TESTFILES        # All .cc files in tests/
+    tests/main.cc)
+set(LIBRARY_NAME 
+    my_library)      # Default name for the library built from src/*.cc
+
+# --------------------------------------------------------------------------------
+#                            Build! (Change as needed)
+# --------------------------------------------------------------------------------
 # Compile all sources into a library.
 add_library(${LIBRARY_NAME} OBJECT ${SOURCES})
 
 # Lib needs its header files, and users of the library must also see these (PUBLIC). (No change needed)
 target_include_directories(${LIBRARY_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
+
+# There's also (probably) doctests within the library, so we need to see this as well.
+target_link_libraries(${LIBRARY_NAME} PUBLIC linalg)
+
+# Set the compile options you want (change as needed).
+target_set_warnings(${LIBRARY_NAME} ENABLE ALL DISABLE Annoying)
 
 # Add an executable for the file app/main.cpp.
 # If you add more executables, copy these lines accordingly.

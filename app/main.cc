@@ -10,7 +10,8 @@ int main()
   std::cout << "C++ Project Template" << std::endl;
 
   Dummy d = Dummy();
-  d.doSomething();
+  (void)d.useBoost();
+  (void)d.useLinalg();
 
   return 0;
 }

@@ -10,13 +10,14 @@
 This is a template for C++ projects. What you get:
 
 -   Sources, headers and test files separated in distinct folders
+-   External libraries that are locally cloned by [Github](https://github.com)
 -   External libraries installed and managed by [Conan](https://conan.io/)
 -   Use of modern [CMake](https://cmake.org/) for building and compiling
 -   Setup for tests using [GTest](https://github.com/google/googletest)
 -   Continuous testing with [Travis-CI](https://travis-ci.org/)
--   Code coverage reports, including automatic upload to [Codecov.io](https://codecov.io)
+-   Code coverage reports, including automatic upload to [Codecov](https://codecov.io)
 -   Code documentation with [Doxygen](http://www.stack.nl/~dimitri/doxygen/)
--   Optional: Use of the [VS Codee](https://code.visualstudio.com/) IDE with useful extensions, like the C/C++ and CMakeTools extensions
+-   Optional: Use of the [VSCode](https://code.visualstudio.com/) IDE with useful extensions, like the C/C++ and CMakeTools extensions
 
 ## Structure
 ``` text
@@ -26,6 +27,8 @@ This is a template for C++ projects. What you get:
 │   └── main.cc
 └── documentation
 │   ├── Doxyfile.in
+├── external
+│   ├── Timer.h
 ├── include
 │   ├── dummy.h
 ├── src

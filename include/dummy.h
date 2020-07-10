@@ -15,10 +15,18 @@ class Dummy
   Dummy();
   
   /**
-   * @brief This is a dummy function
+   * @brief This is a boost dummy function
    * 
    * @return true 
    * @return false 
    */
-  const bool doSomething();
+  const bool useBoost();
+
+  /**
+   * @brief This is a linalg dummy function
+   * 
+   * @return true 
+   * @return false 
+   */
+  const bool useLinalg();
 };

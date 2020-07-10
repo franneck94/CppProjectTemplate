@@ -1,0 +1,4 @@
+  
+[submodule "external/linalg"]
+	path = external/linalg
+	url = https://github.com/sgorsten/linalg.git

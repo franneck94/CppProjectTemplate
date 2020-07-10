@@ -6,7 +6,7 @@ TEST(DummyTestCase, DummyTest)
 {
     Dummy d = Dummy();
 
-    const bool actual = d.doSomething();
+    const bool actual = d.useBoost();
     const bool expectedPassed = true;
     //const bool expectedFailure = false;
 
