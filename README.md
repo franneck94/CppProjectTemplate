@@ -13,7 +13,7 @@ This is a template for C++ projects. What you get:
 -   Continuous testing with [Travis-CI](https://travis-ci.org/)
 -   Code coverage reports, including automatic upload to [Codecov.io](https://codecov.io)
 -   Code documentation with [Doxygen](http://www.stack.nl/~dimitri/doxygen/)
--   Optional: Use of the [Visual Studio Code](https://code.visualstudio.com/) IDE with useful xxtensions, like the C/C++ and CMakeTools extensions
+-   Optional: Use of the [VS Codee](https://code.visualstudio.com/) IDE with useful extensions, like the C/C++ and CMakeTools extensions
 
 ## Structure
 ``` text
