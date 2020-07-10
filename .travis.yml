@@ -1,10 +1,7 @@
-# Programming language definition
 language: cpp
 
-# OS environment
 dist: bionic
 
-# Build matrix (OS, compiler)
 matrix:
   include:
     - name: "Linux (GCC compiler)"
@@ -21,25 +18,12 @@ matrix:
             - lcov
           update: true
 
-    - name: "MacOS"
-      os: osx
-      osx_image: xcode11.4
-      env:
-        - MATRIX_EVAL="CXX_COMPILER=clang++"
-
-# Which github branches
 branches:
   only:
     - master
 
 before_install:
-  # brew, doxygen, lcov
-  - if [ "$OS" == "osx" ]; then brew update; fi
-  - if [ "$OS" == "osx" ]; then brew install doxygen; fi
-  - if [ "$OS" == "osx" ]; then brew install lcov; fi
-  # linux matrix
-  - if [ "$OS" == "linux" ]; then eval "${MATRIX_EVAL}"; fi
-  # project dir
+  - "${MATRIX_EVAL}"
   - PARENTDIR=$(pwd)
 
 install:

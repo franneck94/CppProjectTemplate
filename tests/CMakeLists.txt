@@ -3,7 +3,8 @@ cmake_minimum_required(VERSION 3.8.2)
 # List all files containing tests. (Change as needed)
 set(TESTFILES        # All .cc files in tests/
     main.cc
-    test_dummy.cc)
+    test_dummy.cc
+)
 
 set(TEST_MAIN unit_tests)   # Default name for test executable (change if you wish).
 set(TEST_RUNNER_PARAMS "-g3 -O0 -Wall -fprofile-arcs -ftest-coverage")  # Any arguemnts to feed the test runner (change as needed).
@@ -23,16 +24,19 @@ endif(UNIX)
 set_target_properties(${TEST_MAIN} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
 set_target_properties(${TEST_MAIN} PROPERTIES 
     CXX_STANDARD 17 
-    CXX_STANDARD_REQUIRED YES)
+    CXX_STANDARD_REQUIRED YES
+)
 
 add_test(
     # Use some per-module/project prefix so that it is easier to run only tests for this module
     NAME ${LIBRARY_NAME}.${TEST_MAIN}
-    COMMAND ${TEST_MAIN} ${TEST_RUNNER_PARAMS})
+    COMMAND ${TEST_MAIN} ${TEST_RUNNER_PARAMS}
+)
 
 # Adds a 'coverage' target.
 include(CodeCoverage)
 setup_target_for_coverage_lcov(
     NAME coverage
     EXECUTABLE ctest -j 2
-    DEPENDENCIES ${TEST_MAIN})
+    DEPENDENCIES ${TEST_MAIN}
+)

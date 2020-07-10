@@ -19,7 +19,6 @@ include(CTest)
 include(Documentation)
 include(LTO)
 include(Warnings)
-include(StaticAnalyzer)
 
 # Check for LTO support.
 find_lto(CXX)
@@ -40,11 +39,14 @@ conan_basic_setup()
 #                         Locate files (change as needed).
 # --------------------------------------------------------------------------------
 set(SOURCES          # All .cc files in src/
-    src/dummy.cc)
+    src/dummy.cc
+)
 set(TESTFILES        # All .cc files in tests/
-    tests/main.cc)
+    tests/main.cc
+)
 set(LIBRARY_NAME 
-    my_library)      # Default name for the library built from src/*.cc
+    my_library
+)      # Default name for the library built from src/*.cc
 
 # --------------------------------------------------------------------------------
 #                            Build! (Change as needed)
@@ -71,18 +73,7 @@ set_target_properties(
     ${LIBRARY_NAME} main 
       PROPERTIES 
         CXX_STANDARD 17 
-        CXX_STANDARD_REQUIRED YES)
-
-# Cppcheck target
-add_custom_target(cppcheck
-    COMMAND cppcheck
-    --enable=warning,performance,portability,information
-    --suppress=missingIncludeSystem
-    --std=c++17
-    --template="[{severity}][{id}] {message} {callstack} \(On {file}:{line}\)"
-    --verbose
-    ${PROJECT_SOURCE_DIR}/src 
-    DEPENDS main
+        CXX_STANDARD_REQUIRED YES
 )
 
 # Set up tests (see tests/CMakeLists.txt).
