@@ -2,7 +2,7 @@
 [![Travis CI](https://api.travis-ci.org/franneck94/Cpp-Project-Template.svg?branch=master)](https://travis-ci.org/github/franneck94/Cpp-Project-Template)
 [![codecov](https://codecov.io/gh/franneck94/Cpp-Project-Template/branch/master/graph/badge.svg)](https://codecov.io/gh/franneck94/Cpp-Project-Template)
 
-# Template for C++ projects 
+# Template For C++ Projects 
 
 This is a template for C++ projects. What you get:
 
@@ -13,7 +13,7 @@ This is a template for C++ projects. What you get:
 -   Continuous testing with [Travis-CI](https://travis-ci.org/)
 -   Code coverage reports, including automatic upload to [Codecov.io](https://codecov.io)
 -   Code documentation with [Doxygen](http://www.stack.nl/~dimitri/doxygen/)
--   Optional: Use of the [Visual Studio Code](https://code.visualstudio.com/) IDE with useful Extensions
+-   Optional: Use of the [Visual Studio Code](https://code.visualstudio.com/) IDE with useful xxtensions, like the C/C++ and CMakeTools extensions
 
 ## Structure
 ``` text
