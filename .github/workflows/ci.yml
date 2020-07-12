@@ -13,7 +13,6 @@ jobs:
           submodules: true
     - name: install
       run: |
-        choco install doxygen.install
         choco install lcov
         pip install conan
         conan user
