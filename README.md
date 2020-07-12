@@ -9,26 +9,28 @@
 
 This is a template for C++ projects. What you get:
 
--   Sources, headers and test files separated in distinct folders
--   External libraries that are locally cloned by [Github](https://github.com)
--   External libraries installed and managed by [Conan](https://conan.io/)
--   Use of modern [CMake](https://cmake.org/) for building and compiling
--   Setup for tests using [GTest](https://github.com/google/googletest)
--   Continuous testing with [Travis-CI](https://travis-ci.org/)
--   Code coverage reports, including automatic upload to [Codecov](https://codecov.io)
--   Code documentation with [Doxygen](http://www.stack.nl/~dimitri/doxygen/)
--   Optional: Use of the [VSCode](https://code.visualstudio.com/) IDE with useful extensions, like the C/C++ and CMakeTools extensions
+-   Sources, headers and test files separated in distinct folders.
+-   External libraries that are locally cloned by [Github](https://github.com).
+-   External libraries installed and managed by [Conan](https://conan.io/).
+-   Use of modern [CMake](https://cmake.org/) for building and compiling.
+-   Setup for tests using [GTest](https://github.com/google/googletest).
+-   Continuous testing with [Travis-CI](https://travis-ci.org/).
+-   Code coverage reports, including automatic upload to [Codecov](https://codecov.io).
+-   Code documentation with [Doxygen](http://www.stack.nl/~dimitri/doxygen/).
+-   Optional: Use of [VSCode](https://code.visualstudio.com/) with the C/C++ and CMakeTools extension.
 
 ## Structure
 ``` text
 ├── conanfile.txt
 ├── CMakeLists.txt
+├── Doxyfile
 ├── app
 │   └── main.cc
 └── documentation
-│   ├── Doxyfile.in
+│   └── html
 ├── external
-│   ├── Timer.h
+│   ├── linalg
+│       └── linalg.h
 ├── include
 │   ├── dummy.h
 ├── src

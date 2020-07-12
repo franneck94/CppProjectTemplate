@@ -4,7 +4,7 @@ dist: bionic
 
 matrix:
   include:
-    - name: "Linux (GCC compiler)"
+    - name: "Linux"
       os: linux
       env: 
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
@@ -14,6 +14,19 @@ matrix:
             - 'ubuntu-toolchain-r-test'
           packages:
             - g++-7
+            - doxygen
+            - lcov
+          update: true
+
+    - name: "MacOS"
+      os: osx
+      compiler: clang
+      osx_image: xcode11.2
+      env:
+        - MATRIX_EVAL=""
+      addons:
+        homebrew:
+          packages:
             - doxygen
             - lcov
           update: true
@@ -39,7 +52,7 @@ script:
   - make coverage
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash) -f coverage_out.info.cleaned || echo "Codecov did not collect coverage reports"
+  - bash <(curl -s https://codecov.io/bash) -f coverage_out.info.cleaned
 
 notifications:
   email:
