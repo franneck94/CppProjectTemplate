@@ -25,7 +25,11 @@ This is a template for C++ projects. What you get:
 ├── CMakeLists.txt
 ├── Doxyfile
 ├── app
+<<<<<<< HEAD
 │   └── main.cc
+=======
+│   └── main.c
+>>>>>>> master
 └── documentation
 │   └── html
 ├── external
@@ -34,16 +38,25 @@ This is a template for C++ projects. What you get:
 ├── include
 │   ├── dummy.h
 ├── src
+<<<<<<< HEAD
 │   └── dummy.cc
 └── tests
     ├── CMakeLists.txt
     ├── test_dummy.cc
     └── main.cc
+=======
+│   └── dummy.c
+└── tests
+    ├── CMakeLists.txt
+    ├── test_dummy.c
+    └── main.c
+>>>>>>> master
 ```
 
 Sources go in [src/](src/), header files in [include/](include/), main programs in [app/](app),
 tests go in [tests/](tests/).
 
+<<<<<<< HEAD
 If you add a new executable, say `app/new_executable.cc`, you only need to add the following two lines to [CMakeLists.txt](CMakeLists.txt): 
 
 ``` cmake
@@ -52,4 +65,14 @@ target_link_libraries(new_executable PRIVATE ${LIBRARY_NAME})  # Link the execut
 ```
 
 You can find the example source code that builds the `main` executable in [app/main.cc](app/main.cc) under the `Build` section in [CMakeLists.txt](CMakeLists.txt). 
+=======
+If you add a new executable, say `app/new_executable.c`, you only need to add the following two lines to [CMakeLists.txt](CMakeLists.txt): 
+
+``` cmake
+add_executable(new_executable app/new_executable.c)   # Name of exec. and location of file.
+target_link_libraries(new_executable PRIVATE ${LIBRARY_NAME})  # Link the executable to lib built from src/*.c (if it uses it).
+```
+
+You can find the example source code that builds the `main` executable in [app/main.c](app/main.c) under the `Build` section in [CMakeLists.txt](CMakeLists.txt). 
+>>>>>>> master
 If the executable you made does not use the library in [src/](src), then only the first line is needed.
