@@ -8,6 +8,9 @@ on:
     branches:
       - master
 
+env:
+  BUILD_TYPE: RelWithDebInfo
+
 jobs:
   build-windows:
     runs-on: windows-latest 
@@ -25,17 +28,17 @@ jobs:
         choco install lcov
         pip install conan
         conan user
-    - name: configure
+    - name: Folders
       run: |
         mkdir build
         cd build
         conan install ..
-    - name: build
+    - name: Cmake
       run: |
-        cmake .. -DCMAKE_BUILD_TYPE=Debug
-    - name: test
+        cmake .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+    - name: Test
       run: |
-        ctest -C Debug
+        ctest -C $BUILD_TYPE
 
   build-linux:
     runs-on: ubuntu-20.04
@@ -43,19 +46,27 @@ jobs:
     - uses: actions/checkout@v2
       with:
           submodules: true
-    - name: install
+    - name: Install conan
+      shell: bash
+      run: |
+        python3 -m pip install --upgrade pip setuptools
+        python3 -m pip install conan
+        source ~/.profile
+    - name: Install tools
       run: |
         sudo apt-get install g++-7
         sudo apt-get install lcov
-        pip3 install conan
-        conan user
+    - name: Folders
+      run: |
         mkdir build
         cd build
         conan install ..
-        cmake .. -DCMAKE_BUILD_TYPE=Debug
-    - name: test
+    - name: Cmake
       run: |
-        ctest -C Debug
+        cmake .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+    - name: Test
+      run: |
+        ctest -C $BUILD_TYPE
 
   build-macos:
     runs-on: macos-latest  
@@ -65,14 +76,18 @@ jobs:
           submodules: true
     - name: install
       run: |
-        homebrew install g++-7
-        homebrew install lcov
+        brew install g++-7
+        brew install lcov
         pip3 install conan
         conan user
+    - name: Folders
+      run: |
         mkdir build
         cd build
         conan install ..
-        cmake .. -DCMAKE_BUILD_TYPE=Debug
-    - name: test
+    - name: Cmake
       run: |
-        ctest -C Debug
+        cmake .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+    - name: Test
+      run: |
+        ctest -C $BUILD_TYPE
