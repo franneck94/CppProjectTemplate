@@ -50,7 +50,7 @@ jobs:
       shell: bash
       run: |
         python -m pip install conan
-        python -m conan user
+        conan user
         source ~/.profile
     - name: Install tools
       run: |
@@ -60,7 +60,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        python -m conan install ..
+        conan install ..
     - name: Cmake
       run: |
         cmake .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE
@@ -77,13 +77,13 @@ jobs:
     - name: install
       run: |
         brew install lcov
-        python -m install conan
-        python -m conan user
+        python -m pip install conan
+        conan user
     - name: Folders
       run: |
         mkdir build
         cd build
-        python -m conan install ..
+        conan install ..
     - name: Cmake
       run: |
         cmake .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE
