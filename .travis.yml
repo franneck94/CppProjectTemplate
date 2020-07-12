@@ -1,4 +1,4 @@
-language: cpp
+language: c
 
 dist: bionic
 
@@ -7,13 +7,13 @@ matrix:
     - name: "Linux"
       os: linux
       env: 
-        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+        - MATRIX_EVAL="CC=gcc-7"
       addons:
         apt:
           sources:
             - 'ubuntu-toolchain-r-test'
           packages:
-            - g++-7
+            - gcc-7
             - lcov
           update: true
 
