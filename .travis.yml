@@ -17,18 +17,6 @@ matrix:
             - lcov
           update: true
 
-    - name: "MacOS"
-      os: osx
-      compiler: clang
-      osx_image: xcode11.2
-      env:
-        - MATRIX_EVAL=""
-      addons:
-        homebrew:
-          packages:
-            - lcov
-          update: true
-
 branches:
   only:
     - master
