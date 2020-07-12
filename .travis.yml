@@ -31,6 +31,11 @@ matrix:
             - lcov
           update: true
 
+    - name: "Windows"
+      os: windows
+      env:
+        - MATRIX_EVAL=""
+
 branches:
   only:
     - master
@@ -40,13 +45,18 @@ before_install:
   - PARENTDIR=$(pwd)
 
 install:
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install mingw fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install cmake fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install doxygen.install fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install pip fi
   - pip install conan
   - conan user
   - mkdir $PARENTDIR/build
   - cd $PARENTDIR/build
   - conan install $PARENTDIR
   - cmake $PARENTDIR -DCMAKE_BUILD_TYPE=Coverage
-  - make
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then mingw32-make fi
+  - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; make
 
 script:
   - make coverage
