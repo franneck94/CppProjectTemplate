@@ -118,7 +118,7 @@ WARN_LOGFILE           =
 INPUT                  = ../
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.c \
-                         *.c \
+                         *.cc \
                          *.cxx \
                          *.cpp \
                          *.c++ \

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+language: cpp
+=======
 language: c
+>>>>>>> master
 
 dist: bionic
 
@@ -7,13 +11,21 @@ matrix:
     - name: "Linux"
       os: linux
       env: 
+<<<<<<< HEAD
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+=======
         - MATRIX_EVAL="CC=gcc-7"
+>>>>>>> master
       addons:
         apt:
           sources:
             - 'ubuntu-toolchain-r-test'
           packages:
+<<<<<<< HEAD
+            - g++-7
+=======
             - gcc-7
+>>>>>>> master
             - lcov
           update: true
 
