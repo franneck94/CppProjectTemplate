@@ -47,7 +47,7 @@ jobs:
       run: |
         sudo apt-get install g++-7
         sudo apt-get install lcov
-        pip install conan
+        pip3 install conan
         conan user
         mkdir build
         cd build
@@ -65,9 +65,9 @@ jobs:
           submodules: true
     - name: install
       run: |
-        sudo apt-get install g++-7
-        sudo apt-get install lcov
-        pip install conan
+        homebrew install g++-7
+        homebrew install lcov
+        pip3 install conan
         conan user
         mkdir build
         cd build
