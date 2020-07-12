@@ -34,9 +34,11 @@ add_test(
 )
 
 # Adds a 'coverage' target.
-include(CodeCoverage)
-setup_target_for_coverage_lcov(
-    NAME coverage
-    EXECUTABLE ctest -j 2
-    DEPENDENCIES ${TEST_MAIN}
-)
+if (CMAKE_COMPILER_IS_GNUCC)
+    include(CodeCoverage)
+    setup_target_for_coverage_lcov(
+        NAME coverage
+        EXECUTABLE ctest -j 2
+        DEPENDENCIES ${TEST_MAIN}
+    )
+endif()
