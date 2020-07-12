@@ -1,0 +1,30 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build-windows:
+
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+      with:
+          submodules: true
+    - name: install
+      run: |
+        choco install doxygen.install
+        choco install lcov
+        pip install conan
+        conan user
+    - name: configure
+      run: |
+        mkdir build
+        cd build
+        conan install ..
+    - name: build
+      run: cmake --build build
+    - name: test
+      run: |
+        cmake .. -DCMAKE_BUILD_TYPE=Coverage
+        make coverage
