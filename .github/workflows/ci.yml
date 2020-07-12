@@ -1,16 +1,25 @@
 name: CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   build-windows:
-
-    runs-on: windows-latest
-    
+    runs-on: windows-latest 
     steps:
     - uses: actions/checkout@v2
       with:
           submodules: true
+    - name: prepare
+      run: |
+        pip --version
+        cmake --version
+        dir
     - name: install
       run: |
         choco install lcov
@@ -26,4 +35,44 @@ jobs:
         cmake .. -DCMAKE_BUILD_TYPE=Debug
     - name: test
       run: |
-        ctest
+        ctest -C Debug
+
+  build-linux:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+      with:
+          submodules: true
+    - name: install
+      run: |
+        sudo apt-get install g++-7
+        sudo apt-get install lcov
+        pip install conan
+        conan user
+        mkdir build
+        cd build
+        conan install ..
+        cmake .. -DCMAKE_BUILD_TYPE=Debug
+    - name: test
+      run: |
+        ctest -C Debug
+
+  build-macos:
+    runs-on: macos-latest  
+    steps:
+    - uses: actions/checkout@v2
+      with:
+          submodules: true
+    - name: install
+      run: |
+        sudo apt-get install g++-7
+        sudo apt-get install lcov
+        pip install conan
+        conan user
+        mkdir build
+        cd build
+        conan install ..
+        cmake .. -DCMAKE_BUILD_TYPE=Debug
+    - name: test
+      run: |
+        ctest -C Debug
