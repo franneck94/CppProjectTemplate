@@ -2,7 +2,7 @@
 
 /**
  * @brief This is a dummy class
- * 
+ * a
  */
 class Dummy 
 {
