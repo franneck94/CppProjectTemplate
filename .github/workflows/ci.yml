@@ -52,6 +52,7 @@ jobs:
         python3 -m pip install --upgrade pip setuptools
         python3 -m pip install conan
         source ~/.profile
+        python3 -m conan user
     - name: Install tools
       run: |
         sudo apt-get install g++-7
@@ -60,7 +61,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        conan install ..
+        python3 -m conan install ..
     - name: Cmake
       run: |
         cmake .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE
@@ -76,15 +77,14 @@ jobs:
           submodules: true
     - name: install
       run: |
-        brew install g++-7
         brew install lcov
         pip3 install conan
-        conan user
+        python3 -m conan user
     - name: Folders
       run: |
         mkdir build
         cd build
-        conan install ..
+        python3 -m conan install ..
     - name: Cmake
       run: |
         cmake .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE
