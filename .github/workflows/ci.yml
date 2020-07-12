@@ -22,7 +22,8 @@ jobs:
         cd build
         conan install ..
     - name: build
-      run: cmake .. -DCMAKE_BUILD_TYPE=Coverage
+      run: |
+        cmake .. -DCMAKE_BUILD_TYPE=Debug
     - name: test
       run: |
-        make coverage
+        ctest
