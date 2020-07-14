@@ -7,7 +7,7 @@ set(TESTFILES        # All .cc files in tests/
 )
 
 set(TEST_MAIN unit_tests)   # Default name for test executable (change if you wish).
-set(TEST_RUNNER_PARAMS "-g3 -O0 -Wall -fprofile-arcs -ftest-coverage")  # Any arguemnts to feed the test runner (change as needed).
+set(TEST_RUNNER_PARAMS "-g3 -O0")  # Any arguemnts to feed the test runner (change as needed).
 
 # --------------------------------------------------------------------------------
 #                         Make Tests (no change needed).
@@ -33,12 +33,20 @@ add_test(
     COMMAND ${TEST_MAIN} ${TEST_RUNNER_PARAMS}
 )
 
-# Adds a 'coverage' target.
-if(CMAKE_COMPILER_IS_GNUCXX)
+option(USE_GCOV "Create a GCov-enabled build." OFF)
+if (USE_GCOV)
+    set(GCC_COVERAGE_COMPILE_FLAGS  "-g3 -O0 -fprofile-arcs -ftest-coverage")
+    set(GCC_COVERAGE_LINK_FLAGS     "-lgcov")
+    set(CMAKE_CXX_FLAGS             "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}" )
+    set(CMAKE_EXE_LINKER_FLAGS      "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}")
+    # Adds a 'coverage' target.
+    if(CMAKE_COMPILER_IS_GNUCXX)
     include(CodeCoverage)
     setup_target_for_coverage_lcov(
         NAME coverage
         EXECUTABLE ctest -j 2
         DEPENDENCIES ${TEST_MAIN}
+        EXCLUDE "${CMAKE_SOURCE_DIR}/external/" "${CMAKE_SOURCE_DIR}/app/"
     )
+    endif()
 endif()

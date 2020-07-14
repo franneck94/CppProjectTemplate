@@ -5,7 +5,7 @@
 cmake_minimum_required(VERSION 3.8.2)
 
 # Set project name, version and laguages here. (change as needed)
-project(CPP_PROJECT_TEMPLATE VERSION 0.1 LANGUAGES CXX)
+project(CPP_PROJECT_TEMPLATE VERSION 1.0 LANGUAGES CXX)
 
 # Options: Things you can set via commandline options to cmake (e.g. -DENABLE_LTO=[ON|OFF])
 option(ENABLE_CPPCHECK "Enable static analysis with cppcheck" ON)

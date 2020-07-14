@@ -31,14 +31,14 @@ install:
   - mkdir $PARENTDIR/build
   - cd $PARENTDIR/build
   - conan install $PARENTDIR
-  - cmake $PARENTDIR -DCMAKE_BUILD_TYPE=Coverage
+  - cmake $PARENTDIR -DCMAKE_BUILD_TYPE=Coverage -DUSE_GCOV=On
   - make
 
 script:
   - make coverage
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash) -f coverage_out.info.cleaned
+  - bash <(curl -s https://codecov.io/bash)
 
 notifications:
   email:
