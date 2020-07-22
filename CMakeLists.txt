@@ -28,6 +28,8 @@ find_lto(CXX)
 # --------------------------------------------------------------------------------
 add_library(linalg INTERFACE)
 target_include_directories(linalg INTERFACE ${PROJECT_SOURCE_DIR}/external/linalg)
+add_library(loguru INTERFACE)
+target_include_directories(loguru INTERFACE ${PROJECT_SOURCE_DIR}/external/loguru)
 
 # --------------------------------------------------------------------------------
 #                         Conan installed libs (change as needed).
@@ -57,8 +59,9 @@ add_library(${LIBRARY_NAME} OBJECT ${SOURCES})
 # Lib needs its header files, and users of the library must also see these (PUBLIC). (No change needed)
 target_include_directories(${LIBRARY_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
-# There's also (probably) doctests within the library, so we need to see this as well.
+# Link header only libaries (change as needed).
 target_link_libraries(${LIBRARY_NAME} PUBLIC linalg)
+target_link_libraries(${LIBRARY_NAME} PUBLIC loguru)
 
 # Set the compile options you want (change as needed).
 target_set_warnings(${LIBRARY_NAME} ENABLE ALL DISABLE Annoying)

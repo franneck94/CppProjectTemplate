@@ -1,7 +1,10 @@
+OS_NAME := $(shell uname)
+CPP_FILES=$(wildcard ./src/*.cc ./src/*.cpp ./include/*.h /include/*.hpp)
+
 ifeq ($(OS), Windows_NT)
 	PYTHON=python
 	PIP=pip
-	RM=del /Q /S
+	RM=rmdir /Q /S
 else
 	PYTHON=python3
 	PIP=pip3
@@ -22,13 +25,21 @@ prepare-build:
 	@cd build && conan install ..
 
 cpplint-run:
-	@cpplint ./src/* ./include/* --linelength=120
+	@cpplint --linelength=120 $(CPP_FILES)
 
 cpplint-install:
 	@$(PIP) install cpplint
 
 cppcheck-run:
+ifeq ($(OS_NAME), Linux)
 	@cppcheck src/* include/* --language=c++ --std=c++17
+else
+	@echo "Not available!"
+endif
 
 cppcheck-install:
+ifeq ($(OS_NAME), Linux)
 	@sudo apt-get install cppcheck
+else
+	@echo "Not available!"
+endif

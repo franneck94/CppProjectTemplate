@@ -1,3 +1,11 @@
 [submodule "external/linalg"]
 	path = external/linalg
 	url = https://github.com/sgorsten/linalg.git
+
+[submodule "external/Celero"]
+	path = external/Celero
+	url = https://github.com/DigitalInBlue/Celero.git
+
+[submodule "external/loguru"]
+	path = external/loguru
+	url = https://github.com/emilk/loguru.git
