@@ -17,22 +17,24 @@ This is a template for C++ projects. What you get:
 -   Continuous testing with [Travis-CI](https://travis-ci.org/).
 -   Code coverage reports, including automatic upload to [Codecov](https://codecov.io).
 -   Code documentation with [Doxygen](http://www.stack.nl/~dimitri/doxygen/).
+-   [Cpplint](https://github.com/cpplint/cpplint) and [Cppcheck](http://cppcheck.sourceforge.net/) triggered via Makefile
 -   Optional: Use of [VSCode](https://code.visualstudio.com/) with the C/C++ and CMakeTools extension.
 
 ## Structure
 ``` text
 ├── conanfile.txt
 ├── CMakeLists.txt
-├── Doxyfile
+├── Makefile
 ├── app
 │   └── main.cc
 └── documentation
+├── ├── Doxyfile
 │   └── html
 ├── external
 │   ├── linalg
 │       └── linalg.h
 ├── include
-│   ├── dummy.h
+│   └── dummy.h
 ├── src
 │   └── dummy.cc
 └── tests
