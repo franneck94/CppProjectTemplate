@@ -22,8 +22,6 @@ const bool Dummy::useLinalg()
 {
     linalg::aliases::float3 my_float3 {1, 2, 3};
 
-    std::cout << "Linalg vector: " << my_float3[0] << std::endl;
-
     return true;
 }
 

@@ -22,7 +22,7 @@ help:
 prepare-build:
 	@$(RM) build
 	@mkdir build
-	@cd build && conan install ..
+	@cd build && conan install .. && cd ..
 
 cpplint-run:
 	@cpplint --linelength=120 $(CPP_FILES)
