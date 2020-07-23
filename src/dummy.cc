@@ -2,6 +2,7 @@
 
 #include "boost/version.hpp"
 #include "linalg.h"
+#include "loguru.hpp"
 
 #include "dummy.h"
 
@@ -22,6 +23,15 @@ const bool Dummy::useLinalg()
     linalg::aliases::float3 my_float3 {1, 2, 3};
 
     std::cout << "Linalg vector: " << my_float3[0] << std::endl;
+
+    return true;
+}
+
+const bool Dummy::useLoguru(int argc, char* argv[])
+{
+    loguru::init(argc, argv);
+    loguru::add_file("everything.log", loguru::Truncate, loguru::Verbosity_MAX);
+    LOG_F(INFO, "The magic number is %d", 42);
 
     return true;
 }

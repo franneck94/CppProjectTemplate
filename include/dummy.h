@@ -29,4 +29,12 @@ class Dummy
    * @return false 
    */
   const bool useLinalg();
+
+  /**
+   * @brief This is loguru dummy function
+   * 
+   * @return true 
+   * @return false 
+   */
+  const bool useLoguru(int argc, char* argv[]);
 };

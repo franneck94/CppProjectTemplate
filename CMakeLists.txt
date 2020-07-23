@@ -26,10 +26,7 @@ find_lto(CXX)
 # --------------------------------------------------------------------------------
 #                         Locally cloned libs (change as needed).
 # --------------------------------------------------------------------------------
-add_library(linalg INTERFACE)
-target_include_directories(linalg INTERFACE ${PROJECT_SOURCE_DIR}/external/linalg)
-add_library(loguru INTERFACE)
-target_include_directories(loguru INTERFACE ${PROJECT_SOURCE_DIR}/external/loguru)
+add_subdirectory(external)
 
 # --------------------------------------------------------------------------------
 #                         Conan installed libs (change as needed).
@@ -61,15 +58,21 @@ target_include_directories(${LIBRARY_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
 # Link header only libaries (change as needed).
 target_link_libraries(${LIBRARY_NAME} PUBLIC linalg)
-target_link_libraries(${LIBRARY_NAME} PUBLIC loguru)
+if(WIN32)
+    target_link_libraries(${LIBRARY_NAME} PUBLIC loguru)
+endif(WIN32)
+if(UNIX)
+    target_link_libraries(${LIBRARY_NAME} PUBLIC loguru pthread dl)
+endif(UNIX)
 
 # Set the compile options you want (change as needed).
 target_set_warnings(${LIBRARY_NAME} ENABLE ALL DISABLE Annoying)
 
 # Add an executable for the file app/main.cpp.
 # If you add more executables, copy these lines accordingly.
-add_executable(main app/main.cc)   # Name of exec. and location of file.
-target_link_libraries(main PRIVATE ${LIBRARY_NAME})  # Link the executable to library (if it uses it).
+set(MAIN main)   # Default name for test executable (change if you wish).
+add_executable(${MAIN} app/main.cc)   # Name of exec. and location of file.
+target_link_libraries(${MAIN} PRIVATE ${LIBRARY_NAME})  # Link the executable to library (if it uses it).
 
 # Set the properties you require, e.g. what C++ standard to use. Here applied to library and main (change as needed).
 set_target_properties(
