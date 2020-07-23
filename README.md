@@ -13,7 +13,9 @@ This is a template for C++ projects. What you get:
 -   External libraries that are locally cloned by [Github](https://github.com).
 -   External libraries installed and managed by [Conan](https://conan.io/).
 -   Use of modern [CMake](https://cmake.org/) for building and compiling.
--   Setup for tests using [GTest](https://github.com/google/googletest).
+-   Unit testing, using [GTest](https://github.com/google/googletest).
+-   Logging, using [Loguru](https://github.com/emilk/loguru).
+-   Benchmarking, using [Celero](https://github.com/DigitalInBlue/Celero).
 -   Continuous testing with [Travis-CI](https://travis-ci.org/).
 -   Code coverage reports, including automatic upload to [Codecov](https://codecov.io).
 -   Code documentation with [Doxygen](http://www.stack.nl/~dimitri/doxygen/).
@@ -32,7 +34,8 @@ This is a template for C++ projects. What you get:
 │   └── html
 ├── external
 │   ├── linalg
-│       └── linalg.h
+│   ├── loguru
+│   └── Celero
 ├── include
 │   └── dummy.h
 ├── src

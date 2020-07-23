@@ -41,12 +41,15 @@ if (USE_GCOV)
     set(CMAKE_EXE_LINKER_FLAGS      "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}")
     # Adds a 'coverage' target.
     if(CMAKE_COMPILER_IS_GNUCXX)
-    include(CodeCoverage)
-    setup_target_for_coverage_lcov(
-        NAME coverage
-        EXECUTABLE ctest -j 2
-        DEPENDENCIES ${TEST_MAIN}
-        EXCLUDE "${CMAKE_SOURCE_DIR}/external/" "${CMAKE_SOURCE_DIR}/app/"
-    )
+        include(CodeCoverage)
+        set(COVERAGE_EXCLUDES
+            "${PROJECT_SOURCE_DIR}/external/*"
+            "${PROJECT_SOURCE_DIR}/app/main.cc"
+            "*/gtest/*")
+        setup_target_for_coverage_lcov(
+            NAME coverage
+            EXECUTABLE ctest -j 2
+            DEPENDENCIES ${TEST_MAIN}
+        )
     endif()
 endif()
