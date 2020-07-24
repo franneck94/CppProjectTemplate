@@ -9,9 +9,8 @@ set(BENCH_MAIN bench_tests)  # Default name for benchmark executable (change if 
 set(BENCH_RUNNER_PARAMS "")  # Any arguemnts to feed the benchmark runner (change as needed).
 
 # --------------------------------------------------------------------------------
-#                         Make Tests (no change needed).
+#                         Make Benchmarks (no change needed).
 # --------------------------------------------------------------------------------
-option(USE_BENCHMARKS "Create a Benchmark-enabled build." OFF)
 if (USE_BENCHMARKS)
     add_executable(${BENCH_MAIN} ${BENCHFILES})
     target_link_libraries(${BENCH_MAIN} PUBLIC ${LIBRARY_NAME})

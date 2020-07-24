@@ -82,6 +82,10 @@ set_target_properties(
         CXX_STANDARD_REQUIRED YES
 )
 
+# CMake Variables for tests and benchmarks
+option(USE_BENCHMARKS " Create a Benchmark-enabled build."  OFF)
+option(USE_GCOV         "Create a GCov-enabled build."      OFF)
+
 # Set up tests (see tests/CMakeLists.txt).
 add_subdirectory(tests)
 # Set up benchmarks (see benchmarks/CMakeLists.txt).

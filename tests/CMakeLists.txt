@@ -33,7 +33,6 @@ add_test(
     COMMAND ${TEST_MAIN} ${TEST_RUNNER_PARAMS}
 )
 
-option(USE_GCOV "Create a GCov-enabled build." OFF)
 if (USE_GCOV)
     set(GCC_COVERAGE_COMPILE_FLAGS  "-g3 -O0 -fprofile-arcs -ftest-coverage")
     set(GCC_COVERAGE_LINK_FLAGS     "-lgcov")

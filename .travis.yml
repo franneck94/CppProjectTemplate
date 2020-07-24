@@ -45,8 +45,9 @@ install:
     cmake .. -DCMAKE_BUILD_TYPE=Coverage -DUSE_GCOV=On;
     fi
   - if [ "$TRAVIS_OS_NAME" = "osx"   ]; then
-    pip install --user conan; 
-    python -m conan install ..;
+    pip install --user conan;
+    python -m conan user;
+    conan install ..;
     cmake .. -DCMAKE_BUILD_TYPE=Debug;
     fi
   - make
