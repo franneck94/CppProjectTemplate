@@ -36,5 +36,5 @@ class Dummy
    * @return true 
    * @return false 
    */
-  const bool useLoguru(int argc, char* argv[]);
+  const bool useLoguru();
 };

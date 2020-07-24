@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
   Dummy d = Dummy();
   (void)d.useBoost();
   (void)d.useLinalg();
-  (void)d.useLoguru(argc, argv);
+  (void)d.useLoguru();
 
   return 0;
 }

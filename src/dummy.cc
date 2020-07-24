@@ -25,9 +25,8 @@ const bool Dummy::useLinalg()
     return true;
 }
 
-const bool Dummy::useLoguru(int argc, char* argv[])
+const bool Dummy::useLoguru()
 {
-    loguru::init(argc, argv);
     loguru::add_file("everything.log", loguru::Truncate, loguru::Verbosity_MAX);
     LOG_F(INFO, "The magic number is %d", 42);
 

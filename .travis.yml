@@ -17,6 +17,17 @@ matrix:
             - lcov
           update: true
 
+    - name: "MacOS"
+      os: osx
+      osx_image: xcode11.2
+      env:
+        - MATRIX_EVAL="CXX_COMPILER=clang++"
+      addons:
+        homebrew:
+          packages:
+          - lcov
+          update: true
+
 branches:
   only:
     - master
@@ -26,19 +37,25 @@ before_install:
   - PARENTDIR=$(pwd)
 
 install:
-  - pip install conan
+  - pip install --user conan
   - conan user
   - mkdir $PARENTDIR/build
   - cd $PARENTDIR/build
   - conan install $PARENTDIR
-  - cmake $PARENTDIR -DCMAKE_BUILD_TYPE=Coverage -DUSE_GCOV=On
+  - if [[ "$TRAVIS_OS_NAME" == "macos" ]]; then 
+    cmake $PARENTDIR -DCMAKE_BUILD_TYPE=Debug 
+    fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then 
+    cmake $PARENTDIR -DCMAKE_BUILD_TYPE=Coverage -DUSE_GCOV=On 
+    fi
   - make
 
 script:
-  - make coverage
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then make coverage fi
+  - if [[ "$TRAVIS_OS_NAME" == "macos" ]]; then make unit_tests fi 
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then  bash <(curl -s https://codecov.io/bash) fi
 
 notifications:
   email:
