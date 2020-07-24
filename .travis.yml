@@ -42,20 +42,20 @@ install:
   - mkdir $PARENTDIR/build
   - cd $PARENTDIR/build
   - conan install $PARENTDIR
-  - if [[ "$TRAVIS_OS_NAME" == "macos" ]]; then 
-    cmake $PARENTDIR -DCMAKE_BUILD_TYPE=Debug 
+  - if [ "$TRAVIS_OS_NAME" = "osx"   ]; then 
+    cmake $PARENTDIR -DCMAKE_BUILD_TYPE=Debug;
     fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then 
-    cmake $PARENTDIR -DCMAKE_BUILD_TYPE=Coverage -DUSE_GCOV=On 
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then 
+    cmake $PARENTDIR -DCMAKE_BUILD_TYPE=Coverage -DUSE_GCOV=On; 
     fi
   - make
 
 script:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then make coverage fi
-  - if [[ "$TRAVIS_OS_NAME" == "macos" ]]; then make unit_tests fi 
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then make coverage;   fi
+  - if [ "$TRAVIS_OS_NAME" = "osx"   ]; then make unit_tests; fi 
 
 after_success:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then  bash <(curl -s https://codecov.io/bash) fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then  bash <(curl -s https://codecov.io/bash); fi
 
 notifications:
   email:

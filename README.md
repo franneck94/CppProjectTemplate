@@ -13,9 +13,7 @@ This is a template for C++ projects. What you get:
 -   External libraries that are locally cloned by [Github](https://github.com).
 -   External libraries installed and managed by [Conan](https://conan.io/).
 -   Use of modern [CMake](https://cmake.org/) for building and compiling.
--   Unit testing, using [GTest](https://github.com/google/googletest).
--   Logging, using [Loguru](https://github.com/emilk/loguru).
--   Benchmarking, using [Celero](https://github.com/DigitalInBlue/Celero).
+-   Unit testing, using [GTest](https://github.com/google/googletest), Logging, using [Loguru](https://github.com/emilk/loguru) and Benchmarking, using [Celero](https://github.com/DigitalInBlue/Celero).
 -   Continuous testing with [Travis-CI](https://travis-ci.org/).
 -   Code coverage reports, including automatic upload to [Codecov](https://codecov.io).
 -   Code documentation with [Doxygen](http://www.stack.nl/~dimitri/doxygen/).
@@ -31,11 +29,12 @@ This is a template for C++ projects. What you get:
 │   └── main.cc
 └── documentation
 ├── ├── Doxyfile
-│   └── html
+│   └── html...
 ├── external
-│   ├── linalg
-│   ├── loguru
-│   └── Celero
+│   ├── CMakesLists.txt
+│   ├── linalg...
+│   ├── loguru...
+│   └── Celero...
 ├── include
 │   └── dummy.h
 ├── src
@@ -47,7 +46,7 @@ This is a template for C++ projects. What you get:
 ```
 
 Sources go in [src/](src/), header files in [include/](include/), main programs in [app/](app),
-tests go in [tests/](tests/).
+tests go in [tests/](tests/) and benchmarks go in [benchmarks/](benchmarks/).
 
 If you add a new executable, say `app/new_executable.cc`, you only need to add the following two lines to [CMakeLists.txt](CMakeLists.txt): 
 
