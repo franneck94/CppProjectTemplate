@@ -44,8 +44,9 @@ if (USE_GCOV)
         include(CodeCoverage)
         set(COVERAGE_EXCLUDES
             "${PROJECT_SOURCE_DIR}/external/*"
-            "${PROJECT_SOURCE_DIR}/app/main.cc"
-            "*/gtest/*")
+            "${PROJECT_SOURCE_DIR}/app/*"
+            "${PROJECT_SOURCE_DIR}/benchmarks/*"
+            "${CONAN_GTEST_ROOT}/*")
         setup_target_for_coverage_lcov(
             NAME coverage
             EXECUTABLE ctest -j 2

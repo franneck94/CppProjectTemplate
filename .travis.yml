@@ -34,21 +34,20 @@ branches:
 
 before_install:
   - eval "${MATRIX_EVAL}"
-  - PARENTDIR=$(pwd)
 
 install:
   - pip install --user conan
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then 
     conan user;
     fi
-  - mkdir $PARENTDIR/build
-  - cd $PARENTDIR/build
-  - conan install $PARENTDIR
+  - mkdir build
+  - cd build
+  - conan install ..
   - if [ "$TRAVIS_OS_NAME" = "osx"   ]; then 
-    cmake $PARENTDIR -DCMAKE_BUILD_TYPE=Debug;
+    cmake .. -DCMAKE_BUILD_TYPE=Debug;
     fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then 
-    cmake $PARENTDIR -DCMAKE_BUILD_TYPE=Coverage -DUSE_GCOV=On; 
+    cmake .. -DCMAKE_BUILD_TYPE=Coverage -DUSE_GCOV=On; 
     fi
   - make
 
