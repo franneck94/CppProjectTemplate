@@ -15,7 +15,6 @@ matrix:
           packages:
             - g++-7
             - lcov
-          update: true
 
     - name: "MacOS"
       os: osx
@@ -44,8 +43,8 @@ install:
     cmake .. -DCMAKE_BUILD_TYPE=Coverage -DUSE_GCOV=On;
     fi
   - if [ "$TRAVIS_OS_NAME" = "osx"   ]; then
-    pip install --user conan;
-    python -m conan user;
+    brew install conan;
+    conan user;
     conan install ..;
     cmake .. -DCMAKE_BUILD_TYPE=Debug;
     fi
