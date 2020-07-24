@@ -20,7 +20,7 @@ class Dummy
    * @return true 
    * @return false 
    */
-  const bool useBoost();
+  bool useBoost();
 
   /**
    * @brief This is a linalg dummy function
@@ -28,7 +28,7 @@ class Dummy
    * @return true 
    * @return false 
    */
-  const bool useLinalg();
+  bool useLinalg();
 
   /**
    * @brief This is loguru dummy function
@@ -36,5 +36,5 @@ class Dummy
    * @return true 
    * @return false 
    */
-  const bool useLoguru();
+  bool useLoguru();
 };

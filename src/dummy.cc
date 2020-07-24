@@ -11,23 +11,22 @@ Dummy::Dummy()
 
 }
 
-const bool Dummy::useBoost()
+bool Dummy::useBoost()
 {
     std::cout << "Boost version: " << BOOST_LIB_VERSION << std::endl;
 
     return true;
 }
 
-const bool Dummy::useLinalg()
+bool Dummy::useLinalg()
 {
     linalg::aliases::float3 my_float3 {1, 2, 3};
 
     return true;
 }
 
-const bool Dummy::useLoguru()
+bool Dummy::useLoguru()
 {
-    loguru::add_file("everything.log", loguru::Truncate, loguru::Verbosity_MAX);
     LOG_F(INFO, "The magic number is %d", 42);
 
     return true;
