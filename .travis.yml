@@ -25,6 +25,7 @@ matrix:
         homebrew:
           packages:
           - lcov
+          - conan
 
 branches:
   only:
@@ -43,7 +44,6 @@ install:
     cmake .. -DCMAKE_BUILD_TYPE=Coverage -DUSE_GCOV=On;
     fi
   - if [ "$TRAVIS_OS_NAME" = "osx"   ]; then
-    brew install conan;
     conan user;
     conan install ..;
     cmake .. -DCMAKE_BUILD_TYPE=Debug;
