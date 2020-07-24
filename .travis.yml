@@ -36,18 +36,18 @@ before_install:
   - eval "${MATRIX_EVAL}"
 
 install:
-  - pip install --user conan
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then 
-    conan user;
-    fi
   - mkdir build
   - cd build
-  - conan install ..
-  - if [ "$TRAVIS_OS_NAME" = "osx"   ]; then 
-    cmake .. -DCMAKE_BUILD_TYPE=Debug;
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+    pip install conan;
+    conan user;
+    conan install ..;
+    cmake .. -DCMAKE_BUILD_TYPE=Coverage -DUSE_GCOV=On;
     fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then 
-    cmake .. -DCMAKE_BUILD_TYPE=Coverage -DUSE_GCOV=On; 
+  - if [ "$TRAVIS_OS_NAME" = "osx"   ]; then
+    pip install --user conan; 
+    python -m conan install ..;
+    cmake .. -DCMAKE_BUILD_TYPE=Debug;
     fi
   - make
 
