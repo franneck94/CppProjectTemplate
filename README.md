@@ -28,6 +28,9 @@ This is a template for C++ projects. What you get:
 ├── Makefile
 ├── app
 │   └── main.cc
+├── benchmarks
+│   ├── CMakesLists.txt
+│   └── main.cc
 └── documentation
 ├── ├── Doxyfile
 │   └── html...
