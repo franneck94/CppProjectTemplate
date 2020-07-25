@@ -22,10 +22,6 @@ if(UNIX)
 endif(UNIX)
 
 set_target_properties(${TEST_MAIN} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
-set_target_properties(${TEST_MAIN} PROPERTIES 
-    CXX_STANDARD ${CXX_STD} 
-    CXX_STANDARD_REQUIRED ${CXX_STD_REQ}
-)
 
 add_test(
     # Use some per-module/project prefix so that it is easier to run only tests for this module

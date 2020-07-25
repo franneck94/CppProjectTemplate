@@ -3,7 +3,6 @@
 # --------------------------------------------------------------------------------
 add_library(linalg INTERFACE)
 target_include_directories(linalg INTERFACE linalg)
-target_compile_features(linalg INTERFACE "cxx_std_${CXX_STD}")
 # --------------------------------------------------------------------------------
 #                                 Loguru
 # --------------------------------------------------------------------------------
@@ -15,7 +14,6 @@ target_include_directories(loguru PUBLIC loguru)
 if(NOT WIN32)
     target_link_libraries(loguru PUBLIC pthread dl)
 endif()
-target_compile_features(loguru INTERFACE "cxx_std_${CXX_STD}")
 
 # --------------------------------------------------------------------------------
 #                                 Celero

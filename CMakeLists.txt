@@ -14,8 +14,9 @@ option(USE_BENCHMARKS   "Create a Benchmark-enabled build."                     
 option(USE_GCOV         "Create a GCov-enabled build."                          OFF)
 
 # Global CMake variables are set here
-set(CXX_STD     17)
-set(CXX_STD_REQ Yes)
+set(CMAKE_CXX_STANDARD          17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS        OFF)
 
 # Include stuff. No change needed.
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
@@ -69,15 +70,6 @@ target_set_warnings(${LIBRARY_NAME} ENABLE ALL DISABLE Annoying)
 set(MAIN main)   # Default name for test executable (change if you wish).
 add_executable(${MAIN} app/main.cc)   # Name of exec. and location of file.
 target_link_libraries(${MAIN} PRIVATE ${LIBRARY_NAME})
-
-# Set the properties you require, e.g. what C++ standard to use. 
-# Here applied to library and main (change as needed).
-set_target_properties(
-    ${LIBRARY_NAME} ${MAIN} 
-      PROPERTIES 
-        CXX_STANDARD ${CXX_STD} 
-        CXX_STANDARD_REQUIRED ${CXX_STD_REQ}
-)
 
 # Set up tests (see tests/CMakeLists.txt).
 add_subdirectory(tests)
