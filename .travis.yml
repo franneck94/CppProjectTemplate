@@ -46,14 +46,11 @@ install:
   - if [ "$TRAVIS_OS_NAME" = "osx"   ]; then
     pip install --user conan cmake;
     conan user;
-    conan install ..;
-    cmake .. -DCMAKE_BUILD_TYPE=Debug;
     fi
   - make
 
 script:
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then make coverage;   fi
-  - if [ "$TRAVIS_OS_NAME" = "osx"   ]; then make unit_tests; fi 
 
 after_success:
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then  bash <(curl -s https://codecov.io/bash); fi
