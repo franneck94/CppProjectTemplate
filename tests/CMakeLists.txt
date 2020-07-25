@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.8.2)
 
 # List all files containing tests. (Change as needed)
-set(TESTFILES        # All .cc files in tests/
+set(TESTFILES
     main.cc
     test_dummy.cc
 )
@@ -10,7 +10,7 @@ set(TEST_MAIN unit_tests)   # Default name for test executable (change if you wi
 set(TEST_RUNNER_PARAMS "-g3 -O0")  # Any arguemnts to feed the test runner (change as needed).
 
 # --------------------------------------------------------------------------------
-#                         Make Tests (no change needed).
+#                         Make Tests
 # --------------------------------------------------------------------------------
 add_executable(${TEST_MAIN} ${TESTFILES})
 

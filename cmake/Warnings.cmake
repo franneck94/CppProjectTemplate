@@ -22,7 +22,7 @@
 
 
 function(target_set_warnings)
-    if(NOT ENABLE_WARNINGS_SETTINGS)
+    if(NOT ENABLE_WARNINGS)
         return()
     endif()
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")

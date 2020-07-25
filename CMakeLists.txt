@@ -1,5 +1,5 @@
 # --------------------------------------------------------------------------------
-#                         Project properties (change as needed).
+#                           Project properties
 # --------------------------------------------------------------------------------
 # This file specifies how the project should be built, using CMake.
 cmake_minimum_required(VERSION 3.8.2)
@@ -8,9 +8,10 @@ cmake_minimum_required(VERSION 3.8.2)
 project(CPP_PROJECT_TEMPLATE VERSION 1.0 LANGUAGES CXX)
 
 # Options: Things you can set via commandline options to cmake (e.g. -DENABLE_LTO=[ON|OFF])
-option(ENABLE_CPPCHECK "Enable static analysis with cppcheck" ON)
-option(ENABLE_WARNINGS_SETTINGS "Allow target_set_warnings to add flags and defines." ON)
-option(ENABLE_LTO "Enable link time optimization" ON)
+option(ENABLE_WARNINGS  "Allow target_set_warnings to add flags and defines."   ON)
+option(ENABLE_LTO       "Enable link time optimization"                         ON)
+option(USE_BENCHMARKS   "Create a Benchmark-enabled build."                     OFF)
+option(USE_GCOV         "Create a GCov-enabled build."                          OFF)
 
 # Include stuff. No change needed.
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
@@ -24,31 +25,30 @@ include(Warnings)
 find_lto(CXX)
 
 # --------------------------------------------------------------------------------
-#                         Locally cloned libs (change as needed).
+#                           Locally cloned libs.
 # --------------------------------------------------------------------------------
 add_subdirectory(external)
 
 # --------------------------------------------------------------------------------
-#                         Conan installed libs (change as needed).
+#                           Conan installed libs.
 # --------------------------------------------------------------------------------
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
 # --------------------------------------------------------------------------------
-#                         Locate files (change as needed).
+#                               Locate files
 # --------------------------------------------------------------------------------
-set(SOURCES          # All .cc files in src/
+# All .cc files in src/
+set(SOURCES
     src/dummy.cc
 )
-set(TESTFILES        # All .cc files in tests/
-    tests/main.cc
-)
+# Default name for the library built from src/*.cc
 set(LIBRARY_NAME 
     my_library
-)      # Default name for the library built from src/*.cc
+)
 
 # --------------------------------------------------------------------------------
-#                            Build! (Change as needed)
+#                                   Build!
 # --------------------------------------------------------------------------------
 # Compile all sources into a library.
 add_library(${LIBRARY_NAME} OBJECT ${SOURCES})
@@ -69,22 +69,18 @@ endif(UNIX)
 target_set_warnings(${LIBRARY_NAME} ENABLE ALL DISABLE Annoying)
 
 # Add an executable for the file app/main.cpp.
-# If you add more executables, copy these lines accordingly.
 set(MAIN main)   # Default name for test executable (change if you wish).
 add_executable(${MAIN} app/main.cc)   # Name of exec. and location of file.
-target_link_libraries(${MAIN} PRIVATE ${LIBRARY_NAME})  # Link the executable to library (if it uses it).
+target_link_libraries(${MAIN} PRIVATE ${LIBRARY_NAME})
 
-# Set the properties you require, e.g. what C++ standard to use. Here applied to library and main (change as needed).
+# Set the properties you require, e.g. what C++ standard to use. 
+# Here applied to library and main (change as needed).
 set_target_properties(
-    ${LIBRARY_NAME} main 
+    ${LIBRARY_NAME} ${MAIN} 
       PROPERTIES 
         CXX_STANDARD 17 
         CXX_STANDARD_REQUIRED YES
 )
-
-# CMake Variables for tests and benchmarks
-option(USE_BENCHMARKS " Create a Benchmark-enabled build."  OFF)
-option(USE_GCOV         "Create a GCov-enabled build."      OFF)
 
 # Set up tests (see tests/CMakeLists.txt).
 add_subdirectory(tests)
