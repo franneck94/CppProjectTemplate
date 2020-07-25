@@ -19,10 +19,13 @@ matrix:
     - name: "MacOS"
       os: osx
       osx_image: xcode12
+      addons:
+        homebrew:
+          packages:
+            - gcc
       env:
         - PATH="${HOME}/Library/Python/2.7/bin:${PATH}"
-        - GCC_VER="7"
-        - MATRIX_EVAL="CC=gcc-${GCC_VER} && CXX=g++-${GCC_VER}"
+        - MATRIX_EVAL="CC=gcc && CXX=g++"
 
 branches:
   only:
