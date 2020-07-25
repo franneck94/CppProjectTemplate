@@ -6,10 +6,7 @@ clone_folder: c:\projects\source
 before_build:
   - pip install --user conan
   - set PATH=%PATH%;C:\Users\appveyor\AppData\Roaming\Python\Scripts
-  - cd external/loguru
-  - dir
-  - cd ..
-  - cd ..
+  - git submodule update --init --recursive
   - mkdir build
   - cd build
 

@@ -22,7 +22,6 @@ matrix:
       addons:
         homebrew:
           packages:
-          - gcc
           - lcov
           - conan
 
