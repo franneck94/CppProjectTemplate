@@ -58,20 +58,7 @@ target_include_directories(${LIBRARY_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
 # Link header only libaries (change as needed).
 target_link_libraries(${LIBRARY_NAME} PUBLIC linalg)
-if(WIN32)
-    target_link_libraries(${LIBRARY_NAME} PUBLIC loguru)
-endif(WIN32)
-if(UNIX)
-    if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weverything")
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-c++98-compat")
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-c++98-compat-pedantic")
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-noreturn")
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-prototypes")
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-gnu-zero-variadic-macro-arguments")
-    endif() # Clang
-    target_link_libraries(${LIBRARY_NAME} PUBLIC loguru pthread dl)
-endif(UNIX)
+target_link_libraries(${LIBRARY_NAME} PUBLIC loguru)
 
 # Set the compile options you want (change as needed).
 target_set_warnings(${LIBRARY_NAME} ENABLE ALL DISABLE Annoying)
