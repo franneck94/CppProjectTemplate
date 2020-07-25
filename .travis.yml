@@ -18,7 +18,7 @@ matrix:
 
     - name: "MacOS"
       os: osx
-      osx_image: xcode9
+      osx_image: xcode12
       env:
         - PATH="${HOME}/Library/Python/2.7/bin:${PATH}"
         - GCC_VER="7"
