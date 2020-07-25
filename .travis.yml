@@ -18,13 +18,13 @@ matrix:
 
     - name: "MacOS"
       os: osx
-      osx_image: xcode11.2
+      osx_image: xcode8
       env:
-        - GCC_VER="9"
-        - MATRIX_EVAL="CC=gcc-${GCC_VER} && CXX=g++-${GCC_VER}"
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
       addons:
         homebrew:
           packages:
+          - gcc
           - lcov
           - conan
 
