@@ -32,6 +32,9 @@ find_lto(CXX)
 # --------------------------------------------------------------------------------
 #                           Locally cloned libs.
 # --------------------------------------------------------------------------------
+set(LINALG_LIB linalg)
+set(LOGURU_LIB loguru)
+set(CELERO_LIB celero)
 add_subdirectory(external)
 
 # --------------------------------------------------------------------------------
@@ -56,19 +59,19 @@ set(LIBRARY_NAME my_library)
 # Compile all sources into a library.
 add_library(${LIBRARY_NAME} OBJECT ${SOURCES})
 
-# Lib needs its header files, and users of the library must also see these (PUBLIC). (No change needed)
+# Lib needs its header files, and users of the library must also see these (PUBLIC).
 target_include_directories(${LIBRARY_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
 # Link header only libaries (change as needed).
-target_link_libraries(${LIBRARY_NAME} PUBLIC linalg)
-target_link_libraries(${LIBRARY_NAME} PUBLIC loguru)
+target_link_libraries(${LIBRARY_NAME} PUBLIC ${LINALG_LIB})
+target_link_libraries(${LIBRARY_NAME} PUBLIC ${LOGURU_LIB})
 
 # Set the compile options you want (change as needed).
 target_set_warnings(${LIBRARY_NAME} ENABLE ALL DISABLE Annoying)
 
 # Add an executable for the file app/main.cpp.
-set(MAIN main)   # Default name for test executable (change if you wish).
-add_executable(${MAIN} app/main.cc)   # Name of exec. and location of file.
+set(MAIN main)
+add_executable(${MAIN} app/main.cc)
 target_link_libraries(${MAIN} PRIVATE ${LIBRARY_NAME})
 
 # Set up tests (see tests/CMakeLists.txt).
