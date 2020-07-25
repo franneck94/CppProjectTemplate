@@ -3,14 +3,15 @@ image:
 
 clone_folder: c:\projects\source
 
+before_build:
+  - mkdir build
+  - cd build
+  - pip install --user conan
+  - set PATH=%PATH%;C:\Users\appveyor\AppData\Roaming\Python\Scripts
+
 build_script:
-- cmd: >-
-    pip install --user conan
-    mkdir build
-    cd build
-    set PATH=%PATH%;C:\Users\appveyor\AppData\Roaming\Python\Scripts
-    cmake c:\projects\source -G "Visual Studio 16 2019" -DCMAKE_BUILD_TYPE:STRING=Release
-    cmake --build . --config "Release"
+  - cmake c:\projects\source -G "Visual Studio 16 2019" -DCMAKE_BUILD_TYPE:STRING=Release
+  - cmake --build . --config "Release"
 
 test_script:
 - cmd: ctest -C Debug
