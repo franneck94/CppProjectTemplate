@@ -3,6 +3,7 @@
 [![Release](https://img.shields.io/github/v/release/franneck94/cpp-project-template)](https://travis-ci.org/github/franneck94/Cpp-Project-Template)
 [![Project Status: Active.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Travis CI](https://api.travis-ci.org/franneck94/Cpp-Project-Template.svg?branch=master)](https://travis-ci.org/github/franneck94/Cpp-Project-Template)
+[![Appveyor](https://ci.appveyor.com/api/projects/status/k4umysi98v5xo2sw/branch/master?svg=true)](https://ci.appveyor.com/project/franneck94/cpp-project-template/branch/master)
 [![codecov](https://codecov.io/gh/franneck94/Cpp-Project-Template/branch/master/graph/badge.svg)](https://codecov.io/gh/franneck94/Cpp-Project-Template)
 
 # Template For C++ Projects 
@@ -14,7 +15,7 @@ This is a template for C++ projects. What you get:
 -   External libraries installed and managed by [Conan](https://conan.io/).
 -   Use of modern [CMake](https://cmake.org/) for building and compiling.
 -   Unit testing, using [GTest](https://github.com/google/googletest), Logging, using [Loguru](https://github.com/emilk/loguru) and Benchmarking, using [Celero](https://github.com/DigitalInBlue/Celero).
--   Continuous testing with [Travis-CI](https://travis-ci.org/).
+-   Continuous testing with [Travis-CI](https://travis-ci.org/) and [Appveyor](https://www.appveyor.com/).
 -   Code coverage reports, including automatic upload to [Codecov](https://codecov.io).
 -   Code documentation with [Doxygen](http://www.stack.nl/~dimitri/doxygen/).
 -   [Cpplint](https://github.com/cpplint/cpplint) and [Cppcheck](http://cppcheck.sourceforge.net/) triggered via Makefile

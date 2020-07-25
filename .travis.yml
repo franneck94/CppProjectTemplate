@@ -18,12 +18,11 @@ matrix:
 
     - name: "MacOS"
       os: osx
-      osx_image: xcode9
-      addons:
-        homebrew:
-          packages:
-          - lcov
-          - conan
+      osx_image: xcode11.2
+      env:
+        - PATH="${HOME}/Library/Python/2.7/bin:${PATH}"
+        - GCC_VER="9"
+        - MATRIX_EVAL="CC=gcc-${GCC_VER} && CXX=g++-${GCC_VER}"
 
 branches:
   only:
@@ -42,6 +41,7 @@ install:
     cmake .. -DCMAKE_BUILD_TYPE=Coverage -DUSE_GCOV=On;
     fi
   - if [ "$TRAVIS_OS_NAME" = "osx"   ]; then
+    pip install --user conan cmake
     conan user;
     conan install ..;
     cmake .. -DCMAKE_BUILD_TYPE=Debug;
