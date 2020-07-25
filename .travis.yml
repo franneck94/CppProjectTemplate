@@ -18,10 +18,10 @@ matrix:
 
     - name: "MacOS"
       os: osx
-      osx_image: xcode11.2
+      osx_image: xcode9
       env:
         - PATH="${HOME}/Library/Python/2.7/bin:${PATH}"
-        - GCC_VER="9"
+        - GCC_VER="7"
         - MATRIX_EVAL="CC=gcc-${GCC_VER} && CXX=g++-${GCC_VER}"
 
 branches:
