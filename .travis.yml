@@ -47,7 +47,7 @@ install:
     pip install --user conan cmake;
     conan user;
     conan profile update settings.compiler.libcxx=libstdc++11 default;
-    conan install ..;
+    conan install .. -s compiler='gcc';
     cmake .. -DCMAKE_BUILD_TYPE=Debug;
     fi
   - make
