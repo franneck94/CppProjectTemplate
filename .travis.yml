@@ -46,8 +46,7 @@ install:
   - if [ "$TRAVIS_OS_NAME" = "osx"   ]; then
     pip install --user conan cmake;
     conan user;
-    conan profile update settings.compiler.libcxx=libstdc++11 default;
-    conan install .. -s compiler='gcc';
+    conan install ..;
     cmake .. -DCMAKE_BUILD_TYPE=Debug;
     fi
   - make
