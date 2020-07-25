@@ -18,7 +18,7 @@ if (USE_BENCHMARKS)
 
     set_target_properties(${BENCH_MAIN} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
     set_target_properties(${BENCH_MAIN} PROPERTIES 
-        CXX_STANDARD 17 
-        CXX_STANDARD_REQUIRED YES
+        CXX_STANDARD ${CXX_STD} 
+        CXX_STANDARD_REQUIRED ${CXX_STD_REQ}
     )
 endif()

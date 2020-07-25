@@ -23,8 +23,8 @@ endif(UNIX)
 
 set_target_properties(${TEST_MAIN} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
 set_target_properties(${TEST_MAIN} PROPERTIES 
-    CXX_STANDARD 17 
-    CXX_STANDARD_REQUIRED YES
+    CXX_STANDARD ${CXX_STD} 
+    CXX_STANDARD_REQUIRED ${CXX_STD_REQ}
 )
 
 add_test(
@@ -34,18 +34,18 @@ add_test(
 )
 
 if (USE_GCOV)
-    set(GCC_COVERAGE_COMPILE_FLAGS  "-g3 -O0 -fprofile-arcs -ftest-coverage")
-    set(GCC_COVERAGE_LINK_FLAGS     "-lgcov")
-    set(CMAKE_CXX_FLAGS             "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}" )
-    set(CMAKE_EXE_LINKER_FLAGS      "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}")
-    # Adds a 'coverage' target.
     if(CMAKE_COMPILER_IS_GNUCXX)
+        set(GCC_COVERAGE_COMPILE_FLAGS  "-g3 -O0 -fprofile-arcs -ftest-coverage")
+        set(GCC_COVERAGE_LINK_FLAGS     "-lgcov")
+        set(CMAKE_CXX_FLAGS             "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}" )
+        set(CMAKE_EXE_LINKER_FLAGS      "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}")
         include(CodeCoverage)
         set(COVERAGE_EXCLUDES
             "${PROJECT_SOURCE_DIR}/external/*"
             "${PROJECT_SOURCE_DIR}/app/*"
             "${PROJECT_SOURCE_DIR}/benchmarks/*"
-            "${CONAN_GTEST_ROOT}/*")
+            "${CONAN_GTEST_ROOT}/*"
+        )
         setup_target_for_coverage_lcov(
             NAME coverage
             EXECUTABLE ctest -j 2

@@ -13,6 +13,10 @@ option(ENABLE_LTO       "Enable link time optimization"                         
 option(USE_BENCHMARKS   "Create a Benchmark-enabled build."                     OFF)
 option(USE_GCOV         "Create a GCov-enabled build."                          OFF)
 
+# Global CMake variables are set here
+set(CXX_STD     17)
+set(CXX_STD_REQ Yes)
+
 # Include stuff. No change needed.
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 include(ConfigSafeGuards)
@@ -36,16 +40,14 @@ include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
 # --------------------------------------------------------------------------------
-#                               Locate files
+#                            Locate library files
 # --------------------------------------------------------------------------------
 # All .cc files in src/
 set(SOURCES
     src/dummy.cc
 )
 # Default name for the library built from src/*.cc
-set(LIBRARY_NAME 
-    my_library
-)
+set(LIBRARY_NAME my_library)
 
 # --------------------------------------------------------------------------------
 #                                   Build!
@@ -73,8 +75,8 @@ target_link_libraries(${MAIN} PRIVATE ${LIBRARY_NAME})
 set_target_properties(
     ${LIBRARY_NAME} ${MAIN} 
       PROPERTIES 
-        CXX_STANDARD 17 
-        CXX_STANDARD_REQUIRED YES
+        CXX_STANDARD ${CXX_STD} 
+        CXX_STANDARD_REQUIRED ${CXX_STD_REQ}
 )
 
 # Set up tests (see tests/CMakeLists.txt).
