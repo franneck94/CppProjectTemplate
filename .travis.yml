@@ -18,12 +18,11 @@ matrix:
 
     - name: "MacOS"
       os: osx
-      osx_image: xcode10.2
-      env:
-        - MATRIX_EVAL="CC=gcc && CXX=g++"
+      osx_image: xcode9
       addons:
         homebrew:
           packages:
+          - gcc
           - lcov
           - conan
 
