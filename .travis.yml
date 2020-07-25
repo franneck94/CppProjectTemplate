@@ -20,11 +20,12 @@ matrix:
       os: osx
       osx_image: xcode12
       env:
-        - MATRIX_EVAL="CC=gcc && CXX=g++"
+        - MATRIX_EVAL="CC=gcc-9 && CXX=g++-9"
       addons:
         homebrew:
           packages:
-          - gcc
+          - gcc-9
+          - g++-9
           - lcov
           - conan
 
