@@ -1,16 +1,14 @@
-# List all files containing benchmarks. (Change as needed)
-set(BENCHFILES        # All .cc files in benchmarks/
-    main.cc
-)
-
-set(BENCH_MAIN bench_tests)  # Default name for benchmark executable (change if you wish).
-set(BENCH_RUNNER_PARAMS "")  # Any arguemnts to feed the benchmark runner (change as needed).
-
-# --------------------------------------------------------------------------------
-#                         Make Benchmarks (no change needed).
-# --------------------------------------------------------------------------------
 if (USE_BENCHMARKS)
+    set(BENCHFILES main.cc)
+    set(BENCH_MAIN "${NAME}_benchmarks")
+    set(BENCH_RUNNER_PARAMS "-O3")
+
+    # cd build
+    # cmake .. -DCMAKE_BUILD_TYPE=Release -DUSE_BENCHMARKS=On
+    # make BenchAndLog_benchmarks
     add_executable(${BENCH_MAIN} ${BENCHFILES})
+    target_compile_options(${BENCH_MAIN} PUBLIC ${TEST_RUNNER_PARAMS})
+    target_compile_features(${BENCH_MAIN} PUBLIC cxx_std_17)
     target_link_libraries(${BENCH_MAIN} PUBLIC ${LIBRARY_NAME})
-    target_link_libraries(${BENCH_MAIN} PUBLIC ${CELERO_LIB})
+    target_link_libraries(${BENCH_MAIN} PUBLIC ${LIBRARY_BENCH})
 endif()

@@ -1,80 +1,57 @@
-# --------------------------------------------------------------------------------
-#                           Project properties
-# --------------------------------------------------------------------------------
-# This file specifies how the project should be built, using CMake.
-cmake_minimum_required(VERSION 3.8.2)
+cmake_minimum_required(VERSION 3.16)
 
-# Set project name, version and laguages here. (change as needed)
-project(CPP_PROJECT_TEMPLATE VERSION 1.0 LANGUAGES CXX)
-
-# Options: Things you can set via commandline options to cmake (e.g. -DENABLE_LTO=[ON|OFF])
-option(ENABLE_WARNINGS  "Allow target_set_warnings to add flags and defines."   ON)
-option(ENABLE_LTO       "Enable link time optimization"                         ON)
-option(USE_BENCHMARKS   "Create a Benchmark-enabled build."                     OFF)
-option(USE_GCOV         "Create a GCov-enabled build."                          OFF)
+set(NAME CppTemplate)
+project("${NAME}_Project" VERSION 1.0 LANGUAGES CXX)
 
 # Global CMake variables are set here
 set(CMAKE_CXX_STANDARD          17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS        OFF)
 
+# Project/Library Names
+set(LIBRARY_NAME    "${NAME}_Lib")
+set(MAIN            "${NAME}_Executable")
+
+# External Library Names
+set(LIBRARY_LINALG  LinAlg)
+set(LIBRARY_LOG     loguru)
+set(LIBRARY_BENCH   celero)
+
+# Options: Things you can set via commandline options to cmake (e.g. -DENABLE_LTO=[ON|OFF])
+option(ENABLE_WARNINGS  "Allow target_set_warnings to add flags and defines."   ON)
+option(USE_BENCHMARKS   "Create a Benchmark-enabled build."                     OFF)
+option(USE_GCOV         "Create a GCov-enabled build."                          OFF)
+
 # Include stuff. No change needed.
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/")
 include(ConfigSafeGuards)
 include(CTest)
 include(Documentation)
-include(LTO)
 include(Warnings)
+if(USE_GCOV)
+    if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+        include(CodeCoverage)
+        message("Including CodeCoverage")
+    else()
+        message("You must use a GNU or Clang Compiler for CodeCoverage")
+    endif()
+endif()
 
-# Check for LTO support.
-find_lto(CXX)
-
-# --------------------------------------------------------------------------------
-#                           Locally cloned libs.
-# --------------------------------------------------------------------------------
-set(LINALG_LIB linalg)
-set(LOGURU_LIB loguru)
-set(CELERO_LIB celero)
-add_subdirectory(external)
-
-# --------------------------------------------------------------------------------
-#                           Conan installed libs.
-# --------------------------------------------------------------------------------
+# Link Conan Packages
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-# --------------------------------------------------------------------------------
-#                            Locate library files
-# --------------------------------------------------------------------------------
-# All .cc files in src/
-set(SOURCES
-    src/dummy.cc
-)
-# Default name for the library built from src/*.cc
-set(LIBRARY_NAME my_library)
+# Link External Libraries
+add_subdirectory(external)
 
-# --------------------------------------------------------------------------------
-#                                   Build!
-# --------------------------------------------------------------------------------
-# Compile all sources into a library.
-add_library(${LIBRARY_NAME} OBJECT ${SOURCES})
+# Link Libraries
+add_subdirectory(src)
 
-# Lib needs its header files, and users of the library must also see these (PUBLIC).
-target_include_directories(${LIBRARY_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
+# Main Executable
+add_subdirectory(app)
 
-# Link header only libaries (change as needed).
-target_link_libraries(${LIBRARY_NAME} PUBLIC ${LINALG_LIB})
-target_link_libraries(${LIBRARY_NAME} PUBLIC ${LOGURU_LIB})
-
-# Set the compile options you want (change as needed).
-target_set_warnings(${LIBRARY_NAME} ENABLE ALL DISABLE Annoying)
-
-# Add an executable for the file app/main.cpp.
-set(MAIN main)
-add_executable(${MAIN} app/main.cc)
-target_link_libraries(${MAIN} PRIVATE ${LIBRARY_NAME})
-
-# Set up tests (see tests/CMakeLists.txt).
+# Test Executable
 add_subdirectory(tests)
-# Set up benchmarks (see benchmarks/CMakeLists.txt).
+
+# Test Benchmarks
 add_subdirectory(benchmarks)

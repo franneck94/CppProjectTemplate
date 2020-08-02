@@ -1,24 +1,15 @@
-# --------------------------------------------------------------------------------
-#                                 Linalg
-# --------------------------------------------------------------------------------
-add_library(${LINALG_LIB} INTERFACE)
-target_include_directories(${LINALG_LIB} INTERFACE ${LINALG_LIB})
+add_library(${LIBRARY_LINALG} INTERFACE)
+target_include_directories(${LIBRARY_LINALG} INTERFACE linalg)
 
-# --------------------------------------------------------------------------------
-#                                 Loguru
-# --------------------------------------------------------------------------------
 file(GLOB LOGURU_SOURCES
     "loguru/*.cpp"
 )
-add_library(${LOGURU_LIB} STATIC ${LOGURU_SOURCES})
-target_include_directories(${LOGURU_LIB} PUBLIC ${LOGURU_LIB})
+add_library(${LIBRARY_LOG} STATIC ${LOGURU_SOURCES})
+target_include_directories(${LIBRARY_LOG} PUBLIC loguru)
 if(NOT WIN32)
-    target_link_libraries(${LOGURU_LIB} PUBLIC pthread dl)
+    target_link_libraries(${LIBRARY_LOG} PUBLIC pthread dl)
 endif()
 
-# --------------------------------------------------------------------------------
-#                                 Celero
-# --------------------------------------------------------------------------------
 if (USE_BENCHMARKS)
     add_subdirectory(Celero)
 endif()

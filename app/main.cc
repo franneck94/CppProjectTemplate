@@ -1,18 +1,19 @@
 #include <iostream>
 
-#include "dummy.h"
+#include "my_lib.h"
 
-/*
- * Simple main program.
+/**
+ * @brief Main function of the executable.
+ * 
+ * @param argc 
+ * @param argv 
+ * @return int 
  */
-int main(int argc, char* argv[]) 
+int main(int argc, char **argv)
 {
-  std::cout << "C++ Project Template" << std::endl;
+    print_hello_world();
+    print_linalg_vector();
+    print_boost_version();
 
-  Dummy d = Dummy();
-  (void)d.useBoost();
-  (void)d.useLinalg();
-  (void)d.useLoguru();
-
-  return 0;
+    return 0;
 }

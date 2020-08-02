@@ -1,6 +1,6 @@
 [requires]
 gtest/1.10.0
-boost/1.72.0
+boost/1.73.0
 
 [generators]
 cmake
