@@ -52,8 +52,8 @@ install:
   - make
 
 script:
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then make coverage;   fi
-  - if [ "$TRAVIS_OS_NAME" = "osx"   ]; then make unit_tests; fi 
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then make CppTemplate_coverage;   fi
+  - if [ "$TRAVIS_OS_NAME" = "osx"   ]; then make CppTemplate_unit_tests; fi 
 
 after_success:
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then  bash <(curl -s https://codecov.io/bash); fi
