@@ -18,20 +18,17 @@ This is a template for C++ projects. What you get:
 -   Continuous testing with [Travis-CI](https://travis-ci.org/) and [Appveyor](https://www.appveyor.com/).
 -   Code coverage reports, including automatic upload to [Codecov](https://codecov.io).
 -   Code documentation with [Doxygen](http://www.stack.nl/~dimitri/doxygen/).
--   [Cpplint](https://github.com/cpplint/cpplint) and [Cppcheck](http://cppcheck.sourceforge.net/) triggered via Makefile
 -   Optional: Use of [VSCode](https://code.visualstudio.com/) with the C/C++ and CMakeTools extension.
 
 ## Structure
 ``` text
-├── conanfile.txt
 ├── CMakeLists.txt
-├── Makefile
 ├── app
 │   └── main.cc
 ├── benchmarks
 │   ├── CMakesLists.txt
 │   └── main.cc
-└── documentation
+├── docs
 ├── ├── Doxyfile
 │   └── html...
 ├── external
@@ -40,12 +37,15 @@ This is a template for C++ projects. What you get:
 │   ├── loguru...
 │   └── Celero...
 ├── include
-│   └── dummy.h
+│   └── MyLib
+│       └── my_lib.h
 ├── src
-│   └── dummy.cc
+│   ├── CMakesLists.txt
+│   └── MyLib
+│       ├── CMakesLists.txt
+│       └── my_lib.cc
 └── tests
     ├── CMakeLists.txt
-    ├── test_dummy.cc
     └── main.cc
 ```
 
