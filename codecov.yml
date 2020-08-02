@@ -1,5 +1,11 @@
+coverage:
+  precision: 0
+  round: nearest
+  range: 40...100
+
 ignore:
-  - "app/**/*"
+  - "app/*"
+  - "external/*"
   - "external/**/*"
-  - "benchmarks/**/*"
-  - "tests/**/*"
+  - "benchmarks/*"
+  - "tests/*"
