@@ -1,0 +1,5 @@
+ignore:
+  - "app/**/*"
+  - "external/**/*"
+  - "benchmarks/**/*"
+  - "tests/**/*"

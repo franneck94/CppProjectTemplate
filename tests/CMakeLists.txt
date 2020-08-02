@@ -22,9 +22,10 @@ if (USE_GCOV)
     if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
         set(COVERAGE_MAIN "${NAME}_coverage")
         set(COVERAGE_EXCLUDES 
-            "${PROJECT_SOURCE_DIR}/external/*"
             "${PROJECT_SOURCE_DIR}/app/*"
             "${PROJECT_SOURCE_DIR}/benchmarks/*"
+            "${PROJECT_SOURCE_DIR}/external/*"
+            "${PROJECT_SOURCE_DIR}/tests/*"
             "${CONAN_GTEST_ROOT}/*"
             "${CONAN_BOOST_ROOT}/*"
             "/usr/include/*")
