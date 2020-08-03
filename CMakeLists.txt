@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.12)
 
 set(NAME CppTemplate)
-project("${NAME}_Project" VERSION 1.1 LANGUAGES CXX)
+project("${NAME}_Project" VERSION 1.1.0 LANGUAGES CXX)
 
 # Global CMake variables are set here
 set(CMAKE_CXX_STANDARD          17)
@@ -21,6 +21,10 @@ set(LIBRARY_BENCH   celero)
 option(ENABLE_WARNINGS  "Allow target_set_warnings to add flags and defines."   ON)
 option(USE_BENCHMARKS   "Create a Benchmark-enabled build."                     OFF)
 option(USE_GCOV         "Create a GCov-enabled build."                          OFF)
+
+# Configurations Files
+configure_file("${PROJECT_SOURCE_DIR}/include/ProjectConfig.h.in" 
+               "${PROJECT_BINARY_DIR}/ProjectConfig.h" @ONLY)
 
 # Include stuff. No change needed.
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/")

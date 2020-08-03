@@ -1,101 +1,88 @@
-# MIT License
-
-# Copyright (c) 2017 Lectem
-
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-
-
 function(target_set_warnings)
+
     if(NOT ENABLE_WARNINGS)
         return()
     endif()
-    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-      set(WMSVC TRUE)
-    elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-      set(WGCC TRUE)
-    elseif ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
-      set(WCLANG TRUE)
-    endif()
+
     set(multiValueArgs ENABLE DISABLE AS_ERROR)
     cmake_parse_arguments(this "" "" "${multiValueArgs}" ${ARGN})
     list(FIND this_ENABLE "ALL" enable_all)
-    list(FIND this_DISABLE "ALL" disable_all)
     list(FIND this_AS_ERROR "ALL" as_error_all)
-    if(NOT ${enable_all} EQUAL -1)
-      if(WMSVC)
-        # Not all the warnings, but WAll is unusable when using libraries
-        # Unless you'd like to support MSVC in the code with pragmas, this is probably the best option
-        list(APPEND WarningFlags "/W4")
-      elseif(WGCC)
-        list(APPEND WarningFlags "-Wall" "-Wextra" "-Wpedantic")
-      elseif(WCLANG)
-        list(APPEND WarningFlags "-Wall" "-Weverything" "-Wpedantic")
-      endif()
-    elseif(NOT ${disable_all} EQUAL -1)
-      set(SystemIncludes TRUE) # Treat includes as if coming from system
-      if(WMSVC)
-        list(APPEND WarningFlags "/w" "/W0")
-      elseif(WGCC OR WCLANG)
-        list(APPEND WarningFlags "-w")
-      endif()
+
+    if(${enable_all} EQUAL -1)
+        return()
     endif()
 
-    list(FIND this_DISABLE "Annoying" disable_annoying)
-    if(NOT ${disable_annoying} EQUAL -1)
-      if(WMSVC)
-        # bounds-checked functions require to set __STDC_WANT_LIB_EXT1__ which we usually don't need/want
-        list(APPEND WarningDefinitions -D_CRT_SECURE_NO_WARNINGS)
-        # disable C4514 C4710 C4711... Those are useless to add most of the time
-        #list(APPEND WarningFlags "/wd4514" "/wd4710" "/wd4711")
-        #list(APPEND WarningFlags "/wd4365") #signed/unsigned mismatch
-        #list(APPEND WarningFlags "/wd4668") # is not defined as a preprocessor macro, replacing with '0' for
-      elseif(WGCC OR WCLANG)
-        list(APPEND WarningFlags -Wno-switch-enum)
-        if(WCLANG)
-          list(APPEND WarningFlags -Wno-unknown-warning-option -Wno-padded -Wno-undef -Wno-reserved-id-macro -fcomment-block-commands=test,retval)
-          if(NOT CMAKE_CXX_STANDARD EQUAL 98)
-              list(APPEND WarningFlags -Wno-c++98-compat -Wno-c++98-compat-pedantic)
-          endif()
-          if ("${CMAKE_CXX_SIMULATE_ID}" STREQUAL "MSVC") # clang-cl has some VCC flags by default that it will not recognize...
-              list(APPEND WarningFlags -Wno-unused-command-line-argument)
-          endif()
-        endif(WCLANG)
-      endif()
-    endif()
+    set(MSVC_WARNINGS
+        /W4 # Baseline reasonable warnings
+        /w14242 # 'identifier': conversion from 'type1' to 'type1', possible loss of data
+        /w14254 # 'operator': conversion from 'type1:field_bits' to 'type2:field_bits', possible loss of data
+        /w14263 # 'function': member function does not override any base class virtual member function
+        /w14265 # 'classname': class has virtual functions, but destructor is not virtual instances of this class may not
+                # be destructed correctly
+        /w14287 # 'operator': unsigned/negative constant mismatch
+        /we4289 # nonstandard extension used: 'variable': loop control variable declared in the for-loop is used outside
+                # the for-loop scope
+        /w14296 # 'operator': expression is always 'boolean_value'
+        /w14311 # 'variable': pointer truncation from 'type1' to 'type2'
+        /w14545 # expression before comma evaluates to a function which is missing an argument list
+        /w14546 # function call before comma missing argument list
+        /w14547 # 'operator': operator before comma has no effect; expected operator with side-effect
+        /w14549 # 'operator': operator before comma has no effect; did you intend 'operator'?
+        /w14555 # expression has no effect; expected expression with side- effect
+        /w14619 # pragma warning: there is no warning number 'number'
+        /w14640 # Enable warning on thread un-safe static member initialization
+        /w14826 # Conversion from 'type1' to 'type_2' is sign-extended. This may cause unexpected runtime behavior.
+        /w14905 # wide string literal cast to 'LPSTR'
+        /w14906 # string literal cast to 'LPWSTR'
+        /w14928 # illegal copy-initialization; more than one user-defined conversion has been implicitly applied
+        /permissive- # standards conformance mode for MSVC compiler.
+    )
+
+    set(CLANG_WARNINGS
+        -Wall
+        -Wextra # reasonable and standard
+        -Wshadow # warn the user if a variable declaration shadows one from a parent context
+        -Wnon-virtual-dtor # warn the user if a class with virtual functions has a non-virtual destructor. This helps
+                            # catch hard to track down memory errors
+        -Wold-style-cast # warn for c-style casts
+        -Wcast-align # warn for potential performance problem casts
+        -Wunused # warn on anything being unused
+        -Woverloaded-virtual # warn if you overload (not override) a virtual function
+        -Wpedantic # warn if non-standard C++ is used
+        -Wconversion # warn on type conversions that may lose data
+        -Wsign-conversion # warn on sign conversions
+        -Wnull-dereference # warn if a null dereference is detected
+        -Wdouble-promotion # warn if float is implicit promoted to double
+        -Wformat=2 # warn on security issues around functions that format output (ie printf)
+    )
+
+    set(GCC_WARNINGS
+        ${CLANG_WARNINGS}
+        -Wmisleading-indentation # warn if indentation implies blocks where blocks do not exist
+        -Wduplicated-cond # warn if if / else chain has duplicated conditions
+        -Wduplicated-branches # warn if if / else branches have duplicated code
+        -Wlogical-op # warn about logical operations being used where bitwise were probably wanted
+        -Wuseless-cast # warn if you perform a cast to the same type
+    )
 
     if(NOT ${as_error_all} EQUAL -1)
-      if(WMSVC)
-        list(APPEND WarningFlags "/WX")
-      elseif(WGCC OR WCLANG)
-        list(APPEND WarningFlags "-Werror")
-      endif()
+        set(CLANG_WARNINGS ${CLANG_WARNINGS} -Werror)
+        set(MSVC_WARNINGS ${MSVC_WARNINGS} /WX)
     endif()
+
+    if(MSVC)
+        set(PROJECT_WARNINGS ${MSVC_WARNINGS})
+    elseif(CMAKE_CXX_COMPILER_ID MATCHES ".*Clang")
+        set(PROJECT_WARNINGS ${CLANG_WARNINGS})
+    elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        set(PROJECT_WARNINGS ${GCC_WARNINGS})
+    else()
+        message(AUTHOR_WARNING "No compiler warnings set for '${CMAKE_CXX_COMPILER_ID}' compiler.")
+    endif()
+
     foreach(target IN LISTS this_UNPARSED_ARGUMENTS)
-      if(WarningFlags)
-        target_compile_options(${target} PRIVATE ${WarningFlags})
-      endif()
-      if(WarningDefinitions)
-        target_compile_definitions(${target} PRIVATE ${WarningDefinitions})
-      endif()
-      if(SystemIncludes)
-        set_target_properties(${target} PROPERTIES
-            INTERFACE_SYSTEM_INCLUDE_DIRECTORIES $<TARGET_PROPERTY:${target},INTERFACE_INCLUDE_DIRECTORIES>)
-      endif()
+        target_compile_options(${target} INTERFACE ${PROJECT_WARNINGS})
     endforeach()
+
 endfunction(target_set_warnings)

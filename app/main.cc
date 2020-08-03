@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include "ProjectConfig.h"
+
 #include "my_lib.h"
 
 /**
@@ -11,9 +13,16 @@
  */
 int main(int argc, char **argv)
 {
+    std::cout << "Project Version: " << PROJECT_VERSION_MAJOR << "." << 
+                                        PROJECT_VERSION_MINOR << "." << 
+                                        PROJECT_VERSION_PATCH << std::endl;
+  
     print_hello_world();
     print_linalg_vector();
     print_boost_version();
+
+    unsigned int i = 2;
+    char j = i;
 
     return 0;
 }
