@@ -19,7 +19,7 @@ add_test(NAME ${LIBRARY_NAME}.${TEST_MAIN} COMMAND ${TEST_MAIN})
 # sudo apt-get install lcov (for macos with brew)
 # sudo apt-get install gcov (for macos with brew)
 if (USE_GCOV)
-    if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    if (${CMAKE_CXX_COMPILER_ID} MATCHES "GNU|Clang")
         set(COVERAGE_MAIN "${NAME}_coverage")
         set(COVERAGE_EXCLUDES 
             "${PROJECT_SOURCE_DIR}/app/*"
