@@ -11,7 +11,7 @@
  * @param argv 
  * @return int 
  */
-int main(int argc, char **argv)
+int main()
 {
     std::cout << "Project Version: " << PROJECT_VERSION_MAJOR << "." << 
                                         PROJECT_VERSION_MINOR << "." << 
@@ -20,9 +20,6 @@ int main(int argc, char **argv)
     print_hello_world();
     print_linalg_vector();
     print_boost_version();
-
-    unsigned int i = 2;
-    char j = i;
 
     return 0;
 }
