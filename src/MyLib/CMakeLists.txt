@@ -1,7 +1,0 @@
-set(LIBRARY_SOURCES "my_lib.cc")
-add_library(${LIBRARY_NAME} OBJECT ${LIBRARY_SOURCES})
-target_include_directories(${LIBRARY_NAME} PUBLIC "${PROJECT_SOURCE_DIR}/include/MyLib/")
-target_link_libraries(${LIBRARY_NAME} PUBLIC ${LIBRARY_LINALG})
-target_link_libraries(${LIBRARY_NAME} PUBLIC ${LIBRARY_LOG})
-target_compile_features(${LIBRARY_NAME} PUBLIC cxx_std_17)
-target_set_warnings(TARGET ${LIBRARY_NAME} ENABLE On AS_ERROR On)

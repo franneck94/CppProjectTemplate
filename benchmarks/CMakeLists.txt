@@ -1,14 +1,19 @@
-if (USE_BENCHMARKS)
-    set(BENCHFILES main.cc)
-    set(BENCH_MAIN "${NAME}_benchmarks")
-    set(BENCH_RUNNER_PARAMS "-O3")
+if(USE_BENCHMARKS)
+    set(BENCHMARK_SOURCES   "main.cc")
+    set(BENCHMARK_MAIN      "${PROJECT}_benchmarks")
 
-    # cd build
-    # cmake .. -DCMAKE_BUILD_TYPE=Release -DUSE_BENCHMARKS=On
-    # make BenchAndLog_benchmarks
-    add_executable(${BENCH_MAIN} ${BENCHFILES})
-    target_compile_options(${BENCH_MAIN} PUBLIC ${TEST_RUNNER_PARAMS})
-    target_compile_features(${BENCH_MAIN} PUBLIC cxx_std_17)
-    target_link_libraries(${BENCH_MAIN} PUBLIC ${LIBRARY_NAME})
-    target_link_libraries(${BENCH_MAIN} PUBLIC ${LIBRARY_BENCH})
+    if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+        set(BENCHMARK_FLAGS "/Ox")
+    elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+        set(BENCHMARK_FLAGS "-O2")
+    else()
+        set(BENCHMARK_FLAGS "")
+    endif()
+
+    add_executable(${BENCHMARK_MAIN} ${BENCHMARK_SOURCES})
+    target_compile_options(${BENCHMARK_MAIN} PUBLIC ${BENCHMARK_FLAGS})
+    target_compile_features(${BENCHMARK_MAIN} PUBLIC cxx_std_17)
+    target_link_libraries(${BENCHMARK_MAIN} PUBLIC ${LIBRARY_NAME})
+    target_link_libraries(${BENCHMARK_MAIN} PUBLIC ${LIBRARY_BENCH})
+    target_set_warnings(TARGET ${MAIN} ENABLE OFF AS_ERROR OFF)
 endif()

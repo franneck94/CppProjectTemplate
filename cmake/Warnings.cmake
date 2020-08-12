@@ -78,6 +78,6 @@ function(target_set_warnings)
         set(PROJECT_WARNINGS ${GCC_WARNINGS})
     endif()
 
-    target_compile_options(${target_set_warnings_TARGET} INTERFACE ${PROJECT_WARNINGS})
+    target_compile_options(${target_set_warnings_TARGET} PRIVATE ${PROJECT_WARNINGS})
 
 endfunction(target_set_warnings)

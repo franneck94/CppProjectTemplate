@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.12)
 
-set(NAME CppTemplate)
-project("${NAME}_Project" VERSION 1.1.0 LANGUAGES CXX)
+set(PROJECT "CppTemplate")
+
+project("${PROJECT}_Project" VERSION 1.2.3 LANGUAGES CXX)
 
 # Global CMake variables are set here
 set(CMAKE_CXX_STANDARD          17)
@@ -9,53 +10,51 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS        OFF)
 
 # Project/Library Names
-set(LIBRARY_NAME    "${NAME}_Lib")
-set(MAIN            "${NAME}_Executable")
+set(LIBRARY_NAME    "${PROJECT}_MyLib")
+set(LIBRARY_LINALG  "${PROJECT}_LinAlg")
+set(LIBRARY_LOG     "${PROJECT}_loguru")
+set(LIBRARY_BENCH   "${PROJECT}_celero")
+set(MAIN            "${PROJECT}_Executable")
+set(TEST_MAIN       "${PROJECT}_unit_tests")
 
-# External Library Names
-set(LIBRARY_LINALG  LinAlg)
-set(LIBRARY_LOG     loguru)
-set(LIBRARY_BENCH   celero)
+# Options
+option(ENABLE_WARNINGS  "Allow target_set_warnings to add warnings."    ON)
+option(USE_GCOV         "Create a GCov-enabled build."                  OFF)
+option(USE_BENCHMARKS   "Create a Benchmark-enabled build"              OFF)
 
-# Options: Things you can set via commandline options to cmake (e.g. -DENABLE_LTO=[ON|OFF])
-option(ENABLE_WARNINGS  "Allow target_set_warnings to add flags and defines."   ON)
-option(USE_BENCHMARKS   "Create a Benchmark-enabled build."                     OFF)
-option(USE_GCOV         "Create a GCov-enabled build."                          OFF)
-
-# Configurations Files
-configure_file("${PROJECT_SOURCE_DIR}/include/ProjectConfig.h.in" 
+# Configuration Files
+configure_file("${PROJECT_SOURCE_DIR}/include/ProjectConfig.h.in"
                "${PROJECT_BINARY_DIR}/ProjectConfig.h" @ONLY)
 
-# Include stuff. No change needed.
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/")
-include(ConfigSafeGuards)
-include(CTest)
+# Include own cmake modules
+set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 include(Documentation)
+include(CTest)
+include(ConfigSafeGuards)
 include(Warnings)
 if(USE_GCOV)
-    if (${CMAKE_CXX_COMPILER_ID} MATCHES "GNU|Clang")
+    if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
         include(CodeCoverage)
-        message("Including CodeCoverage")
     else()
-        message("You must use a GNU or Clang Compiler for CodeCoverage")
+        message("You must use a GNU or Clang Compiler for CodeCoverage!")
     endif()
 endif()
 
-# Link Conan Packages
+# Add conan packages
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-# Link External Libraries
+# Add externals
 add_subdirectory(external)
 
-# Link Libraries
+# Add libraries
 add_subdirectory(src)
 
-# Main Executable
+# Add executables
 add_subdirectory(app)
 
-# Test Executable
+# Add tests
 add_subdirectory(tests)
 
-# Test Benchmarks
+# Add benchmarks
 add_subdirectory(benchmarks)

@@ -1,25 +1,25 @@
 #include <iostream>
 
+#include "my_lib.h"
+#include "loguru.hpp"
+
 #include "ProjectConfig.h"
 
-#include "my_lib.h"
-
-/**
- * @brief Main function of the executable.
- * 
- * @param argc 
- * @param argv 
- * @return int 
- */
-int main()
+int main(int argc, char **argv)
 {
-    std::cout << "Project Version: " << PROJECT_VERSION_MAJOR << "." << 
-                                        PROJECT_VERSION_MINOR << "." << 
-                                        PROJECT_VERSION_PATCH << std::endl;
-  
-    print_hello_world();
+    std::cout << PROJECT_VERSION_MAJOR << "."
+              << PROJECT_VERSION_MINOR << "."
+              << PROJECT_VERSION_PATCH << std::endl;
+
+    cout_hello_world();
     print_linalg_vector();
     print_boost_version();
+
+    loguru::init(argc, argv);
+    LOG_F(INFO, "Hello from main!");
+
+    int i = 128000;
+    short j = i;
 
     return 0;
 }

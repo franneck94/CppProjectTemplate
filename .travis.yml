@@ -6,30 +6,23 @@ matrix:
   include:
     - name: "Linux"
       os: linux
-      env: 
+      env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
       addons:
-        apt:
-          sources:
-            - 'ubuntu-toolchain-r-test'
-          packages:
-            - g++-7
-            - lcov
+          apt:
+            sources:
+              - 'ubuntu-toolchain-r-test'
+            packages:
+              - g++-7
+              - lcov
+              - gcovr
 
     - name: "MacOS"
       os: osx
-      osx_image: xcode11
-      addons:
-        homebrew:
-          packages:
-            - gcc
-      env:
+      osx_image: xcode10
+      env: 
         - PATH="${HOME}/Library/Python/2.7/bin:${PATH}"
         - MATRIX_EVAL="CC=clang && CXX=clang++"
-
-branches:
-  only:
-    - master
 
 before_install:
   - eval "${MATRIX_EVAL}"
@@ -37,23 +30,26 @@ before_install:
 install:
   - mkdir build
   - cd build
+  - pip install --user conan
+  - source ~/.profile
+  - conan user
+  - conan install ..
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then
-    pip install conan;
-    conan user;
-    conan install ..;
-    cmake .. -DCMAKE_BUILD_TYPE=Coverage -DUSE_GCOV=On;
+    cmake -DCMAKE_BUILD_TYPE=Coverage -DUSE_GCOV=On .. ;
     fi
   - if [ "$TRAVIS_OS_NAME" = "osx"   ]; then
-    pip install --user conan cmake;
-    conan user;
-    conan install .. -s compiler.libcxx=libc++;
-    cmake .. -DCMAKE_BUILD_TYPE=Debug;
+    cmake -DCMAKE_BUILD_TYPE=Debug .. ;
     fi
   - make
 
 script:
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then make CppTemplate_coverage;   fi
-  - if [ "$TRAVIS_OS_NAME" = "osx"   ]; then make CppTemplate_unit_tests; fi 
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; 
+    then make CppTemplate_coverage;   
+    fi
+  - if [ "$TRAVIS_OS_NAME" = "osx"   ]; 
+    then make CppTemplate_unit_tests; 
+    ctest;
+    fi 
 
 after_success:
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then  bash <(curl -s https://codecov.io/bash); fi
