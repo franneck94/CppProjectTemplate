@@ -15,8 +15,8 @@ int main(int argc, char **argv)
     print_linalg_vector();
     print_boost_version();
 
-    // loguru::init(argc, argv);
-    // LOG_F(INFO, "Hello from main!");
+    loguru::init(argc, argv);
+    LOG_F(INFO, "Hello from main!");
 
     // int i = 128000;
     // short j = i;
