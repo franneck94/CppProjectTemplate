@@ -20,7 +20,7 @@ set(TEST_MAIN       "${PROJECT}_unit_tests")
 # Options
 option(ENABLE_WARNINGS  "Allow target_set_warnings to add warnings."    ON)
 option(USE_GCOV         "Create a GCov-enabled build."                  OFF)
-option(USE_BENCHMARKS   "Create a Benchmark-enabled build"              OFF)
+option(USE_BENCHMARKS   "Create a Benchmark-enabled build"              ON)
 
 # Configuration Files
 configure_file("${PROJECT_SOURCE_DIR}/include/ProjectConfig.h.in"

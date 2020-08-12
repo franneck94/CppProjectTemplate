@@ -18,8 +18,5 @@ int main(int argc, char **argv)
     loguru::init(argc, argv);
     LOG_F(INFO, "Hello from main!");
 
-    // int i = 128000;
-    // short j = i;
-
     return 0;
 }
