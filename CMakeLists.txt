@@ -14,13 +14,13 @@ set(LIBRARY_NAME    "${PROJECT}_MyLib")
 set(LIBRARY_LINALG  "${PROJECT}_LinAlg")
 set(LIBRARY_LOG     "${PROJECT}_loguru")
 set(LIBRARY_BENCH   "${PROJECT}_celero")
-set(MAIN            "${PROJECT}_Executable")
+set(MAIN            "${PROJECT}_executable")
 set(TEST_MAIN       "${PROJECT}_unit_tests")
 
 # Options
-option(ENABLE_WARNINGS  "Allow target_set_warnings to add warnings."    ON)
-option(USE_GCOV         "Create a GCov-enabled build."                  OFF)
-option(USE_BENCHMARKS   "Create a Benchmark-enabled build"              ON)
+option(ENABLE_WARNINGS      "Enable target_set_warnings to add warnings."   ON)
+option(ENABLE_CODE_COVERAGE "Enable a Code Coverage build."                 OFF)
+option(ENABLE_BENCHMARKS    "Enable a Benchmark build"                      ON)
 
 # Configuration Files
 configure_file("${PROJECT_SOURCE_DIR}/include/ProjectConfig.h.in"
@@ -32,7 +32,7 @@ include(Documentation)
 include(CTest)
 include(ConfigSafeGuards)
 include(Warnings)
-if(USE_GCOV)
+if(ENABLE_CODE_COVERAGE)
     if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
         include(CodeCoverage)
     else()

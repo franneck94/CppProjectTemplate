@@ -1,4 +1,4 @@
-if(USE_BENCHMARKS)
+if(ENABLE_BENCHMARKS)
     set(BENCHMARK_SOURCES   "main.cc")
     set(BENCHMARK_MAIN      "${PROJECT}_benchmarks")
 

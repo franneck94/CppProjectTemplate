@@ -14,7 +14,7 @@ endif()
 target_set_warnings(TARGET ${LIBRARY_LOG} ENABLE OFF AS_ERROR OFF)
 
 # Celero
-if(USE_BENCHMARKS)
+if(ENABLE_BENCHMARKS)
     add_subdirectory(Celero)
     target_set_warnings(TARGET celero ENABLE OFF AS_ERROR OFF)
     add_library(${LIBRARY_BENCH} ALIAS celero)

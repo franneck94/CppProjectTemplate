@@ -35,7 +35,7 @@ install:
   - conan user
   - conan install ..
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then
-    cmake -DCMAKE_BUILD_TYPE=Coverage -DUSE_GCOV=On .. ;
+    cmake -DCMAKE_BUILD_TYPE=Coverage -DENABLE_CODE_COVERAGE=On .. ;
     fi
   - if [ "$TRAVIS_OS_NAME" = "osx"   ]; then
     cmake -DCMAKE_BUILD_TYPE=Debug .. ;

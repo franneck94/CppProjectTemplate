@@ -1,4 +1,3 @@
-# MyLib Library
 set(LIBRARY_SOURCES  "my_lib.cc")
 set(LIBRARY_INCLUDES "${PROJECT_SOURCE_DIR}/include/")
 set(LIBRARY_HEADERS  "${PROJECT_SOURCE_DIR}/include/my_lib.h")
