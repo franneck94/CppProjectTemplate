@@ -10,6 +10,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS        OFF)
 
 # Project/Library Names
+set(EXPORT_NAME     "${PROJECT}_MyExport")
 set(LIBRARY_NAME    "${PROJECT}_MyLib")
 set(LIBRARY_LINALG  "${PROJECT}_LinAlg")
 set(LIBRARY_LOG     "${PROJECT}_loguru")
@@ -58,3 +59,8 @@ add_subdirectory(tests)
 
 # Add benchmarks
 add_subdirectory(benchmarks)
+
+# Install
+install(EXPORT      ${EXPORT_NAME}
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/share
+        CONFIGURATIONS Release)
