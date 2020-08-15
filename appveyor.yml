@@ -17,4 +17,4 @@ build_script:
   - cmake --build . --config Release --target CppTemplate_unit_tests
 
 test_script:
-- cmd: ctest
+- cmd: ctest -C Release
