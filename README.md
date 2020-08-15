@@ -35,13 +35,10 @@ This is a template for C++ projects. What you get:
 │   ├── loguru...
 │   └── Celero...
 ├── include
-│   └── MyLib
-│       └── my_lib.h
+│   └── my_lib.h
 ├── src
 │   ├── CMakesLists.txt
-│   └── MyLib
-│       ├── CMakesLists.txt
-│       └── my_lib.cc
+│   └── my_lib.cc
 └── tests
     ├── CMakeLists.txt
     └── main.cc
