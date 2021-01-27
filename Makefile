@@ -1,6 +1,6 @@
 conan_setup:
 	@pip install conan
-	@ conan user
+	@conan user
 
 prepare:
 	@rm -r build

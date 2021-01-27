@@ -28,7 +28,12 @@ if(ENABLE_COVERAGE)
             "${PROJECT_SOURCE_DIR}/app/*"
             "${PROJECT_SOURCE_DIR}/benchmarks/*"
             "${PROJECT_SOURCE_DIR}/external/*"
-            "${PROJECT_SOURCE_DIR}/tests/*")
+            "${PROJECT_SOURCE_DIR}/tests/*"
+            "${CONAN_BOOST_ROOT}/*"
+            "${CONAN_CATCH2_ROOT}/*"
+            "${CONAN_CXXOPTS_ROOT}/*"
+            "${CONAN_CELERO_ROOT}/*"
+            "/usr/include/*"))
         setup_target_for_coverage_lcov(
             NAME ${COVERAGE_MAIN}
             EXECUTABLE ctest

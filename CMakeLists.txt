@@ -23,7 +23,7 @@ endif()
 # Options
 option(ENABLE_WARNINGS   "Enable to add warnings to a target."  ON)
 option(ENABLE_COVERAGE   "Enable a Code Coverage build."        OFF)
-option(ENABLE_BENCHMARKS "Enable a Benchmark build"             ON)
+option(ENABLE_BENCHMARKS "Enable a Benchmark build"             OFF)
 
 # Include CMake modules
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
@@ -47,6 +47,11 @@ set(TEST_MAIN       "${PROJECT}_unit_tests")
 # Add external packages with conan
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
+
+target_set_warnings(TARGET CONAN_PKG::cxxopts ENABLE OFF AS_ERROR OFF)
+target_set_warnings(TARGET CONAN_PKG::celero ENABLE OFF AS_ERROR OFF)
+target_set_warnings(TARGET CONAN_PKG::boost ENABLE OFF AS_ERROR OFF)
+target_set_warnings(TARGET CONAN_PKG::catch2 ENABLE OFF AS_ERROR OFF)
 
 # Add external packages by cloning
 add_subdirectory(external)

@@ -23,6 +23,7 @@ jobs:
         sudo apt-get install gcovr
         pip install conan
         conan user
+        conan profile update settings.compiler.libcxx=libstdc++11 default
 
     - name: prepare
       run: |
@@ -32,7 +33,7 @@ jobs:
         conan install ..
 
     - name: configure
-      run: cmake .. -DCMAKE_BUILD_TYPE=Coverage -DUSE_GCOV=On
+      run: cmake .. -DCMAKE_BUILD_TYPE=Coverage -DENABLE_COVERAGE=On
 
     - name: build
       run: make CppTemplate_coverage
