@@ -27,6 +27,7 @@ jobs:
     - name: prepare
       run: |
         mkdir build
+        ls
         cd build
         conan install ..
 
