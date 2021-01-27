@@ -1,10 +1,12 @@
-# LinAlg
+# ---- Linalg ----
+
 set(LIBRARY_INCLUDES "linalg/")
 add_library(linalg INTERFACE)
 target_include_directories(linalg SYSTEM INTERFACE ${LIBRARY_INCLUDES})
 target_set_warnings(TARGET linalg ENABLE OFF AS_ERROR OFF)
 
-# Loguru
+# ---- Loguru ----
+
 file(GLOB LOGURU_SOURCES "loguru/*.cpp")
 add_library(loguru STATIC ${LOGURU_SOURCES})
 target_include_directories(loguru PUBLIC loguru)

@@ -31,11 +31,12 @@ jobs:
         conan install ..
 
     - name: configure
-      run: cmake -DCMAKE_BUILD_TYPE=Coverage -DENABLE_CODE_COVERAGE=On ..
+      run: cmake .. -DCMAKE_BUILD_TYPE=Coverage -DUSE_GCOV=On
 
     - name: build
-      run: make
+      run: make CppTemplate_coverage
 
     - name: test
       run: |
         ctest --build-config Debug
+        bash <(curl -s https://codecov.io/bash)

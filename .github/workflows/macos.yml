@@ -29,10 +29,10 @@ jobs:
         conan install ..
 
     - name: configure
-      run: cmake -DCMAKE_BUILD_TYPE=Debug .. 
+      run: cmake .. -DCMAKE_BUILD_TYPE=Debug
 
     - name: build
-      run: make
+      run: make CppTemplate_unit_tests
 
     - name: test
       run: |
