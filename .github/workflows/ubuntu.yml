@@ -1,0 +1,42 @@
+name: MacOS
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+    branches:
+      - master
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+
+      - name: install
+        run: |
+          sudo apt-get install lcov
+          sudo apt-get install gcovr
+          pip install conan
+          conan user
+
+      - name: prepare
+        run: |
+          mkdir build
+          cd build
+          conan install ..
+
+      - name: configure
+        run: cmake -DCMAKE_BUILD_TYPE=Coverage -DENABLE_CODE_COVERAGE=On ..
+
+      - name: build
+        run: make
+
+      - name: test
+        run: |
+          ctest --build-config Debug

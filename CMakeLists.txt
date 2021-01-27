@@ -9,31 +9,29 @@ set(CMAKE_CXX_STANDARD          17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS        OFF)
 
-# Project/Library Names
-set(EXPORT_NAME     "${PROJECT}_MyExport")
-set(LIBRARY_NAME    "${PROJECT}_MyLib")
-set(LIBRARY_LINALG  "${PROJECT}_LinAlg")
-set(LIBRARY_LOG     "${PROJECT}_loguru")
-set(LIBRARY_BENCH   "${PROJECT}_celero")
-set(MAIN            "${PROJECT}_executable")
-set(TEST_MAIN       "${PROJECT}_unit_tests")
+# Compile options
+if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+    add_compile_options(
+        "$<$<CONFIG:DEBUG>:/Od;>"
+        "$<$<CONFIG:RELEASE>:/Ox>")
+elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    add_compile_options(
+        "$<$<CONFIG:DEBUG>:-O0;-g3;-ggdb>"
+        "$<$<CONFIG:RELEASE>:-O3>")
+endif()
 
 # Options
-option(ENABLE_WARNINGS      "Enable target_set_warnings to add warnings."   ON)
-option(ENABLE_CODE_COVERAGE "Enable a Code Coverage build."                 OFF)
-option(ENABLE_BENCHMARKS    "Enable a Benchmark build"                      ON)
+option(ENABLE_WARNINGS   "Enable to add warnings to a target."  ON)
+option(ENABLE_COVERAGE   "Enable a Code Coverage build."        OFF)
+option(ENABLE_BENCHMARKS "Enable a Benchmark build"             ON)
 
-# Configuration Files
-configure_file("${PROJECT_SOURCE_DIR}/include/ProjectConfig.h.in"
-               "${PROJECT_BINARY_DIR}/ProjectConfig.h" @ONLY)
-
-# Include own cmake modules
+# Include CMake modules
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 include(Documentation)
 include(CTest)
 include(ConfigSafeGuards)
 include(Warnings)
-if(ENABLE_CODE_COVERAGE)
+if(ENABLE_COVERAGE)
     if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
         include(CodeCoverage)
     else()
@@ -41,11 +39,16 @@ if(ENABLE_CODE_COVERAGE)
     endif()
 endif()
 
-# Add conan packages
+# First party packages
+set(LIBRARY_NAME    "${PROJECT}_MyLib")
+set(MAIN            "${PROJECT}_executable")
+set(TEST_MAIN       "${PROJECT}_unit_tests")
+
+# Add external packages with conan
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-# Add externals
+# Add external packages by cloning
 add_subdirectory(external)
 
 # Add libraries
@@ -59,8 +62,3 @@ add_subdirectory(tests)
 
 # Add benchmarks
 add_subdirectory(benchmarks)
-
-# Install
-install(EXPORT      ${EXPORT_NAME}
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/share
-        CONFIGURATIONS Release)

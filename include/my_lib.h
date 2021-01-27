@@ -5,20 +5,12 @@
 #include "linalg.h"
 
 /**
- * @brief This function prints hello world.
- * 
- * @return true 
- * @return false 
- */
-bool print_hello_world();
-
-/**
  * @brief This function couts hello world.
  * 
  * @return true 
  * @return false 
  */
-bool cout_hello_world();
+bool hello_world();
 
 /**
  * @brief This function prints the content of a vector.

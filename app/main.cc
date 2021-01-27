@@ -1,17 +1,13 @@
 #include <iostream>
 
-#include "my_lib.h"
+#include "cxxopts.hpp"
 #include "loguru.hpp"
 
-#include "ProjectConfig.h"
+#include "my_lib.h"
 
 int main(int argc, char **argv)
 {
-    std::cout << PROJECT_VERSION_MAJOR << "."
-              << PROJECT_VERSION_MINOR << "."
-              << PROJECT_VERSION_PATCH << std::endl;
-
-    cout_hello_world();
+    hello_world();
     print_linalg_vector();
     print_boost_version();
 

@@ -1,7 +1,14 @@
-add_executable(${MAIN} "main.cc")
+# ---- Sources ----
+
+set(APP_SOURCES  "main.cc")
+
+# ---- Executable ----
+
+add_executable(${MAIN} ${APP_SOURCES})
+
+# ---- Settings ----
+
 target_link_libraries(${MAIN} PUBLIC ${LIBRARY_NAME})
 target_include_directories(${MAIN} PUBLIC ${PROJECT_BINARY_DIR})
 target_compile_features(${MAIN} PUBLIC cxx_std_17)
 target_set_warnings(TARGET ${MAIN} ENABLE ON AS_ERROR OFF)
-
-install(TARGETS ${MAIN} DESTINATION ${CMAKE_BINARY_DIR})
