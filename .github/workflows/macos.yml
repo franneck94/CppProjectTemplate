@@ -1,40 +1,39 @@
-name: MacOS
+name: MacOS CI Test
 
 on:
   push:
-    branches:
-      - master
-      - main
+    branches: [ main, master ]
   pull_request:
-    branches:
-      - master
-      - main
+    branches: [ main, master ]
 
 jobs:
   build:
     runs-on: macos-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
 
-      - name: install
-        run: |
-          pip install conan
-          conan user
+    - name: install
+      run: |
+        pip install conan
+        conan user
 
-      - name: prepare
-        run: |
-          mkdir build
-          cd build
-          conan install ..
+    - name: prepare
+      run: |
+        mkdir build
+        cd build
+        conan install ..
 
-      - name: configure
-        run: cmake -DCMAKE_BUILD_TYPE=Debug .. 
+    - name: configure
+      run: cmake -DCMAKE_BUILD_TYPE=Debug .. 
 
-      - name: build
-        run: make
+    - name: build
+      run: make
 
-      - name: test
-        run: |
-          ctest --build-config Debug
+    - name: test
+      run: |
+        ctest --build-config Debug

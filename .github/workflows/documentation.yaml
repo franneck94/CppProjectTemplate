@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - "*"
+    branches: [ main, master ]
 
 env:
   CPM_SOURCE_CACHE: ${{ github.workspace }}/cpm_modules

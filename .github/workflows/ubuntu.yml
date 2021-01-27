@@ -1,42 +1,41 @@
-name: MacOS
+name: Ubuntu CI Test
 
 on:
   push:
-    branches:
-      - master
-      - main
+    branches: [ main, master ]
   pull_request:
-    branches:
-      - master
-      - main
+    branches: [ main, master ]
 
 jobs:
   build:
     runs-on: macos-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
 
-      - name: install
-        run: |
-          sudo apt-get install lcov
-          sudo apt-get install gcovr
-          pip install conan
-          conan user
+    - name: install
+      run: |
+        sudo apt-get install lcov
+        sudo apt-get install gcovr
+        pip install conan
+        conan user
 
-      - name: prepare
-        run: |
-          mkdir build
-          cd build
-          conan install ..
+    - name: prepare
+      run: |
+        mkdir build
+        cd build
+        conan install ..
 
-      - name: configure
-        run: cmake -DCMAKE_BUILD_TYPE=Coverage -DENABLE_CODE_COVERAGE=On ..
+    - name: configure
+      run: cmake -DCMAKE_BUILD_TYPE=Coverage -DENABLE_CODE_COVERAGE=On ..
 
-      - name: build
-        run: make
+    - name: build
+      run: make
 
-      - name: test
-        run: |
-          ctest --build-config Debug
+    - name: test
+      run: |
+        ctest --build-config Debug
