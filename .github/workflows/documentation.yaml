@@ -18,16 +18,15 @@ jobs:
     - uses: actions/setup-python@v2
     - name: Install
       run: |
-        pip install jinja2 Pygments
-        sudo apt-get install doxygen
+        make install_doc
     - name: prepare
       run: |
         mkdir build
         cd build
     - name: Build
       run: |
-        cmake -DCMAKE_BUILD_TYPE=Debug ..
-        cmake --build . --config Debug --target CppTemplate_docs
+        cmake . -Bbuild
+        cmake --build build --target CppTemplate_docs
     - name: Publish
       uses: peaceiris/actions-gh-pages@v3
       with:
