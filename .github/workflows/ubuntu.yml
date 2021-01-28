@@ -34,7 +34,7 @@ jobs:
     - name: build
       run: |
         make CppTemplate_coverage
-    - name: test
+    - name: upload
       run: |
         ctest --build-config Debug
         bash <(curl -s https://codecov.io/bash)

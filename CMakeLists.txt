@@ -25,8 +25,8 @@ endif()
 
 option(ENABLE_WARNINGS      "Enable to add warnings to a target."  ON)
 option(ENABLE_TESTING       "Enable a Unit Test build."            ON)
-option(ENABLE_COVERAGE      "Enable a Code Coverage build."        ON)
-option(ENABLE_BENCHMARKING  "Enable a Benchmark build"             ON)
+option(ENABLE_COVERAGE      "Enable a Code Coverage build."        OFF)
+option(ENABLE_BENCHMARKING  "Enable a Benchmark build"             OFF)
 
 # ---- CMake modules ----
 
