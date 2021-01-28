@@ -26,11 +26,11 @@ jobs:
         make prepare
     - name: configure
       run: |
-        cd build
-        cmake .. -DCMAKE_BUILD_TYPE=Debug
+        cmake . -Bbuild
     - name: build
       run: |
-        cmake --build . --config Debug -j4
+        cmake --build build --config Debug -j4
     - name: test
       run: |
+        cd build
         ctest --build-config Debug

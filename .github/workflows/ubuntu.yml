@@ -29,12 +29,13 @@ jobs:
         make prepare
     - name: configure
       run: |
-        cd build
-        cmake .. -DCMAKE_BUILD_TYPE=Coverage -DENABLE_COVERAGE=On
+        cmake . -Bbuild -DENABLE_COVERAGE=1 -DCMAKE_BUILD_TYPE=Debug
     - name: build
       run: |
-        cmake --build . -j4
-    - name: upload
+        cmake --build build -j4
+    - name: test
       run: |
+        cd build
         ctest --build-config Debug
-        bash <(curl -s https://codecov.io/bash)
+    - name: collect code coverage
+      run: bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
