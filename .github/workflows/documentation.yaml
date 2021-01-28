@@ -11,10 +11,10 @@ jobs:
     name: Build and publish documentation
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
+    - name: Checkout repository and submodules
       uses: actions/checkout@v2
-    - name: Checkout submodules
-      uses: textbook/git-checkout-submodule-action@master
+      with:
+        submodules: recursive
     - uses: actions/setup-python@v2
     - name: Install
       run: |
