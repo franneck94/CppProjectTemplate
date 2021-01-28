@@ -30,7 +30,7 @@ jobs:
         cmake .. -DCMAKE_BUILD_TYPE=Debug
     - name: build
       run: |
-        make CppTemplate_unit_tests
+        cmake --build . --config Debug -j4
     - name: test
       run: |
         ctest --build-config Debug
