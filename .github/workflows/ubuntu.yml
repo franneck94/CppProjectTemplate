@@ -9,35 +9,28 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
-
     - name: install
       run: |
-        sudo apt-get install lcov
-        sudo apt-get install gcovr
-        pip install conan
-        conan user
-        conan profile update settings.compiler.libcxx=libstdc++11 default
-
+        make install
+    - name: setup
+      run: |
+        make setup
     - name: prepare
       run: |
-        mkdir build
-        ls
-        cd build
-        conan install ..
-
+        make prepare
     - name: configure
-      run: cmake .. -DCMAKE_BUILD_TYPE=Coverage -DENABLE_COVERAGE=On
-
+      run: |
+        cd build
+        cmake .. -DCMAKE_BUILD_TYPE=Coverage -DENABLE_COVERAGE=On
     - name: build
-      run: make CppTemplate_coverage
-
+      run: |
+        make CppTemplate_coverage
     - name: test
       run: |
         ctest --build-config Debug

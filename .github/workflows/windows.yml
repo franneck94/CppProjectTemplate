@@ -9,32 +9,25 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
-
-    - name: install
+    - name: setup
       run: |
-        pip install conan
-        conan user
-
+        make setup
     - name: prepare
       run: |
-        mkdir build
-        dir
-        cd build
-        conan install ..
-
+        make prepare
     - name: configure
-      run: cmake .. -DCMAKE_BUILD_TYPE=Debug 
-
+      run: |
+        cd build
+        cmake .. -DCMAKE_BUILD_TYPE=Debug 
     - name: build
-      run: make CppTemplate_unit_tests
-
+      run: |
+        make CppTemplate_unit_tests
     - name: test
       run: |
         ctest --build-config Debug

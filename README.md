@@ -22,26 +22,23 @@ This is a template for C++ projects. What you get:
 ``` text
 ├── CMakeLists.txt
 ├── app
+│   ├── CMakesLists.txt
 │   └── main.cc
 ├── benchmarks
 │   ├── CMakesLists.txt
 │   └── main.cc
 ├── docs
 ├── ├── Doxyfile
-│   └── html...
+│   └── html/
 ├── external
 │   ├── CMakesLists.txt
-│   ├── linalg...
-│   ├── loguru...
-│   └── Celero...
+│   ├── linalg/
+│   └── loguru/
 ├── include
-│   └── MyLib
-│     └── my_lib.h
+│   └── my_lib.h
 ├── src
 │   ├── CMakesLists.txt
-│   └── MyLib
-│     ├── CMakesLists.txt
-│     └── my_lib.cc
+│   └── my_lib.cc
 └── tests
   ├── CMakeLists.txt
   └── main.cc
@@ -59,12 +56,12 @@ target_link_libraries(new_executable PRIVATE ${LIBRARY_NAME})  # Link the execut
 
 ## Software Requirements
 
-- CMake 3.12+
+- CMake 3.14+
 - GNU Makefile
 - Doxygen
 - Conan
 - MSVC 2017 (or higher), G++7 (or higher), Clang++7 (or higher)
-- Code Covergae (only on GNU or Clang Compiler): lcov, gcovr
+- Code Covergae (only on GNU|Clang): lcov, gcovr
 
 ## Run CMake Targets
 
