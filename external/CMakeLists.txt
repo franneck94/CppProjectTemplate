@@ -7,7 +7,7 @@ target_set_warnings(TARGET linalg ENABLE OFF AS_ERROR OFF)
 
 # ---- Loguru ----
 
-file(GLOB LOGURU_SOURCES "loguru/*.cpp")
+file(GLOB LOGURU_SOURCES "loguru/loguru.cpp")
 add_library(loguru STATIC ${LOGURU_SOURCES})
 target_include_directories(loguru PUBLIC loguru)
 if(UNIX)
