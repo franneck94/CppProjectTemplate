@@ -11,21 +11,11 @@ set(CMAKE_CXX_STANDARD          17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS        OFF)
 
-if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-    add_compile_options(
-        "$<$<CONFIG:DEBUG>:/Od;>"
-        "$<$<CONFIG:RELEASE>:/Ox>")
-elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-    add_compile_options(
-        "$<$<CONFIG:DEBUG>:-O0;-g3;-ggdb>"
-        "$<$<CONFIG:RELEASE>:-O3>")
-endif()
-
 # ---- Options ----
 
 option(ENABLE_WARNINGS      "Enable to add warnings to a target."  ON)
 option(ENABLE_TESTING       "Enable a Unit Test build."            ON)
-option(ENABLE_COVERAGE      "Enable a Code Coverage build."        OFF)
+option(ENABLE_COVERAGE      "Enable a Code Coverage build."        ON)
 option(ENABLE_BENCHMARKING  "Enable a Benchmark build"             OFF)
 
 # ---- CMake modules ----
@@ -61,16 +51,10 @@ conan_basic_setup()
 
 find_package(Git QUIET)
 if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
-    option(GIT_SUBMODULE "Check submodules during build" ON)
-    if(GIT_SUBMODULE)
-        message(STATUS "Submodule update")
-        execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
-                        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-                        RESULT_VARIABLE GIT_SUBMOD_RESULT)
-        if(NOT GIT_SUBMOD_RESULT EQUAL "0")
-            message(FATAL_ERROR "git submodule update --init failed with ${GIT_SUBMOD_RESULT}, please checkout submodules")
-        endif()
-    endif()
+    message(STATUS "Submodule update")
+    execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
+                    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+                    RESULT_VARIABLE GIT_SUBMOD_RESULT)
 endif()
 
 add_subdirectory(external)

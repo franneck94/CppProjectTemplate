@@ -139,7 +139,7 @@ elseif(NOT CMAKE_COMPILER_IS_GNUCXX)
     endif()
 endif()
 
-set(COVERAGE_COMPILER_FLAGS "-g -O0 -fprofile-arcs -ftest-coverage"
+set(COVERAGE_COMPILER_FLAGS "-g -fprofile-arcs -ftest-coverage"
     CACHE INTERNAL "")
 
 set(CMAKE_Fortran_FLAGS_COVERAGE
@@ -155,7 +155,7 @@ set(CMAKE_C_FLAGS_COVERAGE
     CACHE STRING "Flags used by the C compiler during coverage builds."
     FORCE )
 set(CMAKE_EXE_LINKER_FLAGS_COVERAGE
-    "-lgcov"
+    ""
     CACHE STRING "Flags used for linking binaries during coverage builds."
     FORCE )
 set(CMAKE_SHARED_LINKER_FLAGS_COVERAGE
