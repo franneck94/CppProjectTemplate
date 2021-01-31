@@ -1,8 +1,8 @@
 [requires]
-boost/1.73.0
-cxxopts/2.2.1
+boost/1.75.0
 catch2/2.13.4
 celero/2.6.0
+cxxopts/2.2.1
 
 [generators]
 cmake

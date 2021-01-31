@@ -1,16 +1,16 @@
-# ---- Linalg ----
-
+# Linalg
 set(LIBRARY_INCLUDES "linalg/")
 add_library(linalg INTERFACE)
 target_include_directories(linalg SYSTEM INTERFACE ${LIBRARY_INCLUDES})
-target_set_warnings(TARGET linalg ENABLE OFF AS_ERROR OFF)
 
-# ---- Loguru ----
-
-file(GLOB LOGURU_SOURCES "loguru/loguru.cpp")
-add_library(loguru STATIC ${LOGURU_SOURCES})
-target_include_directories(loguru PUBLIC loguru)
-if(UNIX)
-    target_link_libraries(loguru PUBLIC pthread dl)
+# Loguru
+set(LOGURU_SOURCES "loguru/loguru.cpp")
+set(LOGURU_HEADERS "loguru/loguru.hpp")
+set(LOGURU_INCLUDES "loguru/")
+add_library(loguru ${LOGURU_SOURCES} ${LOGURU_HEADERS})
+target_include_directories(loguru PUBLIC ${LOGURU_INCLUDES})
+find_package(Threads)
+target_link_libraries(loguru ${CMAKE_THREAD_LIBS_INIT}) # For pthreads
+if(NOT WIN32)
+    target_link_libraries(loguru dl) # For ldl
 endif()
-target_set_warnings(TARGET loguru ENABLE OFF AS_ERROR OFF)

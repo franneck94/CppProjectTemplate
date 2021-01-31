@@ -1,16 +1,10 @@
-# ---- Sources ----
+# Sources
+set(BENCHMARK_SOURCES "main.cc")
 
-set(BENCHMARK_SOURCES   "main.cc")
-
-# ---- Target ----
-
-set(BENCHMARK_MAIN      "${PROJECT}_benchmarks")
+# Target
 add_executable(${BENCHMARK_MAIN} ${BENCHMARK_SOURCES})
 
-# ---- Settings ----
-
-target_compile_options(${BENCHMARK_MAIN} PUBLIC ${BENCHMARK_FLAGS})
+# Settings
 target_compile_features(${BENCHMARK_MAIN} PUBLIC cxx_std_17)
 target_link_libraries(${BENCHMARK_MAIN} PUBLIC ${LIBRARY_NAME})
 target_link_libraries(${BENCHMARK_MAIN} PUBLIC ${CONAN_LIBS_CELERO})
-target_set_warnings(TARGET ${MAIN} ENABLE OFF AS_ERROR OFF)

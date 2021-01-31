@@ -1,38 +1,26 @@
 #define CATCH_CONFIG_MAIN
+
 #include "catch2/catch.hpp"
 
 #include "my_lib.h"
-#include "linalg.h"
 
-TEST_CASE("TestSuite_MyLib1", "Test_ComputeAverage")
+TEST_CASE("Test my cout function", "TestCout")
 {
-    std::int32_t valueA = 10;
-    std::int32_t valueB = 20;
-    std::int32_t expectedResult = 15;
-    std::int32_t result1 = compute_average(valueA, valueB);
-    std::int32_t result2 = compute_average(valueB, valueA);
-
-    REQUIRE(expectedResult == result1);
-    REQUIRE(expectedResult == result2);
+    cout_hello_world();
 }
 
-TEST_CASE("TestSuite_MyLib2", "Test_Prints")
+TEST_CASE("Test my vector function", "TestVector")
 {
-    bool expectedResult = true;
-    bool coutResult = hello_world();
-    bool boostResult = print_boost_version();
+    linalg::aliases::float3 v = print_linalg_vector();
 
-    REQUIRE(expectedResult == coutResult);
-    REQUIRE(expectedResult == boostResult);
+    REQUIRE(1 == v[0]);
+    REQUIRE(2 == v[1]);
+    REQUIRE(3 == v[2]);
 }
 
-TEST_CASE("TestSuite_MyLib3", "Test_Vector")
+TEST_CASE("Test my boost function", "TestBoost")
 {
-    linalg::aliases::float3 expectedResult { 1, 2, 3 };
-    linalg::aliases::float3 result = print_linalg_vector(); 
+    bool b = print_boost_version();
 
-    for (int i = 0; i < 3; ++i)
-    {
-        REQUIRE(expectedResult[i] == result[i]);
-    }
+    REQUIRE(true == b);
 }
