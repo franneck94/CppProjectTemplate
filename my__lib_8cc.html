@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">C++ Project Template
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.2.3</span>
    </div>
   </td>
  </tr>
@@ -70,6 +70,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &quot;linalg.h&quot;</code><br />
 <code>#include &quot;boost/version.hpp&quot;</code><br />
 <code>#include &quot;<a class="el" href="my__lib_8h_source.html">my_lib.h</a>&quot;</code><br />
@@ -83,66 +84,25 @@ Include dependency graph for my_lib.cc:</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a511c315cfbc50e413a51aa410b90d4a4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="my__lib_8cc.html#a511c315cfbc50e413a51aa410b90d4a4">hello_world</a> ()</td></tr>
-<tr class="memdesc:a511c315cfbc50e413a51aa410b90d4a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function couts hello world.  <a href="#a511c315cfbc50e413a51aa410b90d4a4">More...</a><br /></td></tr>
-<tr class="separator:a511c315cfbc50e413a51aa410b90d4a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c6283a9ee13f31398d84324ef66f912"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="my__lib_8cc.html#a7c6283a9ee13f31398d84324ef66f912">cout_hello_world</a> ()</td></tr>
+<tr class="memdesc:a7c6283a9ee13f31398d84324ef66f912"><td class="mdescLeft">&#160;</td><td class="mdescRight">Couts hello world to the console.  <a href="#a7c6283a9ee13f31398d84324ef66f912">More...</a><br /></td></tr>
+<tr class="separator:a7c6283a9ee13f31398d84324ef66f912"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7130a86d38e1d8c048bff3dc898793bc"><td class="memItemLeft" align="right" valign="top">linalg::aliases::float3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="my__lib_8cc.html#a7130a86d38e1d8c048bff3dc898793bc">print_linalg_vector</a> ()</td></tr>
-<tr class="memdesc:a7130a86d38e1d8c048bff3dc898793bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function prints the content of a vector.  <a href="#a7130a86d38e1d8c048bff3dc898793bc">More...</a><br /></td></tr>
+<tr class="memdesc:a7130a86d38e1d8c048bff3dc898793bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and prints out an instance of the float3 class.  <a href="#a7130a86d38e1d8c048bff3dc898793bc">More...</a><br /></td></tr>
 <tr class="separator:a7130a86d38e1d8c048bff3dc898793bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a50ba6661afcb96c5dc03d061471f8931"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="my__lib_8cc.html#a50ba6661afcb96c5dc03d061471f8931">print_boost_version</a> ()</td></tr>
-<tr class="memdesc:a50ba6661afcb96c5dc03d061471f8931"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function prints the installed boost version.  <a href="#a50ba6661afcb96c5dc03d061471f8931">More...</a><br /></td></tr>
+<tr class="memdesc:a50ba6661afcb96c5dc03d061471f8931"><td class="mdescLeft">&#160;</td><td class="mdescRight">Couts the version of the installed boost library.  <a href="#a50ba6661afcb96c5dc03d061471f8931">More...</a><br /></td></tr>
 <tr class="separator:a50ba6661afcb96c5dc03d061471f8931"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afec63e4795980415315c88a28e35e5f5"><td class="memItemLeft" align="right" valign="top">std::int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="my__lib_8cc.html#afec63e4795980415315c88a28e35e5f5">compute_average</a> (std::int32_t a, std::int32_t b)</td></tr>
-<tr class="memdesc:afec63e4795980415315c88a28e35e5f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function computes the integer average of two integers.  <a href="#afec63e4795980415315c88a28e35e5f5">More...</a><br /></td></tr>
-<tr class="separator:afec63e4795980415315c88a28e35e5f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="afec63e4795980415315c88a28e35e5f5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afec63e4795980415315c88a28e35e5f5">&#9670;&nbsp;</a></span>compute_average()</h2>
+<a id="a7c6283a9ee13f31398d84324ef66f912"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c6283a9ee13f31398d84324ef66f912">&#9670;&nbsp;</a></span>cout_hello_world()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::int32_t compute_average </td>
-          <td>(</td>
-          <td class="paramtype">std::int32_t&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::int32_t&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function computes the integer average of two integers. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">a</td><td>The first integer value. </td></tr>
-    <tr><td class="paramname">b</td><td>The second integer value. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>std::int32_t </dd></dl>
-
-</div>
-</div>
-<a id="a511c315cfbc50e413a51aa410b90d4a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a511c315cfbc50e413a51aa410b90d4a4">&#9670;&nbsp;</a></span>hello_world()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool hello_world </td>
+          <td class="memname">void cout_hello_world </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -150,10 +110,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function couts hello world. </p>
-<dl class="section return"><dt>Returns</dt><dd>true </dd>
-<dd>
-false </dd></dl>
+<p>Couts hello world to the console. </p>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 </div>
 </div>
@@ -172,10 +130,8 @@ false </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>This function prints the installed boost version. </p>
-<dl class="section return"><dt>Returns</dt><dd>true </dd>
-<dd>
-false </dd></dl>
+<p>Couts the version of the installed boost library. </p>
+<dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
 
 </div>
 </div>
@@ -194,8 +150,8 @@ false </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>This function prints the content of a vector. </p>
-<dl class="section return"><dt>Returns</dt><dd>linalg::aliases::float3 </dd></dl>
+<p>Creates and prints out an instance of the float3 class. </p>
+<dl class="section return"><dt>Returns</dt><dd>float3 vector </dd></dl>
 
 </div>
 </div>

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['print_5fboost_5fversion',['print_boost_version',['../my__lib_8cc.html#a50ba6661afcb96c5dc03d061471f8931',1,'print_boost_version():&#160;my_lib.cc'],['../my__lib_8h.html#a50ba6661afcb96c5dc03d061471f8931',1,'print_boost_version():&#160;my_lib.cc']]],
-  ['print_5flinalg_5fvector',['print_linalg_vector',['../my__lib_8cc.html#a7130a86d38e1d8c048bff3dc898793bc',1,'print_linalg_vector():&#160;my_lib.cc'],['../my__lib_8h.html#a7130a86d38e1d8c048bff3dc898793bc',1,'print_linalg_vector():&#160;my_lib.cc']]]
+  ['set',['set',['../CMakeLists_8txt.html#aa068ff81115c6930eadbd0efeddcadf6',1,'set(LIBRARY_SOURCES &quot;my_lib.cc&quot;) set(LIBRARY_HEADERS &quot;$:&#160;CMakeLists.txt'],['../CMakeLists_8txt.html#aa0a149711d0efea21a0aaa71676a2767',1,'set(LIBRARY_INCLUDES &quot;${PROJECT_SOURCE_DIR}/include/&quot;) add_library($:&#160;CMakeLists.txt']]]
 ];
