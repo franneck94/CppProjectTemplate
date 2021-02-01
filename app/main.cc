@@ -55,5 +55,7 @@ int main(int argc, char **argv)
         std::cout << "verbose: " << verbose << std::endl;
     }
 
+    int a = 10e06;
+
     return 0;
 }
