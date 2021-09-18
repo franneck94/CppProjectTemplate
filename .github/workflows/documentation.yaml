@@ -4,38 +4,29 @@ on:
   push:
     tags:
       - "*"
+    branches: [ main, master ]
 
 jobs:
   build:
     name: Build and publish documentation
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository and submodules
-      uses: actions/checkout@v2
-      with:
-        submodules: recursive
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-    - name: install
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+    - name: Install
       run: |
-        make install
-    - name: install doc
-      run: |
-        make install_doc
-    - name: setup
-      run: |
-        make setup
+        pip install jinja2 Pygments
+        sudo apt-get install doxygen
     - name: prepare
       run: |
-        make prepare
+        mkdir build
+        cd build
     - name: Build
       run: |
-        cmake . -Bbuild
-        cmake --build build --target CppTemplate_docs
+        cmake -DCMAKE_BUILD_TYPE=Debug ..
+        cmake --build . --config Debug --target CppTemplate_docs
     - name: Publish
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs/html
+        publish_dir: ./build/doxygen/html

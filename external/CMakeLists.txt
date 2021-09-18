@@ -2,7 +2,6 @@
 set(LIBRARY_INCLUDES "linalg/")
 add_library(linalg INTERFACE)
 target_include_directories(linalg SYSTEM INTERFACE ${LIBRARY_INCLUDES})
-target_set_warnings(TARGET linalg ENABLE OFF AS_ERROR OFF)
 
 # Loguru
 set(LOGURU_SOURCES "loguru/loguru.cpp")
@@ -15,4 +14,3 @@ target_link_libraries(loguru ${CMAKE_THREAD_LIBS_INIT}) # For pthreads
 if(NOT WIN32)
     target_link_libraries(loguru dl) # For ldl
 endif()
-target_set_warnings(TARGET loguru ENABLE OFF AS_ERROR OFF)

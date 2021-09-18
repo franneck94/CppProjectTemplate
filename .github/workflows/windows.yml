@@ -10,10 +10,7 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-    - name: Checkout repository and submodules
-      uses: actions/checkout@v2
-      with:
-        submodules: recursive
+    - uses: actions/checkout@v2
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
@@ -26,11 +23,11 @@ jobs:
         make prepare
     - name: configure
       run: |
-        cmake . -Bbuild
+        cd build
+        cmake .. -DCMAKE_BUILD_TYPE=Debug 
     - name: build
       run: |
-        cmake --build build --config Debug -j4
+        make CppTemplate_unit_tests
     - name: test
       run: |
-        cd build
         ctest --build-config Debug

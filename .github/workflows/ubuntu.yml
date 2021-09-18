@@ -10,10 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository and submodules
-      uses: actions/checkout@v2
-      with:
-        submodules: recursive
+    - uses: actions/checkout@v2
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
@@ -29,13 +26,12 @@ jobs:
         make prepare
     - name: configure
       run: |
-        cmake . -Bbuild -DENABLE_COVERAGE=1 -DCMAKE_BUILD_TYPE=Coverage
+        cd build
+        cmake .. -DCMAKE_BUILD_TYPE=Coverage -DENABLE_COVERAGE=On
     - name: build
       run: |
-        cmake --build build -j4
+        make CppTemplate_coverage
     - name: test
       run: |
-        cd build
-        make CppTemplate_coverage
-    - name: collect code coverage
-      run: bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
+        ctest --build-config Debug
+        bash <(curl -s https://codecov.io/bash)

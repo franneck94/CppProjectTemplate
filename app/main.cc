@@ -5,7 +5,7 @@
 
 #include "my_lib.h"
 
-int main(int argc, char **argv)
+auto main(int argc, char **argv) -> int
 {
     cout_hello_world();
     print_linalg_vector();
@@ -55,7 +55,7 @@ int main(int argc, char **argv)
         std::cout << "verbose: " << verbose << std::endl;
     }
 
-    int a = 10e06;
+    int a = 2;
 
     return 0;
 }

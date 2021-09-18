@@ -47,15 +47,21 @@ This is a template for C++ projects. What you get:
 Sources go in [src/](src/), header files in [include/](include/), main programs in [app/](app),
 tests go in [tests/](tests/) and benchmarks go in [benchmarks/](benchmarks/).
 
+If you add a new executable, say `app/new_executable.cc`, you only need to add the following two lines to [CMakeLists.txt](CMakeLists.txt):
+
+```shell
+add_executable(new_executable app/new_executable.cc) # Name of exec. and location of file.
+target_link_libraries(new_executable PRIVATE ${LIBRARY_NAME})  # Link the executable to lib built from src/*.cc (if it uses it).
+```
+
 ## Software Requirements
 
 - CMake 3.14+
 - GNU Makefile
 - Doxygen
-- Python3.4+
 - Conan
 - MSVC 2017 (or higher), G++7 (or higher), Clang++7 (or higher)
-- Code Coverage (only on GNU|Clang): lcov, gcovr
+- Code Covergae (only on GNU|Clang): lcov, gcovr
 
 ## Run CMake Targets
 

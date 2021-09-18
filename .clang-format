@@ -1,0 +1,22 @@
+---
+BasedOnStyle: Microsoft
+
+TabWidth: 4
+UseTab: Never
+ColumnLimit: 120
+
+PointerAlignment: Right
+ReflowComments: false
+AccessModifierOffset: -2
+
+BinPackParameters: false
+BinPackArguments: false
+AllowAllArgumentsOnNextLine: false
+AllowAllConstructorInitializersOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
+
+BreakBeforeBinaryOperators: true
+BreakBeforeBraces: Custom
+BraceWrapping:
+    AfterCaseLabel: true
+...
