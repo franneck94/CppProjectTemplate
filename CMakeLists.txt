@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
 set(PROJECT "CppTemplate")
-
 project("${PROJECT}_Project" VERSION 1.2.3 LANGUAGES CXX)
 
 # Global CMake variables are set here
@@ -15,10 +14,10 @@ option(ENABLE_WARNINGS      "Enable to add warnings to a target."   ON)
 option(ENABLE_TESTING       "Enable a Unit Testing build."          ON)
 option(ENABLE_COVERAGE      "Enable a Code Coverage build."         OFF)
 option(ENABLE_BENCHMARKS    "Enable a benchmark build."             ON)
-option(ENABLE_CLANG_TIDY    "Enable a clang tidy checks."           ON)
-option(ENABLE_CPPCHECK      "Enable a cppcheck checks."             ON)
-option(ENABLE_LTO           "Enable Link Time Optimization (LTO)."  ON)
-option(ENABLE_CCACHE        "Enable the usage of Ccache."           ON)
+option(ENABLE_CLANG_TIDY    "Enable a clang tidy checks."           OFF)
+option(ENABLE_CPPCHECK      "Enable a cppcheck checks."             OFF)
+option(ENABLE_LTO           "Enable Link Time Optimization (LTO)."  OFF)
+option(ENABLE_CCACHE        "Enable the usage of Ccache."           OFF)
 
 # Cmake modules
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/)
