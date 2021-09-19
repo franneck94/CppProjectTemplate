@@ -25,9 +25,9 @@ jobs:
       run: |
         cd build
         cmake .. -DCMAKE_BUILD_TYPE=Debug
-    - name: build
+    - name: building
       run: |
         make CppTemplate_unit_tests
-    - name: test
+    - name: testing
       run: |
         ctest --build-config Debug

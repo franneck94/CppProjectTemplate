@@ -20,7 +20,7 @@ jobs:
       run: |
         mkdir build
         cd build
-    - name: Build
+    - name: building
       run: |
         cmake -DCMAKE_BUILD_TYPE=Debug ..
         cmake --build . --config Debug --target CppTemplate_docs

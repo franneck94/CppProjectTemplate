@@ -28,13 +28,11 @@ jobs:
       run: |
         cd build
         cmake .. -DCMAKE_BUILD_TYPE=Coverage -DENABLE_COVERAGE=On
-    - name: build
+    - name: building
       run: |
         ls
-        make
-        make help
         make CppTemplate_coverage
-    - name: test
+    - name: testing
       run: |
         ctest --build-config Debug
         bash <(curl -s https://codecov.io/bash)
