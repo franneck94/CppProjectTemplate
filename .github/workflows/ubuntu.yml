@@ -27,13 +27,10 @@ jobs:
     - name: configure
       run: |
         cd build
-        ls
         cmake .. -DCMAKE_BUILD_TYPE=Coverage -DENABLE_COVERAGE=On
     - name: building
       run: |
-        ls
         cd build
-        ls
         make CppTemplate_coverage
     - name: testing
       run: |
