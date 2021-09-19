@@ -2,9 +2,9 @@ name: Windows CI Test
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, master, dev ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main, master, dev ]
 
 jobs:
   build:
@@ -24,7 +24,7 @@ jobs:
     - name: configure
       run: |
         cd build
-        cmake .. -DCMAKE_BUILD_TYPE=Debug 
+        cmake .. -DCMAKE_BUILD_TYPE=Debug
     - name: build
       run: |
         make CppTemplate_unit_tests
