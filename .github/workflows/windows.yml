@@ -23,11 +23,10 @@ jobs:
         make prepare
     - name: configure
       run: |
-        cd build
-        cmake .. -DCMAKE_BUILD_TYPE=Debug
+        cmake -H. -Bbuild -G "Visual Studio 16 2019" -T host=x86 -A x64 -DCMAKE_BUILD_TYPE="Debug"
     - name: building
       run: |
-        cmake --build . --config Debug --target CppTemplate_unit_tests
+        cmake --build build --config Debug --target CppTemplate_unit_tests -j4
     - name: testing
       run: |
-        ctest --build-config Debug
+        ctest -C Debug -T test -j4

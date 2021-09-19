@@ -26,12 +26,11 @@ jobs:
         make prepare
     - name: configure
       run: |
-        cd build
-        cmake .. -DCMAKE_BUILD_TYPE=Coverage -DENABLE_COVERAGE=On
+        cmake -H. -Bbuild -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Coverage -DENABLE_COVERAGE=On
     - name: building
       run: |
-        cmake --build . --config Coverage --target CppTemplate_unit_tests
+        cmake --build build --config Coverage --target CppTemplate_unit_tests -j4
     - name: testing
       run: |
-        ctest --build-config Debug
+        ctest -C Debug -T test -j4
         bash <(curl -s https://codecov.io/bash)
