@@ -30,6 +30,7 @@ jobs:
         cmake .. -DCMAKE_BUILD_TYPE=Coverage -DENABLE_COVERAGE=On
     - name: build
       run: |
+        make help
         make CppTemplate_coverage
     - name: test
       run: |
