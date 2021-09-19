@@ -2,9 +2,9 @@ name: Ubuntu CI Test
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, master, dev ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main, master, dev ]
 
 jobs:
   build:
@@ -26,12 +26,12 @@ jobs:
         make prepare
     - name: configure
       run: |
+        cmake -H. -Bbuild -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Coverage -DENABLE_COVERAGE=On
+    - name: building
+      run: |
+        cmake --build build --config Coverage --target CppTemplate_unit_tests -j4
+    - name: testing
+      run: |
         cd build
-        cmake .. -DCMAKE_BUILD_TYPE=Coverage -DENABLE_COVERAGE=On
-    - name: build
-      run: |
-        make CppTemplate_coverage
-    - name: test
-      run: |
-        ctest --build-config Debug
+        ctest -C Debug -T test -j4
         bash <(curl -s https://codecov.io/bash)

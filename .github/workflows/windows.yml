@@ -2,9 +2,9 @@ name: Windows CI Test
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, master, dev ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main, master, dev ]
 
 jobs:
   build:
@@ -23,11 +23,11 @@ jobs:
         make prepare
     - name: configure
       run: |
+        cmake -H"." -Bbuild -G "Visual Studio 16 2019" -T host=x86 -A x64 -DCMAKE_BUILD_TYPE="Debug"
+    - name: building
+      run: |
+        cmake --build build --config Debug --target CppTemplate_unit_tests -j4
+    - name: testing
+      run: |
         cd build
-        cmake .. -DCMAKE_BUILD_TYPE=Debug 
-    - name: build
-      run: |
-        make CppTemplate_unit_tests
-    - name: test
-      run: |
-        ctest --build-config Debug
+        ctest -C Debug -j4
