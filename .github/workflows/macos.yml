@@ -29,4 +29,5 @@ jobs:
         cmake --build build --config Debug --target CppTemplate_unit_tests -j4
     - name: testing
       run: |
+        cd build
         ctest -C Debug -T test -j4

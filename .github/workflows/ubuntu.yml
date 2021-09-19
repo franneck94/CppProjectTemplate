@@ -32,5 +32,6 @@ jobs:
         cmake --build build --config Coverage --target CppTemplate_unit_tests -j4
     - name: testing
       run: |
+        cd build
         ctest -C Debug -T test -j4
         bash <(curl -s https://codecov.io/bash)
