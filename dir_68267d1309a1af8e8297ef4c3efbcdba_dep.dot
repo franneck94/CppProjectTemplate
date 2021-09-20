@@ -1,0 +1,8 @@
+digraph "/home/runner/work/Cpp-Project-Template/Cpp-Project-Template/src" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  dir_68267d1309a1af8e8297ef4c3efbcdba [shape=box, label="src", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_68267d1309a1af8e8297ef4c3efbcdba.html"];
+  dir_d44c64559bbebec7f509842c48db8b23 [shape=box label="include" URL="dir_d44c64559bbebec7f509842c48db8b23.html"];
+  dir_68267d1309a1af8e8297ef4c3efbcdba->dir_d44c64559bbebec7f509842c48db8b23 [headlabel="1", labeldistance=1.5 headhref="dir_000001_000000.html"];
+}
