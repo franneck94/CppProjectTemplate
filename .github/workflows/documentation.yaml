@@ -15,7 +15,16 @@ jobs:
     - uses: actions/setup-python@v2
     - name: Install
       run: |
+        make install
+    - name: Install Docs
+      run: |
         make install_doc
+    - name: Setup
+      run: |
+        make setup
+    - name: prepare
+      run: |
+        make prepare
     - name: configure
       run: |
         cmake -H. -Bbuild -G "Unix Makefiles" -DCMAKE_BUILD_TYPE="Debug"
