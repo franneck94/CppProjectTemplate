@@ -7,5 +7,4 @@ ignore:
   - "app/*"
   - "external/*"
   - "external/**/*"
-  - "benchmarks/*"
   - "tests/*"

@@ -1,16 +1,19 @@
-set(TEST_SOURCES "main.cc")
+if (ENABLE_TESTING)
+    enable_testing()
+    set(TEST_SOURCES "main.cc")
 
-add_executable(${TEST_MAIN} ${TEST_SOURCES})
+    add_executable(${TEST_MAIN} ${TEST_SOURCES})
 
-target_link_libraries(${TEST_MAIN} PRIVATE
-    ${LIBRARY_NAME}
-    ${CONAN_CATCH2})
-target_set_warnings(TARGET ${TEST_MAIN} ENABLE OFF AS_ERROR OFF)
+    target_link_libraries(${TEST_MAIN} PRIVATE
+        ${LIBRARY_NAME}
+        ${CONAN_CATCH2})
+    target_set_warnings(TARGET ${TEST_MAIN} ENABLE OFF AS_ERROR OFF)
 
-add_test(NAME ${LIBRARY_NAME}.${TEST_MAIN} COMMAND ${TEST_MAIN})
+    add_test(NAME ${LIBRARY_NAME}.${TEST_MAIN} COMMAND ${TEST_MAIN})
+endif()
 
 if (ENABLE_COVERAGE)
-    set(COVERAGE_MAIN "${PROJECT}_coverage")
+    set(COVERAGE_MAIN "coverage")
     set(COVERAGE_LCOV_EXCLUDES
         "${PROJECT_SOURCE_DIR}/app/*"
         "${PROJECT_SOURCE_DIR}/cmake/*"

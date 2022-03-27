@@ -14,37 +14,31 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS   ON)
 option(ENABLE_WARNINGS      "Enable to add warnings to a target."   ON)
 option(ENABLE_TESTING       "Enable a Unit Testing build."          ON)
 option(ENABLE_COVERAGE      "Enable a Code Coverage build."         OFF)
-option(ENABLE_BENCHMARKS    "Enable a benchmark build."             OFF)
 option(ENABLE_CLANG_TIDY    "Enable to add clang tidy."             ON)
 option(ENABLE_CPPCHECK      "Enable to add cppcheck."               ON)
 option(ENABLE_LTO           "Enable to add Link Time Optimization." ON)
 option(ENABLE_CCACHE        "Enable to add Ccache."                 ON)
 
 # Project/Library Names
-set(LIBRARY_NAME    "MyLib")
-set(EXECUTABLE_NAME "Executable")
+set(LIBRARY_NAME    "lib")
+set(EXECUTABLE_NAME "main")
 set(TEST_MAIN       "unit_tests")
 set(COVERAGE_MAIN   "coverage")
-set(BENCHMARK_MAIN  "benchmarks")
 
 ### CMAKE MODULES
 
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/)
 include(ConfigSafeGuards)
 include(Warnings)
-include(Documentation)
+include(Docs)
+include(CodeCoverage)
+
 include(StaticAnalyzers)
 include(LTO)
 include(Ccache)
 
 if (ENABLE_LTO)
     find_lto(CXX)
-endif()
-
-if (ENABLE_TESTING)
-    enable_testing()
-endif()
-if (ENABLE_COVERAGE)
-    include(CodeCoverage)
 endif()
 
 ### EXTERNAL LIBRARIES
@@ -65,14 +59,7 @@ endif()
 add_subdirectory(external)
 add_subdirectory(src)
 add_subdirectory(app)
-
-if (ENABLE_TESTING)
-    add_subdirectory(tests)
-endif()
-
-if (ENABLE_BENCHMARKING)
-    add_subdirectory(benchmarks)
-endif()
+add_subdirectory(tests)
 
 ### INSTALL TARGETS
 

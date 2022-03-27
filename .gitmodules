@@ -1,4 +1,4 @@
-[submodule "external/loguru"]
-	path = external/loguru
-	url = https://github.com/emilk/loguru.git
+[submodule "external/json"]
+	path = external/json
+	url = https://github.com/nlohmann/json.git
 	branch = master

@@ -8,14 +8,14 @@
 This is a template for C++ projects. What you get:
 
 - Sources, headers and test files separated in distinct folders.
-- External libraries that are locally cloned by [Github](https://github.com).
-- External libraries installed and managed by [Conan](https://conan.io/).
-- Use of modern [CMake](https://cmake.org/) for building and compiling.
-- Unit testing, using [Catch2](https://github.com/catchorg/Catch2), Logging, using [Loguru](https://github.com/emilk/loguru) and Benchmarking, using [Celero](https://github.com/DigitalInBlue/Celero).
+- Use of modern CMake for building and compiling.
+- External libraries fetched by CMake or cloned by git.
+- External libraries installed and managed by [Conan](https://conan.io/) or [VCPKG](https://github.com/microsoft/vcpkg).
+- Unit testing using [Catch2](https://github.com/catchorg/Catch2)
+- General purpose libraries: [JSON](https://github.com/nlohmann/json), [spdlog](https://github.com/gabime/spdlog), [cxxopts](https://github.com/jarro2783/cxxopts) and [fmt](https://github.com/fmtlib/fmt).
 - Continuous testing with Github Actions.
 - Code coverage reports, including automatic upload to [Codecov](https://codecov.io).
 - Code documentation with [Doxygen](http://www.stack.nl/~dimitri/doxygen/).
-- Optional: Use of [VSCode](https://code.visualstudio.com/) with the C/C++ and CMakeTools extension.
 
 ## Structure
 
@@ -24,43 +24,38 @@ This is a template for C++ projects. What you get:
 ├── app
 │   ├── CMakesLists.txt
 │   └── main.cc
-├── benchmarks
-│   ├── CMakesLists.txt
-│   └── main.cc
 ├── docs
 ├── ├── Doxyfile
 │   └── html/
 ├── external
 │   ├── CMakesLists.txt
-│   ├── linalg/
-│   └── loguru/
+│   ├── ...
 ├── include
 │   └── my_lib.h
 ├── src
 │   ├── CMakesLists.txt
 │   └── my_lib.cc
 └── tests
-  ├── CMakeLists.txt
-  └── main.cc
+    ├── CMakeLists.txt
+    └── main.cc
 ```
 
-Sources go in [src/](src/), header files in [include/](include/), main programs in [app/](app),
-tests go in [tests/](tests/) and benchmarks go in [benchmarks/](benchmarks/).
+Sources go in [src/](src/), header files in [include/](include/), main program in [app/](app) and tests go in [tests/](tests/).
 
 If you add a new executable, say `app/new_executable.cc`, you only need to add the following two lines to [CMakeLists.txt](CMakeLists.txt):
 
-```shell
-add_executable(new_executable app/new_executable.cc) # Name of exec. and location of file.
-target_link_libraries(new_executable PRIVATE ${LIBRARY_NAME})  # Link the executable to lib built from src/*.cc (if it uses it).
+```cmake
+add_executable(new_executable app/new_executable.cc) # Name of exe and sources
+target_link_libraries(new_executable PRIVATE ${LIBRARY_NAME})  # Link the exe to the dependencies
 ```
 
 ## Software Requirements
 
-- CMake 3.14+
+- CMake 3.16+
 - GNU Makefile
 - Doxygen
-- Conan
-- MSVC 2017 (or higher), G++7 (or higher), Clang++7 (or higher)
+- Conan or VCPKG
+- MSVC 2017 (or higher), G++9 (or higher), Clang++9 (or higher)
 - Code Covergae (only on GNU|Clang): lcov, gcovr
 
 ## Run CMake Targets
@@ -71,8 +66,8 @@ The build type can be Debug/Release/MinSizeRel or RelWithDebInfo
 ```shell
 cd build
 cmake -DCMAKE_BUILD_TYPE=Release ..
-cmake --build . --config Release --target CppTemplate_executable
-./bin/CppTemplate_executable
+cmake --build . --config Release --target main
+./bin/main
 ```
 
 - Code Coverage:
@@ -81,7 +76,7 @@ The build type has to be Coverage.
 ```shell
 cd build
 cmake -DCMAKE_BUILD_TYPE=Coverage -DENABLE_CODE_COVERAGE=ON ..
-cmake --build . --config Coverage --target CppTemplate_coverage
+cmake --build . --config Coverage --target coverage
 ```
 
 - Unit testing:
@@ -90,26 +85,16 @@ The build type should to be Debug for GCC/Clang and Release for MSVC (due to bug
 ```shell
 cd build
 cmake -DCMAKE_BUILD_TYPE=Debug ..
-cmake --build . --config Debug --target CppTemplate_unit_tests
-./bin/CppTemplate_unit_tests
+cmake --build . --config Debug --target unit_tests
+./bin/unit_tests
 ```
 
-- Benchmarking:
-The build type should to be Release.
-
-```shell
-cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_BENCHMARKS=ON ..
-cmake --build . --config Release --target CppTemplate_benchmarks
-./bin/CppTemplate_benchmarks
-```
-
-- Documentation:
+- Documentation
 
 ```shell
 cd build
 cmake -DCMAKE_BUILD_TYPE=Debug ..
-cmake --build . --config Debug --target CppTemplate_docs
+cmake --build . --config Debug --target docs
 ```
 
 ## CMake Tutorial
