@@ -33,6 +33,7 @@ include(Warnings)
 include(Docs)
 include(CodeCoverage)
 include(AddGitSubmodule)
+include(FetchContent)
 
 include(StaticAnalyzers)
 include(LTO)
@@ -45,6 +46,18 @@ endif()
 ### EXTERNAL LIBRARIES
 
 add_git_submodule(external/json)
+
+FetchContent_Declare(
+    fmt
+    GIT_REPOSITORY https://github.com/fmtlib/fmt.git
+    GIT_TAG 8.1.1)
+FetchContent_MakeAvailable(fmt)
+
+FetchContent_Declare(
+    spdlog
+    GIT_REPOSITORY https://github.com/gabime/spdlog
+    GIT_TAG v1.9.2)
+FetchContent_MakeAvailable(spdlog)
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()

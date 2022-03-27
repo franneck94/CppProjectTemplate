@@ -1,5 +1,4 @@
 #include <iostream>
-#include <stdio.h>
 
 #include "my_lib.h"
 
@@ -10,5 +9,5 @@
  */
 void cout_hello_world()
 {
-    std::cout << "Cout: Hello World" << std::endl;
+    std::cout << "Cout: Hello World" << '\n';
 }

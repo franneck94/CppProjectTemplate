@@ -1,12 +1,16 @@
 #include <iostream>
 
-#include "cxxopts.hpp"
+#include <cxxopts.hpp>
+#include <fmt/format.h>
+#include <spdlog/spdlog.h>
 
 #include "my_lib.h"
 
 auto main(int argc, char **argv) -> int
 {
     cout_hello_world();
+
+    spdlog::info("Welcome to spdlog!");
 
     cxxopts::Options options("MyProgram", "One line description of MyProgram");
 
@@ -42,7 +46,8 @@ auto main(int argc, char **argv) -> int
         std::cout << "verbose: " << verbose << std::endl;
     }
 
-    int a = 2;
+    int a = 42;
+    fmt::print("The answer is {}\n", a);
 
     return 0;
 }
