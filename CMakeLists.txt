@@ -32,6 +32,7 @@ include(ConfigSafeGuards)
 include(Warnings)
 include(Docs)
 include(CodeCoverage)
+include(AddGitSubmodule)
 
 include(StaticAnalyzers)
 include(LTO)
@@ -43,16 +44,10 @@ endif()
 
 ### EXTERNAL LIBRARIES
 
+add_git_submodule(external/json)
+
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
-
-find_package(Git QUIET)
-if(GIT_FOUND)
-    message(STATUS "Submodule update")
-    execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
-                    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-                    RESULT_VARIABLE GIT_SUBMOD_RESULT)
-endif()
 
 ### SUB DIRECTORIES
 
