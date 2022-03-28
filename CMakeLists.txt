@@ -18,13 +18,11 @@ option(ENABLE_CLANG_TIDY    "Enable to add clang tidy."             ON)
 option(ENABLE_CPPCHECK      "Enable to add cppcheck."               OFF)
 option(ENABLE_LTO           "Enable to add Link Time Optimization." ON)
 option(ENABLE_CCACHE        "Enable to add Ccache."                 OFF)
-option(USE_CONAN            "Whether to use conan or vcpkg"         OFF)
+option(USE_CONAN            "Whether to use conan or vcpkg"         ON)
 
 # Project/Library Names
 set(LIBRARY_NAME    "lib")
 set(EXECUTABLE_NAME "main")
-set(TEST_MAIN       "unit_tests")
-set(COVERAGE_MAIN   "coverage")
 
 ### CMAKE MODULES
 
@@ -65,7 +63,7 @@ FetchContent_MakeAvailable(spdlog)
 if(USE_CONAN)
     include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup()
-else()
+else() # Note: VCPKG need more adaptations in cmake files
     find_package(Catch2 CONFIG REQUIRED)
     find_package(cxxopts CONFIG REQUIRED)
 endif()
