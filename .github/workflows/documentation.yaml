@@ -31,8 +31,9 @@ jobs:
     - name: building
       run: |
         cmake --build build --config Debug --target docs -j4
-    - name: Publish
-      uses: peaceiris/actions-gh-pages@v3
+    - name: Deploy to GitHub Pages
+      uses: Cecilapp/GitHub-Pages-deploy@v3
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs/html
+        build_dir: ./docs/html
