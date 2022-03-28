@@ -1,13 +1,12 @@
 if (ENABLE_TESTING)
-    enable_testing()
     set(TEST_SOURCES "main.cc")
 
     add_executable(${TEST_MAIN} ${TEST_SOURCES})
 
     target_link_libraries(${TEST_MAIN} PRIVATE
         ${LIBRARY_NAME}
-        ${CONAN_CATCH2})
-    target_set_warnings(TARGET ${TEST_MAIN} ENABLE OFF AS_ERROR OFF)
+        Catch2::Catch2)
+    target_set_warnings(TARGET ${TEST_MAIN} ENABLE ON AS_ERROR OFF)
 
     add_test(NAME ${LIBRARY_NAME}.${TEST_MAIN} COMMAND ${TEST_MAIN})
 endif()

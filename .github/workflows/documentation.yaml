@@ -30,7 +30,7 @@ jobs:
         cmake -H. -Bbuild -G "Unix Makefiles" -DCMAKE_BUILD_TYPE="Debug"
     - name: building
       run: |
-        cmake --build build --config Debug --target Cdocs -j4
+        cmake --build build --config Debug --target docs -j4
     - name: Publish
       uses: peaceiris/actions-gh-pages@v3
       with:

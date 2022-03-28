@@ -35,12 +35,16 @@ int main(int argc, char **argv)
         return 0;
     }
 
-    auto filename = std::string{ "C:/Users/Jan/Documents/_LocalCoding/Cpp-Project-Template/app/test.json" };
+    auto filename = std::string{};
     auto verbose = false;
 
-    if (result.count("file"))
+    if (result.count("filename"))
     {
-        filename = result["file"].as<std::string>();
+        filename = result["filename"].as<std::string>();
+    }
+    else
+    {
+        return 1;
     }
 
     verbose = result["verbose"].as<bool>();
@@ -51,6 +55,12 @@ int main(int argc, char **argv)
     }
 
     std::ifstream ifs(filename);
+
+    if (!ifs.is_open())
+    {
+        return 1;
+    }
+
     json parsed_data = json::parse(ifs);
 
     if (verbose)
@@ -58,8 +68,6 @@ int main(int argc, char **argv)
         const auto name = parsed_data["name"];
         fmt::print("Name: {}\n", name);
     }
-
-    int i = 0;
 
     return 0;
 }

@@ -18,6 +18,7 @@ option(ENABLE_CLANG_TIDY    "Enable to add clang tidy."             ON)
 option(ENABLE_CPPCHECK      "Enable to add cppcheck."               OFF)
 option(ENABLE_LTO           "Enable to add Link Time Optimization." ON)
 option(ENABLE_CCACHE        "Enable to add Ccache."                 OFF)
+option(USE_CONAN            "Whether to use conan or vcpkg"         OFF)
 
 # Project/Library Names
 set(LIBRARY_NAME    "lib")
@@ -61,8 +62,13 @@ FetchContent_Declare(
     GIT_SHALLOW TRUE)
 FetchContent_MakeAvailable(spdlog)
 
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup()
+if(USE_CONAN)
+    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+    conan_basic_setup()
+else()
+    find_package(Catch2 CONFIG REQUIRED)
+    find_package(cxxopts CONFIG REQUIRED)
+endif()
 
 ### SUB DIRECTORIES
 
