@@ -26,7 +26,7 @@ jobs:
         cmake -H. -Bbuild -G "Unix Makefiles" -DCMAKE_BUILD_TYPE="Debug"
     - name: building
       run: |
-        cmake --build build --config Debug --target CppTemplate_unit_tests -j4
+        cmake --build build --config Debug --target Cunit_tests -j4
     - name: testing
       run: |
         cd build

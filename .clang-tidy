@@ -6,8 +6,9 @@ Checks: '-*,
          modernize-*,
          performance-*,
          -cppcoreguidelines-pro-type-vararg,
-         -warnings-as-errors'
-HeaderFilterRegex: '*'
+         -modernize-use-trailing-return-type,
+         -bugprone-exception-escape'
+HeaderFilterRegex: '^((?!(external|build)).*)$'
 AnalyzeTemporaryDtors: false
 WarningsAsErrors: ''
 ...
