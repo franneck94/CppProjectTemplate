@@ -7,20 +7,19 @@
 #include <spdlog/spdlog.h>
 #include "nlohmann/json.hpp"
 
+#include "config.hpp"
 #include "my_lib.h"
 
 using json = nlohmann::json;
 namespace fs = std::filesystem;
 
-constexpr static auto PROJECT_NAME = "CppProjectTemplate";
-
 int main(int argc, char **argv)
 {
     cout_hello_world();
 
-    spdlog::info(fmt::format("Welcome to {}\n", PROJECT_NAME));
+    spdlog::info(fmt::format("Welcome to {} v{}\n", project_name, project_version));
 
-    cxxopts::Options options(PROJECT_NAME, "This is all you need to start with C++ projects.");
+    cxxopts::Options options(project_name.data(), "This is all you need to start with C++ projects.");
 
     options.add_options("arguments")
         ("h,help", "Print usage")

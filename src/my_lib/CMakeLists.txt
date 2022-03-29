@@ -1,7 +1,7 @@
 # Sources and Headers
 set(LIBRARY_SOURCES "my_lib.cc")
 set(LIBRARY_HEADERS "my_lib.h")
-set(LIBRARY_INCLUDES "./")
+set(LIBRARY_INCLUDES "./" "${CMAKE_BINARY_DIR}/configured_files/include")
 
 # MyLib Library
 add_library(${LIBRARY_NAME} STATIC ${LIBRARY_SOURCES})
