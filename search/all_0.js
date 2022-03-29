@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['cmakelists_2etxt_0',['CMakeLists.txt',['../CMakeLists_8txt.html',1,'(Global Namespace)'],['../my__lib_2CMakeLists_8txt.html',1,'(Global Namespace)']]],
-  ['cout_5fhello_5fworld_1',['cout_hello_world',['../my__lib_8cc.html#a7c6283a9ee13f31398d84324ef66f912',1,'cout_hello_world():&#160;my_lib.cc'],['../my__lib_8h.html#a7c6283a9ee13f31398d84324ef66f912',1,'cout_hello_world():&#160;my_lib.cc']]]
+  ['add_5flibrary_0',['add_library',['../my__lib_2CMakeLists_8txt.html#a17cb0801165c05d2c6df8d403cf803e2',1,'CMakeLists.txt']]]
 ];
