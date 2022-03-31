@@ -109,7 +109,7 @@
 # 6. Build a Debug build:
 #      cmake -DCMAKE_BUILD_TYPE=Debug ..
 #      make
-#      make my_coverage_target
+#      make coverage
 #
 
 include(CMakeParseArguments)

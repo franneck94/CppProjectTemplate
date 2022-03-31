@@ -2,9 +2,11 @@
 
 #include "my_lib.h"
 
-void print_hello_world()
+int print_hello_world()
 {
     std::cout << "Cout: Hello World" << '\n';
+
+    return 1;
 }
 
 unsigned int factorial(unsigned int number)

@@ -4,8 +4,7 @@
  * @brief Prints hello world the console.
  *
  */
-void print_hello_world();
-
+int print_hello_world();
 
 /**
  * @brief Compute n faculty (n!)
