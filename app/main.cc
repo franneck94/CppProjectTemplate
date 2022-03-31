@@ -5,7 +5,7 @@
 #include <cxxopts.hpp>
 #include <fmt/format.h>
 #include <spdlog/spdlog.h>
-#include <nlohmann/json.hpp>
+#include "nlohmann/json.hpp"
 
 #include "config.hpp"
 #include "my_lib.h"
