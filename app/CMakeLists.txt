@@ -8,4 +8,7 @@ target_link_libraries(${EXECUTABLE_NAME} PUBLIC
     spdlog::spdlog_header_only
     nlohmann_json
     ${CONAN_CXXOPTS})
-target_set_warnings(TARGET ${EXECUTABLE_NAME} ENABLE ON AS_ERROR OFF)
+
+if (${ENABLE_WARNINGS})
+    target_set_warnings(TARGET ${LIBRARY_NAME} ENABLE ON AS_ERROR OFF)
+endif()

@@ -8,7 +8,7 @@ Checks: '-*,
          -cppcoreguidelines-pro-type-vararg,
          -modernize-use-trailing-return-type,
          -bugprone-exception-escape'
-HeaderFilterRegex: '^((?!(external|build)).*)$'
+HeaderFilterRegex: '^((?!(/external/|/build/)).*)$'
 AnalyzeTemporaryDtors: false
 WarningsAsErrors: ''
 ...

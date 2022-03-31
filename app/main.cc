@@ -15,6 +15,9 @@ namespace fs = std::filesystem;
 
 int main(int argc, char **argv)
 {
+    char a[10];
+    a[10] = 0;
+
     print_hello_world();
 
     spdlog::info(fmt::format("Welcome to {} v{}\n", project_name, project_version));

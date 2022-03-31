@@ -9,7 +9,10 @@ target_include_directories(${LIBRARY_NAME} PUBLIC
     ${LIBRARY_INCLUDES})
 target_link_libraries(${LIBRARY_NAME} PRIVATE
     nlohmann_json)
-target_set_warnings(TARGET ${LIBRARY_NAME} ENABLE ON AS_ERROR OFF)
+
+if (${ENABLE_WARNINGS})
+    target_set_warnings(TARGET ${LIBRARY_NAME} ENABLE ON AS_ERROR OFF)
+endif()
 
 if(${ENABLE_LTO})
     target_enable_lto(${LIBRARY_NAME} optimized)

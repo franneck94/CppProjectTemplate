@@ -17,9 +17,15 @@ if(ENABLE_CLANG_TIDY)
 endif()
 
 if(ENABLE_CPPCHECK)
-    find_program(CPPCHECK cppcheck)
-    if(CPPCHECK)
-        set(CMAKE_CXX_CPPCHECK ${CPPCHECK} --suppress=missingInclude --enable=all)
+    find_program(CMAKE_CXX_CPPCHECK NAMES cppcheck)
+    if (CMAKE_CXX_CPPCHECK)
+        list(
+            APPEND CMAKE_CXX_CPPCHECK
+                "--enable=warning"
+                "--inconclusive"
+                "--force"
+                "--inline-suppr"
+        )
         message("Cppcheck finished setting up.")
     else()
         message("Cppcheck executable not found..")
