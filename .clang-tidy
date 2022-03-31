@@ -8,7 +8,7 @@ Checks: '-*,
          -cppcoreguidelines-pro-type-vararg,
          -modernize-use-trailing-return-type,
          -bugprone-exception-escape'
-HeaderFilterRegex: '^((?!(/external/|/build/)).*)$'
+HeaderFilterRegex: 'src/*,app/*'
 AnalyzeTemporaryDtors: false
 WarningsAsErrors: ''
 ...

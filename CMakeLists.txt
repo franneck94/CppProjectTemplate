@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(PROJECT "CppTemplate")
-
-project("Project" VERSION 1.0.0 LANGUAGES C CXX)
+project("CppTemplate" VERSION 1.0.0 LANGUAGES C CXX)
 
 # Global CMake variables are set here
 set(CMAKE_CXX_STANDARD              17)
@@ -15,8 +13,8 @@ option(USE_CONAN            "Whether to use conan or vcpkg"         ON)
 option(ENABLE_WARNINGS      "Enable to add warnings to a target."   ON)
 option(ENABLE_TESTING       "Enable a Unit Testing build."          ON)
 option(ENABLE_COVERAGE      "Enable a Code Coverage build."         OFF)
-option(ENABLE_CLANG_TIDY    "Enable to add clang tidy."             ON)
-option(ENABLE_CPPCHECK      "Enable to add cppcheck."               ON)
+option(ENABLE_CLANG_TIDY    "Enable to add clang tidy."             OFF)
+option(ENABLE_CPPCHECK      "Enable to add cppcheck."               OFF)
 option(ENABLE_LTO           "Enable to add Link Time Optimization." OFF)
 option(ENABLE_CCACHE        "Enable to add Ccache."                 OFF)
 
