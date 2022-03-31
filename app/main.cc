@@ -5,7 +5,7 @@
 #include <cxxopts.hpp>
 #include <fmt/format.h>
 #include <spdlog/spdlog.h>
-#include "nlohmann/json.hpp"
+#include <nlohmann/json.hpp>
 
 #include "config.hpp"
 #include "my_lib.h"
@@ -15,7 +15,7 @@ namespace fs = std::filesystem;
 
 int main(int argc, char **argv)
 {
-    cout_hello_world();
+    print_hello_world();
 
     spdlog::info(fmt::format("Welcome to {} v{}\n", project_name, project_version));
 
