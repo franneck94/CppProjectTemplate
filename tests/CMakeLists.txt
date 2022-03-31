@@ -10,8 +10,6 @@ if (ENABLE_TESTING)
         ${CONAN_CATCH2})
     target_set_warnings(TARGET ${TEST_MAIN} ENABLE ON AS_ERROR OFF)
 
-    # add_test(NAME ${TEST_MAIN} COMMAND ${TEST_MAIN})
-
     if (ENABLE_COVERAGE)
         set(COVERAGE_MAIN "coverage")
         set(COVERAGE_EXCLUDES
@@ -24,7 +22,7 @@ if (ENABLE_TESTING)
             "${CONAN_CXXOPTS_ROOT}/*"
             "/usr/include/*")
         setup_target_for_coverage_lcov(
-            NAME coverage
+            NAME ${COVERAGE_MAIN}
             EXECUTABLE ${TEST_MAIN}
             DEPENDENCIES ${TEST_MAIN}
         )

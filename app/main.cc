@@ -15,11 +15,6 @@ namespace fs = std::filesystem;
 
 int main(int argc, char **argv)
 {
-    char a[10];
-    a[10] = 0;
-
-    print_hello_world();
-
     spdlog::info(fmt::format("Welcome to {} v{}\n", project_name, project_version));
 
     cxxopts::Options options(project_name.data(), "This is all you need to start with C++ projects.");
@@ -31,7 +26,7 @@ int main(int argc, char **argv)
 
     auto result = options.parse(argc, argv);
 
-    if (result.count("help"))
+    if (argc == 0 || result.count("help"))
     {
         std::cout << options.help() << '\n';
         return 0;
