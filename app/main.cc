@@ -5,7 +5,7 @@
 #include <cxxopts.hpp>
 #include <fmt/format.h>
 #include <spdlog/spdlog.h>
-#include "nlohmann/json.hpp"
+#include <nlohmann/json.hpp>
 
 #include "config.hpp"
 #include "my_lib.h"
@@ -15,9 +15,10 @@ namespace fs = std::filesystem;
 
 int main(int argc, char **argv)
 {
-    spdlog::info(fmt::format("Welcome to {} v{}\n", project_name, project_version));
+    const auto welcome_message = fmt::format("Welcome to {} v{}\n", project_name, project_version);
+    spdlog::info(welcome_message);
 
-    cxxopts::Options options(project_name.data(), "This is all you need to start with C++ projects.");
+    cxxopts::Options options(project_name.data(), welcome_message);
 
     options.add_options("arguments")
         ("h,help", "Print usage")
@@ -26,7 +27,7 @@ int main(int argc, char **argv)
 
     auto result = options.parse(argc, argv);
 
-    if (argc == 0 || result.count("help"))
+    if (argc == 1 || result.count("help"))
     {
         std::cout << options.help() << '\n';
         return 0;
@@ -51,14 +52,14 @@ int main(int argc, char **argv)
         fmt::print("Opening file: {}\n", filename);
     }
 
-    std::ifstream ifs(filename);
+    auto ifs = std::ifstream{filename};
 
     if (!ifs.is_open())
     {
         return 1;
     }
 
-    json parsed_data = json::parse(ifs);
+    const auto parsed_data = json::parse(ifs);
 
     if (verbose)
     {
