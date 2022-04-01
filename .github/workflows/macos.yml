@@ -31,4 +31,4 @@ jobs:
       run: |
         cd build
         cd bin
-        ./unit_tests.exe
+        ./unit_tests
