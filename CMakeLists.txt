@@ -66,11 +66,13 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(spdlog)
 
 if(USE_CONAN)
+    message("Using Conan")
     include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup()
 else()
 # Note: VCPKG need more adaptations in cmake files
 # Also, rename the _vcpkg.json file to vcpkg.json
+    message("Using VCPKG")
     find_package(Catch2 CONFIG REQUIRED)
     find_package(cxxopts CONFIG REQUIRED)
 endif()

@@ -52,7 +52,7 @@ int main(int argc, char **argv)
         fmt::print("Opening file: {}\n", filename);
     }
 
-    auto ifs = std::ifstream{filename};
+    auto ifs = std::ifstream{ filename };
 
     if (!ifs.is_open())
     {

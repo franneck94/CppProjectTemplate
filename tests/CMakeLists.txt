@@ -7,7 +7,8 @@ if (ENABLE_TESTING)
     target_link_libraries(${TEST_MAIN} PUBLIC
         ${LIBRARY_NAME})
     target_link_libraries(${TEST_MAIN} PRIVATE
-        ${CONAN_CATCH2})
+        ${CONAN_CATCH2}
+    )
     target_set_warnings(TARGET ${TEST_MAIN} ENABLE ON AS_ERROR OFF)
 
     if (ENABLE_COVERAGE)
