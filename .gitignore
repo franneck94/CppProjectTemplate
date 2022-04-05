@@ -7,6 +7,7 @@ build/
 html/
 latex/
 external/json/
+.mypy_cache/
 
 ################################
 ############ C/C++ #############
