@@ -61,8 +61,7 @@ git clone --recursive https://github.com/franneck94/CppProjectTemplate
 make prepare
 ```
 
-- App Executable:
-The build type can be Debug/Release/MinSizeRel or RelWithDebInfo
+- App Executable
 
 ```shell
 cd build
@@ -72,8 +71,7 @@ cd bin
 ./main
 ```
 
-- Unit testing:
-The build type should be Debug for GCC/Clang and Release for MSVC (due to bug).
+- Unit testing
 
 ```shell
 cd build
@@ -91,8 +89,7 @@ cmake -DCMAKE_BUILD_TYPE=Debug ..
 cmake --build . --config Debug --target docs
 ```
 
-- Code Coverage (Unix only):
-The build type has to be Coverage.
+- Code Coverage (Unix only)
 
 ```shell
 cd build
