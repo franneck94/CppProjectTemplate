@@ -93,7 +93,7 @@ cmake --build . --config Debug --target docs
 
 ```shell
 cd build
-cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_CODE_COVERAGE=ON ..
+cmake -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON ..
 cmake --build . --config Debug --target coverage
 ```
 
