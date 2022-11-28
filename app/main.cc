@@ -1,3 +1,5 @@
+#define FMT_HEADER_ONLY
+
 #include <filesystem>
 #include <fstream>
 #include <iostream>

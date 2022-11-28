@@ -9,8 +9,8 @@ set(CMAKE_CXX_EXTENSIONS            OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS   ON)
 
 # Options
-option(USE_CONAN                    "Whether to use conan"                  OFF)
-option(USE_VCPKG                    "Whether to use vcpkg"                  ON)
+option(USE_CONAN                    "Whether to use conan"                  ON)
+option(USE_VCPKG                    "Whether to use vcpkg"                  OFF)
 option(ENABLE_WARNINGS              "Enable to add warnings to a target."   ON)
 option(ENABLE_TESTING               "Enable a Unit Testing build."          ON)
 option(ENABLE_COVERAGE              "Enable a Code Coverage build."         OFF)
@@ -100,7 +100,7 @@ else() # Use FetchContent
     FetchContent_Declare(
         Catch2
         GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-        GIT_TAG        v3.2.0
+        GIT_TAG        v2.13.9
         GIT_SHALLOW TRUE)
     FetchContent_MakeAvailable(Catch2)
 endif()

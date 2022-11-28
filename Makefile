@@ -1,3 +1,9 @@
+ifeq '$(findstring ;,$(PATH))' ';'
+  CONAN_FLAGS = -s compiler='Visual Studio' -s compiler.version=16 -s cppstd=17
+else
+  CONAN_FLAGS = -s cppstd=17
+endif
+
 all: prepare_conan
 
 install:
@@ -11,14 +17,14 @@ setup:
 	pip install conan
 	conan user
 
+prepare:
+	rm -rf build
+	mkdir build
+
 prepare_conan:
 	rm -rf build
 	mkdir build
-	ifeq '$(findstring ;,$(PATH))' ';'  # Windows
-		cd build && conan install ..  -s compiler='Visual Studio' -s compiler.version=16
-	else
-		cd build && conan install ..
-	endif
+	cd build && conan install .. $(CONAN_FLAGS)
 
 prepare_vcpkg:
 	rm -rf build
