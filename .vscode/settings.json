@@ -1,0 +1,15 @@
+{
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "cmake.debugConfig": {
+        "args": [
+            // "--verbose",
+            // "true",
+            // "--filename",
+            // "${workspaceFolder}/app/test.json"
+        ],
+        "externalConsole": true
+    },
+    "cmake.configureSettings": {
+        "CMAKE_TOOLCHAIN_FILE": "C:/Users/Jan/Documents/_LocalCoding/vcpkg/scripts/buildsystems/vcpkg.cmake"
+    }
+}
