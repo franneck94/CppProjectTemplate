@@ -9,7 +9,8 @@ set(CMAKE_CXX_EXTENSIONS            OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS   ON)
 
 # Options
-option(USE_CONAN                    "Whether to use conan or vcpkg"         ON)
+option(USE_CONAN                    "Whether to use conan"                  OFF)
+option(USE_VCPKG                    "Whether to use vcpkg"                  ON)
 option(ENABLE_WARNINGS              "Enable to add warnings to a target."   ON)
 option(ENABLE_TESTING               "Enable a Unit Testing build."          ON)
 option(ENABLE_COVERAGE              "Enable a Code Coverage build."         OFF)
@@ -17,7 +18,7 @@ option(ENABLE_COVERAGE              "Enable a Code Coverage build."         OFF)
 option(ENABLE_INCLUDE_WHAT_YOU_USE  "Enable to add iwyu."                   OFF)
 option(ENABLE_CLANG_TIDY            "Enable to add clang tidy."             ON)
 option(ENABLE_CLANG_FORMAT          "Enable to add clang-format."           ON)
-option(ENABLE_CPPCHECK              "Enable to add cppcheck."               ON)
+option(ENABLE_CPPCHECK              "Enable to add cppcheck."               OFF)
 
 option(ENABLE_CCACHE                "Enable to add Ccache."                 OFF)
 option(ENABLE_LTO                   "Enable to add Link Time Optimization." ON)
@@ -50,39 +51,59 @@ endif()
 
 ### EXTERNAL LIBRARIES
 
-add_git_submodule(external/json)
-
-FetchContent_Declare(
-    fmt
-    GIT_REPOSITORY https://github.com/fmtlib/fmt.git
-    GIT_TAG 8.1.1
-    GIT_SHALLOW TRUE)
-FetchContent_MakeAvailable(fmt)
-
-FetchContent_Declare(
-    spdlog
-    GIT_REPOSITORY https://github.com/gabime/spdlog
-    GIT_TAG v1.9.2
-    GIT_SHALLOW TRUE)
-FetchContent_MakeAvailable(spdlog)
-
-FetchContent_Declare(
-  Catch2
-  GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-  GIT_TAG        v3.2.0
-)
-FetchContent_MakeAvailable(Catch2)
-
 if(USE_CONAN)
     message("Using Conan")
-    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-    conan_basic_setup()
-else()
+    include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
+    find_package(nlohmann_json)
+    find_package(fmt)
+    find_package(spdlog)
+    find_package(Catch2)
+    find_package(cxxopts)
+elseif(USE_VCPKG)
 # Note: VCPKG need more adaptations in cmake files
 # Also, rename the _vcpkg.json file to vcpkg.json
     message("Using VCPKG")
-    find_package(Catch2 CONFIG REQUIRED)
-    find_package(cxxopts CONFIG REQUIRED)
+    find_package(nlohmann-json)
+    find_package(fmt)
+    find_package(spdlog)
+    find_package(Catch2)
+    find_package(cxxopts)
+else() # Use FetchContent
+    message("Using FetchContent")
+    FetchContent_Declare(
+        nlohmann_json
+        GIT_REPOSITORY https://github.com/nlohmann/json.git
+        GIT_TAG v3.11.2
+        GIT_SHALLOW TRUE)
+    FetchContent_MakeAvailable(nlohmann_json)
+
+    FetchContent_Declare(
+        fmt
+        GIT_REPOSITORY https://github.com/fmtlib/fmt.git
+        GIT_TAG 9.1.0
+        GIT_SHALLOW TRUE)
+    FetchContent_MakeAvailable(fmt)
+
+    FetchContent_Declare(
+        spdlog
+        GIT_REPOSITORY https://github.com/gabime/spdlog.git
+        GIT_TAG v1.11.0
+        GIT_SHALLOW TRUE)
+    FetchContent_MakeAvailable(spdlog)
+
+    FetchContent_Declare(
+        cxxopts
+        GIT_REPOSITORY https://github.com/jarro2783/cxxopts.git
+        GIT_TAG        v3.0.0
+        GIT_SHALLOW TRUE)
+    FetchContent_MakeAvailable(cxxopts)
+
+    FetchContent_Declare(
+        Catch2
+        GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+        GIT_TAG        v3.2.0
+        GIT_SHALLOW TRUE)
+    FetchContent_MakeAvailable(Catch2)
 endif()
 
 ### SUB DIRECTORIES

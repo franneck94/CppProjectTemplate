@@ -9,8 +9,10 @@ This is a template for C++ projects. What you get:
 
 - Library, executable and test code separated in distinct folders.
 - Use of modern CMake for building and compiling.
-- External libraries fetched by CMake or cloned by Git.
-- External libraries installed and managed by [Conan](https://conan.io/) or [VCPKG](https://github.com/microsoft/vcpkg).
+- External libraries installed and managed by
+  - CMake's FetchContent OR
+  - [Conan](https://conan.io/) Package Manager OR
+  - [VCPKG](https://github.com/microsoft/vcpkg) Package Manager.
 - Unit testing using [Catch2](https://github.com/catchorg/Catch2)
 - General purpose libraries: [JSON](https://github.com/nlohmann/json), [spdlog](https://github.com/gabime/spdlog), [cxxopts](https://github.com/jarro2783/cxxopts) and [fmt](https://github.com/fmtlib/fmt).
 - Continuous integration testing with Github Actions.

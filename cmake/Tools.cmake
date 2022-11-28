@@ -38,7 +38,7 @@ function(add_target_static_analyers target)
   # message(AFTER: ${SOURCES}  -- ${TARGET_SOURCES})
 
   if(ENABLE_INCLUDE_WHAT_YOU_USE)
-    find_program(INCLUDE_WHAT_YOU_USE include-what-you-use REQUIRED)
+    find_program(INCLUDE_WHAT_YOU_USE include-what-you-use)
     if(INCLUDE_WHAT_YOU_USE)
         add_custom_target(${target}_iwyu
         COMMAND ${CMAKE_SOURCE_DIR}/tools/iwyu_tool.py
@@ -55,7 +55,7 @@ function(add_target_static_analyers target)
   endif()
 
   if(ENABLE_CPPCHECK)
-    find_program(CPPCHECK cppcheck REQUIRED)
+    find_program(CPPCHECK cppcheck)
     if(CPPCHECK)
         # TO DO: Analyzes all files from compilation database rather than just the TARGET_SOURCES
         add_custom_target(${target}_cppcheck
@@ -74,7 +74,7 @@ function(add_target_static_analyers target)
   endif()
 
   if(ENABLE_CLANG_TIDY)
-    find_program(CLANGTIDY clang-tidy REQUIRED)
+    find_program(CLANGTIDY clang-tidy)
     if(CLANGTIDY)
         get_target_property(TARGET_SOURCES ${target} SOURCES)
 
@@ -94,20 +94,20 @@ function(add_target_static_analyers target)
   endif()
 
   if(ENABLE_CLANG_FORMAT)
-  find_program(CLANGFORMAT clang-format REQUIRED)
-  if(CLANGFORMAT)
-      get_target_property(TARGET_SOURCES ${target} SOURCES)
+    find_program(CLANGFORMAT clang-format)
+    if(CLANGFORMAT)
+        get_target_property(TARGET_SOURCES ${target} SOURCES)
 
-      add_custom_target(${target}_clangformat
-      COMMAND ${CMAKE_SOURCE_DIR}/tools/run-clang-format.py
-          ${TARGET_SOURCES}
-          --in-place
-          -style=${CMAKE_SOURCE_DIR}/.clang-format
-      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-      USES_TERMINAL
-      )
-  else()
-      message("CLANGFORMAT NOT FOUND")
+        add_custom_target(${target}_clangformat
+        COMMAND ${CMAKE_SOURCE_DIR}/tools/run-clang-format.py
+            ${TARGET_SOURCES}
+            --in-place
+            -style=${CMAKE_SOURCE_DIR}/.clang-format
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        USES_TERMINAL
+        )
+    else()
+        message("CLANGFORMAT NOT FOUND")
+    endif()
   endif()
-endif()
 endfunction()

@@ -1,3 +1,5 @@
+all: prepare_conan
+
 install:
 	sudo apt-get install gcovr lcov
 
@@ -9,10 +11,14 @@ setup:
 	pip install conan
 	conan user
 
-prepare:
+prepare_conan:
 	rm -rf build
 	mkdir build
-	cd build && conan install .. && cd ..
+	ifeq '$(findstring ;,$(PATH))' ';'  # Windows
+		cd build && conan install ..  -s compiler='Visual Studio' -s compiler.version=16
+	else
+		cd build && conan install ..
+	endif
 
 prepare_vcpkg:
 	rm -rf build
