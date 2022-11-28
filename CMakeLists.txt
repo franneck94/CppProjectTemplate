@@ -9,7 +9,7 @@ set(CMAKE_CXX_EXTENSIONS            OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS   ON)
 
 # Options
-option(USE_CONAN                    "Whether to use conan"                  ON)
+option(USE_CONAN                    "Whether to use conan"                  OFF)
 option(USE_VCPKG                    "Whether to use vcpkg"                  OFF)
 option(ENABLE_WARNINGS              "Enable to add warnings to a target."   ON)
 option(ENABLE_TESTING               "Enable a Unit Testing build."          ON)

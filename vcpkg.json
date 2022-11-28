@@ -16,12 +16,15 @@
         },
         {
             "name": "catch2",
-            "version>=": "3.1.1"
+            "version>=": "2.13.9"
         },
         {
             "name": "cxxopts",
             "version>=": "3.0.0"
         }
+    ],
+    "overrides": [
+        { "name": "catch2", "version": "2.13.9" }
     ],
     "builtin-baseline": "4cb4a5c5ddcb9de0c83c85837ee6974c8333f032"
 }

@@ -7,7 +7,7 @@ endif
 all: prepare_conan
 
 install:
-	sudo apt-get install gcovr lcov
+	sudo apt-get install gcovr lcov pkg-config curl zip unzip tar
 
 install_doc:
 	pip install jinja2 Pygments
