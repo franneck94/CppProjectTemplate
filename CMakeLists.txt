@@ -11,16 +11,16 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS   ON)
 # Options
 option(USE_CONAN                    "Whether to use conan or vcpkg"         ON)
 option(ENABLE_WARNINGS              "Enable to add warnings to a target."   ON)
-option(ENABLE_TESTING               "Enable a Unit Testing build."          OFF)
+option(ENABLE_TESTING               "Enable a Unit Testing build."          ON)
 option(ENABLE_COVERAGE              "Enable a Code Coverage build."         OFF)
 
-option(ENABLE_INCLUDE_WHAT_YOU_USE  "Enable to add iwyu."                   ON)
+option(ENABLE_INCLUDE_WHAT_YOU_USE  "Enable to add iwyu."                   OFF)
 option(ENABLE_CLANG_TIDY            "Enable to add clang tidy."             ON)
 option(ENABLE_CLANG_FORMAT          "Enable to add clang-format."           ON)
 option(ENABLE_CPPCHECK              "Enable to add cppcheck."               ON)
 
+option(ENABLE_CCACHE                "Enable to add Ccache."                 OFF)
 option(ENABLE_LTO                   "Enable to add Link Time Optimization." ON)
-option(ENABLE_CCACHE                "Enable to add Ccache."                 ON)
 
 # Project/Library Names
 set(LIBRARY_NAME    "lib")
@@ -34,10 +34,8 @@ include(Warnings)
 include(Docs)
 include(AddGitSubmodule)
 include(FetchContent)
-
-include(StaticAnalyzers)
+include(Tools)
 include(LTO)
-include(Ccache)
 
 if (ENABLE_TESTING)
     include(CTest)
@@ -67,6 +65,13 @@ FetchContent_Declare(
     GIT_TAG v1.9.2
     GIT_SHALLOW TRUE)
 FetchContent_MakeAvailable(spdlog)
+
+FetchContent_Declare(
+  Catch2
+  GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+  GIT_TAG        v3.2.0
+)
+FetchContent_MakeAvailable(Catch2)
 
 if(USE_CONAN)
     message("Using Conan")

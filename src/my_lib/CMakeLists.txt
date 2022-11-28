@@ -23,3 +23,5 @@ endif()
 if(${ENABLE_LTO})
     target_enable_lto(${LIBRARY_NAME} optimized)
 endif()
+
+add_target_static_analyers(${LIBRARY_NAME})

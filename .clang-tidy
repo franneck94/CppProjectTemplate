@@ -1,7 +1,7 @@
 ---
 Checks: 'clang-analyzer-*,cppcoreguidelines-*,modernize-*,-cppcoreguidelines-avoid-magic-numbers,-cppcoreguidelines-macro-usage,-cppcoreguidelines-owning-memory'
 WarningsAsErrors: ''
-HeaderFilterRegex: '(src|app)\/*,(h|hpp)'
+HeaderFilterRegex: '\(src|app\)\/*.\(h|hpp\)'
 AnalyzeTemporaryDtors: false
 FormatStyle:     none
 ...

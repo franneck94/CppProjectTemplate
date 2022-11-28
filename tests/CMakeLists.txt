@@ -10,11 +10,13 @@ if (ENABLE_TESTING)
     target_link_libraries(${TEST_MAIN} PUBLIC
         ${LIBRARY_NAME})
     target_link_libraries(${TEST_MAIN} PRIVATE
-        ${CONAN_CATCH2})
+        ${CONAN_LIBS})
 
     if (${ENABLE_WARNINGS})
         target_set_warnings(TARGET ${TEST_MAIN} ENABLE ON AS_ERROR OFF)
     endif()
+
+    add_target_static_analyers(${TEST_MAIN})
 
     if (ENABLE_COVERAGE)
         set(COVERAGE_MAIN "coverage")

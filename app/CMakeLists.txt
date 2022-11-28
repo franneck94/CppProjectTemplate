@@ -7,13 +7,11 @@ target_link_libraries(${EXECUTABLE_NAME} PUBLIC
     fmt::fmt
     spdlog::spdlog_header_only
     nlohmann_json
-    ${CONAN_CXXOPTS}
+    ${CONAN_LIBS}
 )
 
 if (${ENABLE_WARNINGS})
     target_set_warnings(TARGET ${EXECUTABLE_NAME} ENABLE ON AS_ERROR OFF)
 endif()
 
-if (${ENABLE_CLANG_TIDY})
-    add_target_static_analyers(${EXECUTABLE_NAME})
-endif()
+add_target_static_analyers(${EXECUTABLE_NAME})

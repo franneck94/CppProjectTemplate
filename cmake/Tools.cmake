@@ -1,3 +1,13 @@
+if(ENABLE_CCACHE)
+    find_program(CCACHE_FOUND ccache)
+    if(CCACHE_FOUND)
+        set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
+        set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
+    else()
+        message("Ccache not found.")
+    endif()
+endif()
+
 # Clang Tidy for "all" build
 if(ENABLE_CLANG_TIDY)
     if(CMake_SOURCE_DIR STREQUAL CMake_BINARY_DIR)
@@ -23,7 +33,7 @@ endif()
 function(add_target_static_analyers target)
   get_target_property(TARGET_SOURCES ${target} SOURCES)
   # Include only cc/cpp files
-  list(FILTER TARGET_SOURCES INCLUDE REGEX .*\.cpp,.*\.cc)
+  list(FILTER TARGET_SOURCES INCLUDE REGEX \.*\.\(cc|h|cpp|hpp\))
 
   if(ENABLE_INCLUDE_WHAT_YOU_USE)
     find_program(INCLUDE_WHAT_YOU_USE include-what-you-use REQUIRED)
@@ -71,7 +81,7 @@ function(add_target_static_analyers target)
             ${TARGET_SOURCES}
             -config-file=${CMAKE_SOURCE_DIR}/.clang-tidy
             -extra-arg-before=-std=${CMAKE_CXX_STANDARD}
-            -header-filter="\(src|app\)\/*,\(h|hpp\)"
+            -header-filter="\(src|app\)\/*.\(h|hpp\)"
             -p=${CMAKE_BINARY_DIR}
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         USES_TERMINAL
@@ -89,6 +99,8 @@ function(add_target_static_analyers target)
       add_custom_target(${target}_clangformat
       COMMAND ${CMAKE_SOURCE_DIR}/tools/run-clang-format.py
           ${TARGET_SOURCES}
+          --in-place
+          -style=${CMAKE_SOURCE_DIR}/.clang-format
       WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
       USES_TERMINAL
       )

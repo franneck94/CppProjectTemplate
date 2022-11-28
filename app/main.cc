@@ -1,11 +1,11 @@
-#include <iostream>
-#include <fstream>
 #include <filesystem>
+#include <fstream>
+#include <iostream>
 
 #include <cxxopts.hpp>
 #include <fmt/format.h>
-#include <spdlog/spdlog.h>
 #include <nlohmann/json.hpp>
+#include <spdlog/spdlog.h>
 
 #include "config.hpp"
 #include "my_lib.h"
@@ -17,15 +17,19 @@ int main(int argc, char **argv)
 {
     std::int32_t i = 2;
 
-    const auto welcome_message = fmt::format("Welcome to {} v{}\n", project_name, project_version);
+    const auto welcome_message =
+        fmt::format("Welcome to {} v{}\n", project_name, project_version);
     spdlog::info(welcome_message);
 
     cxxopts::Options options(project_name.data(), welcome_message);
 
-    options.add_options("arguments")
-        ("h,help", "Print usage")
-        ("f,filename", "File name", cxxopts::value<std::string>())
-        ("v,verbose", "Verbose output", cxxopts::value<bool>()->default_value("false"));
+    options.add_options("arguments")("h,help", "Print usage")(
+        "f,filename",
+        "File name",
+        cxxopts::value<std::string>())(
+        "v,verbose",
+        "Verbose output",
+        cxxopts::value<bool>()->default_value("false"));
 
     auto result = options.parse(argc, argv);
 
@@ -54,7 +58,7 @@ int main(int argc, char **argv)
         fmt::print("Opening file: {}\n", filename);
     }
 
-    auto ifs = std::ifstream{ filename };
+    auto ifs = std::ifstream{filename};
 
     if (!ifs.is_open())
     {
