@@ -1,18 +1,20 @@
 ################################
+###########  FILES  ############
+################################
+TODO*.*
+*.pptx
+*.pdf
+
+################################
 ########### FOLDERS ############
 ################################
-# directories
 build/
-.vscode/
 html/
-latex/
-external/json/
-.mypy_cache/
+lectures/
 
 ################################
 ############ C/C++ #############
 ################################
-vcpkg_installed/
 # Prerequisites
 *.d
 # Compiled Object files
@@ -20,6 +22,8 @@ vcpkg_installed/
 *.lo
 *.o
 *.obj
+*.ko
+*.elf
 # Precompiled Headers
 *.gch
 *.pch
@@ -36,41 +40,17 @@ vcpkg_installed/
 *.a
 *.lib
 # Executables
+*.i*86
+*.x86_64
+*.hex
+*.app
+*.stackdump
 *.exe
 *.out
-*.app
-##### C
-# Prerequisites
-*.d
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
 # Linker output
 *.ilk
 *.map
 *.exp
-# Precompiled Headers
-*.gch
-*.pch
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
 # Debug files
 *.dSYM/
 *.su
@@ -80,23 +60,27 @@ vcpkg_installed/
 ################################
 ########### VS CODE ############
 ################################
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+.vscode
 *.code-workspace
-.history/
+.history
 
 ################################
-######## VISUAL STUDIO #########
+###########   VS    ############
 ################################
+
 # User-specific files
 *.rsuser
 *.suo
 *.user
 *.userosscache
 *.sln.docstates
+
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
+
+# Mono auto generated files
+mono_crash.*
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -104,16 +88,21 @@ vcpkg_installed/
 [Rr]eleases/
 x64/
 x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
 # Files built by Visual Studio
 *_i.c
 *_p.c
 *_h.h
-*.ilk
 *.meta
-*.obj
 *.iobj
-*.pch
-*.pdb
 *.ipdb
 *.pgc
 *.pgd
@@ -126,14 +115,17 @@ x86/
 *.tmp_proj
 *_wpftmp.csproj
 *.log
+*.tlog
 *.vspscc
 *.vssscc
 .builds
 *.pidb
 *.svclog
 *.scc
+
 # Chutzpah Test files
 _Chutzpah*
+
 # Visual C++ cache files
 ipch/
 *.aps
@@ -144,10 +136,12 @@ ipch/
 *.cachefile
 *.VC.db
 *.VC.VC.opendb
+
 # Visual Studio profiler
 *.psess
 *.vsp
 *.vspx
 *.sap
+
 # Visual Studio Trace Files
 *.e2e

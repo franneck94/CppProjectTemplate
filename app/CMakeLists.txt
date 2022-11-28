@@ -13,3 +13,7 @@ target_link_libraries(${EXECUTABLE_NAME} PUBLIC
 if (${ENABLE_WARNINGS})
     target_set_warnings(TARGET ${EXECUTABLE_NAME} ENABLE ON AS_ERROR OFF)
 endif()
+
+if (${ENABLE_CLANG_TIDY})
+    add_target_static_analyers(${EXECUTABLE_NAME})
+endif()

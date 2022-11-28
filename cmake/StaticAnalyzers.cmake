@@ -1,68 +1,99 @@
+# Clang Tidy for "all" build
 if(ENABLE_CLANG_TIDY)
     if(CMake_SOURCE_DIR STREQUAL CMake_BINARY_DIR)
         message(FATAL_ERROR "CMake_RUN_CLANG_TIDY requires an out-of-source build!")
     endif()
-    find_program(CLANG_TIDY_COMMAND NAMES clang-tidy)
-    if(NOT CLANG_TIDY_COMMAND)
+    find_program(CLANG_TIDY_BIN NAMES clang-tidy)
+    if(NOT CLANG_TIDY_BIN)
         message(WARNING "CMake_RUN_CLANG_TIDY is ON but clang-tidy is not found!")
         set(CMAKE_CXX_CLANG_TIDY "" CACHE STRING "" FORCE)
-    else()
-        set(CLANGTIDY_EXTRA_ARGS
-            "-extra-arg=-Wno-unknown-warning-option")
-        set(CLANGTIDY_EXTRA_ARGS_BEFORE
-            "--extra-arg-before=-std=${CMAKE_CXX_STANDARD}")
-        set(CMAKE_CXX_CLANG_TIDY
-            "${CLANG_TIDY_COMMAND}"
-            ${CLANGTIDY_EXTRA_ARGS_BEFORE}
-            ${CLANGTIDY_EXTRA_ARGS})
-    endif()
+        endif()
+
+    set(CLANGTIDY_EXTRA_ARGS_BEFORE
+        "--extra-arg-before=-std=${CMAKE_CXX_STANDARD}")
+
+    # Clang Tidy while Building
+    set(CMAKE_CXX_CLANG_TIDY
+        "${CLANG_TIDY_BIN}"
+        ${CLANGTIDY_EXTRA_ARGS_BEFORE}
+        ${CLANGTIDY_EXTRA_ARGS})
 endif()
 
-if(ENABLE_CPPCHECK)
-    find_program(CPPCHECK_BIN NAMES cppcheck)
+# iwyu, clang-tidy and cppcheck for certain targets
+function(add_target_static_analyers target)
+  get_target_property(TARGET_SOURCES ${target} SOURCES)
+  # Include only cc/cpp files
+  list(FILTER TARGET_SOURCES INCLUDE REGEX .*\.cpp,.*\.cc)
 
-    if(CPPCHECK_BIN)
-        execute_process(COMMAND ${CPPCHECK_BIN} --version
-            OUTPUT_VARIABLE CPPCHECK_VERSION
-            ERROR_QUIET
-            OUTPUT_STRIP_TRAILING_WHITESPACE)
-
-        set(CPPCHECK_PROJECT_ARG "--project=${PROJECT_BINARY_DIR}/compile_commands.json")
-        set(CPPCHECK_BUILD_DIR_ARG "--cppcheck-build-dir=${PROJECT_BINARY_DIR}/analysis/cppcheck" CACHE STRING "The build directory to use")
-
-        set(CPPCHECK_ERROR_EXITCODE_ARG "--error-exitcode=0" CACHE STRING "The exitcode to use if an error is found")
-        set(CPPCHECK_CHECKS_ARGS "--enable=all" CACHE STRING "Arguments for the checks to run")
-        set(CPPCHECK_OTHER_ARGS "--suppress=missingIncludeSystem" CACHE STRING "Other arguments")
-        set(_CPPCHECK_EXCLUDES)
-        set(CPPCHECK_EXCLUDES
-            ${CMAKE_SOURCE_DIR}/external
-            ${CMAKE_BINARY_DIR}/
+  if(ENABLE_INCLUDE_WHAT_YOU_USE)
+    find_program(INCLUDE_WHAT_YOU_USE include-what-you-use REQUIRED)
+    if(INCLUDE_WHAT_YOU_USE)
+        add_custom_target(${target}_iwyu
+        COMMAND ${CMAKE_SOURCE_DIR}/tools/iwyu_tool.py
+            -p ${CMAKE_BINARY_DIR}
+            ${TARGET_SOURCES}
+            --
+            -Xiwyu --quoted_includes_first
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        USES_TERMINAL
         )
-
-        ## set exclude files and folders
-        foreach(ex ${CPPCHECK_EXCLUDES})
-            list(APPEND _CPPCHECK_EXCLUDES "-i${ex}")
-        endforeach(ex)
-
-        set(CPPCHECK_ALL_ARGS
-            ${CPPCHECK_PROJECT_ARG}
-            ${CPPCHECK_BUILD_DIR_ARG}
-            ${CPPCHECK_ERROR_EXITCODE_ARG}
-            ${CPPCHECK_CHECKS_ARGS}
-            ${CPPCHECK_OTHER_ARGS}
-            ${_CPPCHECK_EXCLUDES}
-        )
-
-        set(CPPCHECK_COMMAND
-            ${CPPCHECK_BIN}
-            ${CPPCHECK_ALL_ARGS}
-        )
-
-        file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/analysis/cppcheck)
-        add_custom_target(cppcheck_analysis
-            COMMAND ${CPPCHECK_COMMAND})
-        message("Cppcheck finished setting up.")
     else()
-        message("Cppcheck executable not found..")
+        message("INCLUDE_WHAT_YOU_USE NOT FOUND")
     endif()
+  endif()
+
+  if(ENABLE_CPPCHECK)
+    find_program(CPPCHECK cppcheck REQUIRED)
+    if(CPPCHECK)
+        # TO DO: Analyzes all files from compilation database rather than just the TARGET_SOURCES
+        add_custom_target(${target}_cppcheck
+        COMMAND ${CPPCHECK}
+            ${TARGET_SOURCES}
+            --inline-suppr
+            --enable=all
+            --project=${CMAKE_BINARY_DIR}/compile_commands.json
+            -i${CMAKE_BINARY_DIR}/
+            -i${CMAKE_SOURCE_DIR}/external/
+        USES_TERMINAL
+        )
+    else()
+        message("CPPCHECK NOT FOUND")
+    endif()
+  endif()
+
+  if(ENABLE_CLANG_TIDY)
+    find_program(CLANGTIDY clang-tidy REQUIRED)
+    if(CLANGTIDY)
+        get_target_property(TARGET_SOURCES ${target} SOURCES)
+
+        add_custom_target(${target}_clangtidy
+        COMMAND ${CMAKE_SOURCE_DIR}/tools/run-clang-tidy.py
+            ${TARGET_SOURCES}
+            -config-file=${CMAKE_SOURCE_DIR}/.clang-tidy
+            -extra-arg-before=-std=${CMAKE_CXX_STANDARD}
+            -header-filter="\(src|app\)\/*,\(h|hpp\)"
+            -p=${CMAKE_BINARY_DIR}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        USES_TERMINAL
+        )
+    else()
+        message("CLANGTIDY NOT FOUND")
+    endif()
+  endif()
+
+  if(ENABLE_CLANG_FORMAT)
+  find_program(CLANGFORMAT clang-format REQUIRED)
+  if(CLANGFORMAT)
+      get_target_property(TARGET_SOURCES ${target} SOURCES)
+
+      add_custom_target(${target}_clangformat
+      COMMAND ${CMAKE_SOURCE_DIR}/tools/run-clang-format.py
+          ${TARGET_SOURCES}
+      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+      USES_TERMINAL
+      )
+  else()
+      message("CLANGFORMAT NOT FOUND")
+  endif()
 endif()
+endfunction()

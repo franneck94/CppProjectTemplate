@@ -1,14 +1,7 @@
 ---
-Checks: '-*,
-         clang-*,
-         bugprone-*,
-         cppcoreguidelines-*,
-         modernize-*,
-         performance-*,
-         -cppcoreguidelines-pro-type-vararg,
-         -modernize-use-trailing-return-type,
-         -bugprone-exception-escape'
-HeaderFilterRegex: 'src/*,app/*'
-AnalyzeTemporaryDtors: false
+Checks: 'clang-analyzer-*,cppcoreguidelines-*,modernize-*,-cppcoreguidelines-avoid-magic-numbers,-cppcoreguidelines-macro-usage,-cppcoreguidelines-owning-memory'
 WarningsAsErrors: ''
+HeaderFilterRegex: '(src|app)\/*,(h|hpp)'
+AnalyzeTemporaryDtors: false
+FormatStyle:     none
 ...

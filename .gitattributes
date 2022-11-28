@@ -1,4 +1,11 @@
+# Set the default behavior for all files.
 * text=auto eol=lf
-*.{cmd,[cC][mM][dD]} text eol=crlf
-*.{bat,[bB][aA][tT]} text eol=crlf
-*.{vcxproj,vcxproj.filters} text eol=crlf
+
+# Normalized and converts to native line endings on checkout.
+*.c text
+*.cc text
+*.cxx
+*.cpp text
+*.h text
+*.hxx text
+*.hpp text

@@ -9,14 +9,18 @@ set(CMAKE_CXX_EXTENSIONS            OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS   ON)
 
 # Options
-option(USE_CONAN            "Whether to use conan or vcpkg"         ON)
-option(ENABLE_WARNINGS      "Enable to add warnings to a target."   ON)
-option(ENABLE_TESTING       "Enable a Unit Testing build."          ON)
-option(ENABLE_COVERAGE      "Enable a Code Coverage build."         OFF)
-option(ENABLE_CLANG_TIDY    "Enable to add clang tidy."             OFF)
-option(ENABLE_CPPCHECK      "Enable to add cppcheck."               OFF)
-option(ENABLE_LTO           "Enable to add Link Time Optimization." OFF)
-option(ENABLE_CCACHE        "Enable to add Ccache."                 OFF)
+option(USE_CONAN                    "Whether to use conan or vcpkg"         ON)
+option(ENABLE_WARNINGS              "Enable to add warnings to a target."   ON)
+option(ENABLE_TESTING               "Enable a Unit Testing build."          OFF)
+option(ENABLE_COVERAGE              "Enable a Code Coverage build."         OFF)
+
+option(ENABLE_INCLUDE_WHAT_YOU_USE  "Enable to add iwyu."                   ON)
+option(ENABLE_CLANG_TIDY            "Enable to add clang tidy."             ON)
+option(ENABLE_CLANG_FORMAT          "Enable to add clang-format."           ON)
+option(ENABLE_CPPCHECK              "Enable to add cppcheck."               ON)
+
+option(ENABLE_LTO                   "Enable to add Link Time Optimization." ON)
+option(ENABLE_CCACHE                "Enable to add Ccache."                 ON)
 
 # Project/Library Names
 set(LIBRARY_NAME    "lib")
@@ -37,12 +41,11 @@ include(Ccache)
 
 if (ENABLE_TESTING)
     include(CTest)
-    endif()
+endif()
 if (ENABLE_COVERAGE)
     include(CodeCoverage)
     append_coverage_compiler_flags()
 endif()
-
 if (ENABLE_LTO)
     find_lto(CXX)
 endif()
