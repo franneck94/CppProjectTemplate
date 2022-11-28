@@ -33,7 +33,9 @@ endif()
 function(add_target_static_analyers target)
   get_target_property(TARGET_SOURCES ${target} SOURCES)
   # Include only cc/cpp files
+  # message(BEFORE: ${SOURCES}  -- ${TARGET_SOURCES})
   list(FILTER TARGET_SOURCES INCLUDE REGEX \.*\.\(cc|h|cpp|hpp\))
+  # message(AFTER: ${SOURCES}  -- ${TARGET_SOURCES})
 
   if(ENABLE_INCLUDE_WHAT_YOU_USE)
     find_program(INCLUDE_WHAT_YOU_USE include-what-you-use REQUIRED)
