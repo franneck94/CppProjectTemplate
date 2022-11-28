@@ -10,6 +10,6 @@
         "externalConsole": true
     },
     "cmake.configureSettings": {
-        "CMAKE_TOOLCHAIN_FILE": "${workspaceFolder}/external/vcpkg/scripts/buildsystems/vcpkg.cmake"
+        // "CMAKE_TOOLCHAIN_FILE": "${workspaceFolder}/external/vcpkg/scripts/buildsystems/vcpkg.cmake"
     }
 }

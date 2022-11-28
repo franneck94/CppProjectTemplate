@@ -60,10 +60,9 @@ if(USE_CONAN)
     find_package(Catch2)
     find_package(cxxopts)
 elseif(USE_VCPKG)
-# Note: VCPKG need more adaptations in cmake files
-# Also, rename the _vcpkg.json file to vcpkg.json
     message("Using VCPKG")
-    find_package(nlohmann-json)
+    include(${CMAKE_SOURCE_DIR}/external/vcpkg/scripts/buildsystems/vcpkg.cmake)
+    find_package(nlohmann_json)
     find_package(fmt)
     find_package(spdlog)
     find_package(Catch2)
