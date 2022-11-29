@@ -8,29 +8,8 @@ if(ENABLE_CCACHE)
     endif()
 endif()
 
-# Clang Tidy for "all" build
-if(ENABLE_CLANG_TIDY)
-    if(CMake_SOURCE_DIR STREQUAL CMake_BINARY_DIR)
-        message(FATAL_ERROR "CMake_RUN_CLANG_TIDY requires an out-of-source build!")
-    endif()
-    find_program(CLANG_TIDY_BIN NAMES clang-tidy)
-    if(NOT CLANG_TIDY_BIN)
-        message(WARNING "CMake_RUN_CLANG_TIDY is ON but clang-tidy is not found!")
-        set(CMAKE_CXX_CLANG_TIDY "" CACHE STRING "" FORCE)
-        endif()
-
-    set(CLANGTIDY_EXTRA_ARGS_BEFORE
-        "--extra-arg-before=-std=${CMAKE_CXX_STANDARD}")
-
-    # Clang Tidy while Building
-    set(CMAKE_CXX_CLANG_TIDY
-        "${CLANG_TIDY_BIN}"
-        ${CLANGTIDY_EXTRA_ARGS_BEFORE}
-        ${CLANGTIDY_EXTRA_ARGS})
-endif()
-
 # iwyu, clang-tidy and cppcheck for certain targets
-function(add_target_static_analyers target)
+function(add_tool_to_target target)
   get_target_property(TARGET_SOURCES ${target} SOURCES)
   # Include only cc/cpp files
   # message(BEFORE: ${SOURCES}  -- ${TARGET_SOURCES})
@@ -41,13 +20,10 @@ function(add_target_static_analyers target)
     find_program(INCLUDE_WHAT_YOU_USE include-what-you-use)
     if(INCLUDE_WHAT_YOU_USE)
         add_custom_target(${target}_iwyu
-        COMMAND ${CMAKE_SOURCE_DIR}/tools/iwyu_tool.py
-            -p ${CMAKE_BINARY_DIR}
-            ${TARGET_SOURCES}
-            --
-            -Xiwyu --quoted_includes_first
+        COMMAND python ${CMAKE_SOURCE_DIR}/tools/iwyu_tool.py
+             -p ${CMAKE_BINARY_DIR}
+             ${TARGET_SOURCES}
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-        USES_TERMINAL
         )
     else()
         message("INCLUDE_WHAT_YOU_USE NOT FOUND")
@@ -57,7 +33,6 @@ function(add_target_static_analyers target)
   if(ENABLE_CPPCHECK)
     find_program(CPPCHECK cppcheck)
     if(CPPCHECK)
-        # TO DO: Analyzes all files from compilation database rather than just the TARGET_SOURCES
         add_custom_target(${target}_cppcheck
         COMMAND ${CPPCHECK}
             ${TARGET_SOURCES}

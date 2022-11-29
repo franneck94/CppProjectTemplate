@@ -20,7 +20,7 @@ target_set_warnings(
     ${ENABLE_WARNINGS}
     AS_ERROR
     ${ENABLE_WARNINGS_AS_ERRORS})
-add_target_static_analyers(${LIBRARY_NAME})
+add_tool_to_target(${LIBRARY_NAME})
 if(${ENABLE_LTO})
     target_enable_lto(${LIBRARY_NAME} optimized)
 endif()

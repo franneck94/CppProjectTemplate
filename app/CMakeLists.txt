@@ -17,4 +17,4 @@ target_set_warnings(
     ${ENABLE_WARNINGS}
     AS_ERROR
     ${ENABLE_WARNINGS_AS_ERRORS})
-add_target_static_analyers(${EXECUTABLE_NAME})
+add_tool_to_target(${EXECUTABLE_NAME})

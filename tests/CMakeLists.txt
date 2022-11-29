@@ -1,23 +1,22 @@
-if (ENABLE_TESTING)
-    set(TEST_MAIN
-        "unit_tests")
-    set(TEST_SOURCES
-        "main.cc")
+if(ENABLE_TESTING)
+    set(TEST_MAIN "unit_tests")
+    set(TEST_SOURCES "main.cc")
 
-    add_executable(${TEST_MAIN}
-        ${TEST_SOURCES})
+    add_executable(${TEST_MAIN} ${TEST_SOURCES})
 
-    target_link_libraries(${TEST_MAIN} PUBLIC
-        ${LIBRARY_NAME})
-    target_link_libraries(${TEST_MAIN} PRIVATE
-        Catch2::Catch2)
+    target_link_libraries(${TEST_MAIN} PUBLIC ${LIBRARY_NAME})
+    target_link_libraries(${TEST_MAIN} PRIVATE Catch2::Catch2)
 
-    target_set_warnings(TARGET ${TEST_MAIN}
-        ENABLE ${ENABLE_WARNINGS}
-        AS_ERROR ${ENABLE_WARNINGS_AS_ERRORS})
-    add_target_static_analyers(${TEST_MAIN})
+    target_set_warnings(
+        TARGET
+        ${TEST_MAIN}
+        ENABLE
+        ${ENABLE_WARNINGS}
+        AS_ERROR
+        ${ENABLE_WARNINGS_AS_ERRORS})
+    add_tool_to_target(${TEST_MAIN})
 
-    if (ENABLE_COVERAGE)
+    if(ENABLE_COVERAGE)
         set(COVERAGE_MAIN "coverage")
         set(COVERAGE_EXCLUDES
             "${PROJECT_SOURCE_DIR}/app/*"
@@ -29,9 +28,11 @@ if (ENABLE_TESTING)
             "${CONAN_CXXOPTS_ROOT}/*"
             "/usr/include/*")
         setup_target_for_coverage_lcov(
-            NAME ${COVERAGE_MAIN}
-            EXECUTABLE ${TEST_MAIN}
-            DEPENDENCIES ${TEST_MAIN}
-        )
+            NAME
+            ${COVERAGE_MAIN}
+            EXECUTABLE
+            ${TEST_MAIN}
+            DEPENDENCIES
+            ${TEST_MAIN})
     endif()
 endif()
