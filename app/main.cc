@@ -28,6 +28,8 @@ int main(int argc, char **argv)
               << "." << SPDLOG_VER_PATCH << '\n';
     std::cout << "\n\nUsage Example:\n";
 
+    std::int32_t i = 0;
+
     const auto welcome_message =
         fmt::format("Welcome to {} v{}\n", project_name, project_version);
     spdlog::info(welcome_message);

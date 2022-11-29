@@ -1,13 +1,13 @@
 ifeq '$(findstring ;,$(PATH))' ';'
-  CONAN_FLAGS = -s compiler='Visual Studio' -s compiler.version=16 -s cppstd=17
+  CONAN_FLAGS = -s compiler='Visual Studio' -s compiler.version=16 -s cppstd=17 --build missing
 else
-  CONAN_FLAGS = -s cppstd=17
+  CONAN_FLAGS = -s cppstd=17 -s --build missing
 endif
 
 all: prepare_conan
 
 install:
-	sudo apt-get install gcovr lcov pkg-config curl zip unzip tar
+	sudo apt-get install gcovr lcov pkg-config curl zip unzip tar ccache
 
 install_doc:
 	pip install jinja2 Pygments
