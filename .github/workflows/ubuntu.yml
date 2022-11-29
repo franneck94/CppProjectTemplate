@@ -33,6 +33,6 @@ jobs:
     - name: testing
       run: |
         cd build
-        cd bin
+        cd tests
         ./unit_tests
         bash <(curl -s https://codecov.io/bash)
