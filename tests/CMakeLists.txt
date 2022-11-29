@@ -12,10 +12,9 @@ if (ENABLE_TESTING)
     target_link_libraries(${TEST_MAIN} PRIVATE
         Catch2::Catch2)
 
-    if (${ENABLE_WARNINGS})
-        target_set_warnings(TARGET ${TEST_MAIN} ENABLE ON AS_ERROR OFF)
-    endif()
-
+    target_set_warnings(TARGET ${TEST_MAIN}
+        ENABLE ${ENABLE_WARNINGS}
+        AS_ERROR ${ENABLE_WARNINGS_AS_ERRORS})
     add_target_static_analyers(${TEST_MAIN})
 
     if (ENABLE_COVERAGE)
