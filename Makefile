@@ -1,7 +1,7 @@
 ifeq '$(findstring ;,$(PATH))' ';'
   CONAN_FLAGS = -s compiler='Visual Studio' -s compiler.version=16 -s cppstd=17 --build missing
 else
-  CONAN_FLAGS = -s cppstd=17 -s --build missing
+  CONAN_FLAGS = -s cppstd=17 --build missing
 endif
 
 all: prepare_conan

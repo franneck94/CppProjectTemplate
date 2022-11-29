@@ -30,5 +30,6 @@ jobs:
     - name: testing
       run: |
         cd build
+        dir
         cd bin
         .\unit_tests.exe
