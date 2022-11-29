@@ -1,6 +1,7 @@
 if(ENABLE_CCACHE)
     find_program(CCACHE_FOUND ccache)
     if(CCACHE_FOUND)
+        message("Using CCache")
         set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
         set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
     else()
