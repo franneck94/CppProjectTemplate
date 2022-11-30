@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.16)
 
 project(
     "CppTemplate"
-    VERSION 1.0.0 LANGUAGES C CXX)
+    VERSION 1.0.0
+    LANGUAGES C CXX)
 
 # Global CMake variables are set here
 set(CMAKE_CXX_STANDARD 17)
@@ -23,7 +24,7 @@ option(ENABLE_COVERAGE "Enable a Code Coverage build." OFF)
 option(ENABLE_INCLUDE_WHAT_YOU_USE "Enable to add iwyu." OFF)
 option(ENABLE_CLANG_TIDY "Enable to add clang tidy." ON)
 option(ENABLE_CLANG_FORMAT "Enable to add clang-format." ON)
-option(ENABLE_CPPCHECK "Enable to add cppcheck." OFF)
+option(ENABLE_CPPCHECK "Enable to add cppcheck." ON)
 
 option(ENABLE_CCACHE "Enable to add Ccache." ON)
 option(ENABLE_LTO "Enable to add Link Time Optimization." ON)
@@ -36,12 +37,13 @@ set(EXECUTABLE_NAME "main")
 # CMAKE MODULES
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/)
-include(ConfigSafeGuards)
-include(Warnings)
-include(Docs)
-include(AddGitSubmodule)
 include(FetchContent)
+
+include(AddGitSubmodule)
+include(Docs)
+include(Warnings)
 include(Tools)
+include(ConfigSafeGuards)
 include(LTO)
 
 # if(ENABLE_TESTING) include(CTest) endif()

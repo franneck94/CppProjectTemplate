@@ -1,9 +1,5 @@
 function(target_set_warnings)
 
-    if(NOT ENABLE_WARNINGS)
-        return()
-    endif()
-
     set(oneValueArgs TARGET ENABLE AS_ERROR)
     cmake_parse_arguments(
         target_set_warnings
@@ -13,8 +9,11 @@ function(target_set_warnings)
         ${ARGN})
 
     if(NOT ${target_set_warnings_ENABLE})
+        message("Warnings Disabled for Target ${target_set_warnings_TARGET}")
         return()
     endif()
+    message("Warnings Active for target: ${target_set_warnings_TARGET}")
+    message("-> And Warnings as Errors: ${target_set_warnings_AS_ERROR}")
 
     set(MSVC_WARNINGS
         /W4 # Baseline reasonable warnings

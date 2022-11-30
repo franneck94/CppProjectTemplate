@@ -34,6 +34,7 @@ function(add_tool_to_target target)
   if(ENABLE_CPPCHECK)
     find_program(CPPCHECK cppcheck)
     if(CPPCHECK)
+        message("Added Cppcheck for Target: ${target}")
         add_custom_target(${target}_cppcheck
         COMMAND ${CPPCHECK}
             ${TARGET_SOURCES}
@@ -52,8 +53,7 @@ function(add_tool_to_target target)
   if(ENABLE_CLANG_TIDY)
     find_program(CLANGTIDY clang-tidy)
     if(CLANGTIDY)
-        get_target_property(TARGET_SOURCES ${target} SOURCES)
-
+        message("Added Clang Tidy for Target: ${target}")
         add_custom_target(${target}_clangtidy
         COMMAND ${CMAKE_SOURCE_DIR}/tools/run-clang-tidy.py
             ${TARGET_SOURCES}
@@ -72,13 +72,11 @@ function(add_tool_to_target target)
   if(ENABLE_CLANG_FORMAT)
     find_program(CLANGFORMAT clang-format)
     if(CLANGFORMAT)
-        get_target_property(TARGET_SOURCES ${target} SOURCES)
-
-        add_custom_target(${target}_clangformat
+    message("Added Clang Format for Target: ${target}")
+    add_custom_target(${target}_clangformat
         COMMAND ${CMAKE_SOURCE_DIR}/tools/run-clang-format.py
             ${TARGET_SOURCES}
             --in-place
-            -style=${CMAKE_SOURCE_DIR}/.clang-format
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         USES_TERMINAL
         )
