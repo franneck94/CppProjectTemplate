@@ -9,7 +9,8 @@
         ],
         "externalConsole": true
     },
-    "cmake.configureSettings": {
-        // "CMAKE_TOOLCHAIN_FILE": "${workspaceFolder}/external/vcpkg/scripts/buildsystems/vcpkg.cmake"
-    }
+    "cmakeFormat.args": [
+        "--config-files=${workspaceFolder}/.cmake-format.yaml",
+        "--literal-comment-pattern=.*"
+    ]
 }

@@ -1,20 +1,20 @@
 if(ENABLE_TESTING)
-    set(TEST_MAIN "unit_tests")
     set(TEST_SOURCES "main.cc")
+    set(TEST_HEADERS "")
 
-    add_executable(${TEST_MAIN} ${TEST_SOURCES})
+    add_executable(${UNIT_TEST_NAME} ${TEST_SOURCES} ${TEST_HEADERS})
 
-    target_link_libraries(${TEST_MAIN} PUBLIC ${LIBRARY_NAME})
-    target_link_libraries(${TEST_MAIN} PRIVATE Catch2::Catch2)
+    target_link_libraries(${UNIT_TEST_NAME} PUBLIC ${LIBRARY_NAME})
+    target_link_libraries(${UNIT_TEST_NAME} PRIVATE Catch2::Catch2)
 
     target_set_warnings(
         TARGET
-        ${TEST_MAIN}
+        ${UNIT_TEST_NAME}
         ENABLE
         ${ENABLE_WARNINGS}
         AS_ERROR
         ${ENABLE_WARNINGS_AS_ERRORS})
-    add_tool_to_target(${TEST_MAIN})
+    add_tool_to_target(${UNIT_TEST_NAME})
 
     if(ENABLE_COVERAGE)
         set(COVERAGE_MAIN "coverage")
@@ -30,8 +30,8 @@ if(ENABLE_TESTING)
             NAME
             ${COVERAGE_MAIN}
             EXECUTABLE
-            ${TEST_MAIN}
+            ${UNIT_TEST_NAME}
             DEPENDENCIES
-            ${TEST_MAIN})
+            ${UNIT_TEST_NAME})
     endif()
 endif()
