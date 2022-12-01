@@ -57,7 +57,7 @@ macro(find_lto lang)
         # LTO support was added for clang/gcc in 3.9
         if(${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} VERSION_LESS 3.9)
             cmake_policy(SET CMP0054 NEW)
-            message(STATUS "Checking for LTO Compatibility")
+            message("---> Checking for LTO Compatibility")
             # Since GCC 4.9 we need to use gcc-ar / gcc-ranlib / gcc-nm
             if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID
                                                        MATCHES "Clang")
@@ -157,7 +157,7 @@ macro(find_lto lang)
                         )
                     endif()
                     if(CMAKE_${lang}_PASSED_LTO_TEST)
-                        message(STATUS "Checking for LTO Compatibility - works")
+                        message("---> Checking for LTO Compatibility - works")
                         set(LTO_${lang}_SUPPORT
                             TRUE
                             CACHE BOOL "Do we have LTO support ?")
@@ -189,7 +189,7 @@ macro(find_lto lang)
                     -flto
                     CACHE STRING "Link Time Optimization link flags")
             elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-                message(STATUS "Checking for LTO Compatibility - works")
+                message("---> Checking for LTO Compatibility - works")
                 set(LTO_${lang}_SUPPORT
                     TRUE
                     CACHE BOOL "Do we have LTO support ?")
@@ -267,9 +267,9 @@ macro(find_lto lang)
             # Optional IPO. Do not use IPO if it's not supported by compiler.
             check_ipo_supported(RESULT __IPO_SUPPORTED OUTPUT output)
             if(NOT __IPO_SUPPORTED)
-                message(STATUS "IPO is not supported or broken.")
+                message("---> IPO is not supported or broken.")
             else()
-                message(STATUS "IPO is supported")
+                message("---> IPO is supported")
             endif()
         endif()
         if(__IPO_SUPPORTED)

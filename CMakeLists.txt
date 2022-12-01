@@ -26,7 +26,6 @@ option(ENABLE_CLANG_TIDY "Enable to add clang tidy." ON)
 option(ENABLE_CLANG_FORMAT "Enable to add clang-format." ON)
 option(ENABLE_CPPCHECK "Enable to add cppcheck." ON)
 
-option(ENABLE_CCACHE "Enable to add Ccache." ON)
 option(ENABLE_LTO "Enable to add Link Time Optimization." ON)
 
 # Project/Library Names
@@ -58,7 +57,7 @@ endif()
 # EXTERNAL LIBRARIES
 
 if(USE_CONAN)
-    message("Using Conan")
+    message("---> Using Conan")
     include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
     find_package(nlohmann_json)
     find_package(fmt)
@@ -66,7 +65,7 @@ if(USE_CONAN)
     find_package(Catch2)
     find_package(cxxopts)
 elseif(USE_VCPKG)
-    message("Using VCPKG")
+    message("---> Using VCPKG")
     include(${CMAKE_SOURCE_DIR}/external/vcpkg/scripts/buildsystems/vcpkg.cmake)
     find_package(nlohmann_json)
     find_package(fmt)
@@ -74,7 +73,7 @@ elseif(USE_VCPKG)
     find_package(Catch2)
     find_package(cxxopts)
 else() # Use FetchContent
-    message("Using FetchContent")
+    message("---> Using FetchContent")
     FetchContent_Declare(
         nlohmann_json
         GIT_REPOSITORY https://github.com/nlohmann/json.git

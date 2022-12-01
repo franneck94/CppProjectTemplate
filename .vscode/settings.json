@@ -2,10 +2,10 @@
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
     "cmake.debugConfig": {
         "args": [
-            // "--verbose",
-            // "true",
-            // "--filename",
-            // "${workspaceFolder}/app/test.json"
+            "--verbose",
+            "true",
+            "--filename",
+            "${workspaceFolder}/app/test.json"
         ],
         "externalConsole": true
     },

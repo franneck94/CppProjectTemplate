@@ -1,78 +1,72 @@
 function(target_set_warnings)
-
-    set(oneValueArgs TARGET ENABLE AS_ERROR)
+    set(oneValueArgs TARGET)
+    set(options ENABLE AS_ERRORS)
     cmake_parse_arguments(
-        target_set_warnings
-        ""
+        TARGET_SET_WARNINGS
+        "${options}"
         "${oneValueArgs}"
-        ""
+        "${multiValueArgs}"
         ${ARGN})
 
-    if(NOT ${target_set_warnings_ENABLE})
-        message("Warnings Disabled for Target ${target_set_warnings_TARGET}")
+    if(NOT ${TARGET_SET_WARNINGS_ENABLE})
+        message("---> Warnings Disabled for: ${TARGET_SET_WARNINGS_TARGET}")
         return()
     endif()
-    message("Warnings Active for target: ${target_set_warnings_TARGET}")
-    message("-> And Warnings as Errors: ${target_set_warnings_AS_ERROR}")
+    message("---> Warnings Active for: ${TARGET_SET_WARNINGS_TARGET}")
+    message("---> Warnings as Errors for: ${TARGET_SET_WARNINGS_AS_ERRORS}")
 
     set(MSVC_WARNINGS
+        # Baseline
         /W4 # Baseline reasonable warnings
-        /w14242 # 'identifier': conversion from 'type1' to 'type1', possible
-                # loss of data
-        /w14263 # 'function': member function does not override any base class
-                # virtual member function
-        /w14265 # 'classname': class has virtual functions, but destructor is
-                # not virtual
-        /w14287 # 'operator': unsigned/negative constant mismatch
-        /w14296 # 'operator': expression is always 'boolean_value'
-        /w14311 # 'variable': pointer truncation from 'type1' to 'type2'
-        /w14826 # Conversion from 'type1' to 'type_2' is sign-extended. This may
-                # cause unexpected runtime behavior.
-        /w14928 # illegal copy-initialization; more than one user-defined
-                # conversion has been implicitly applied
-        /w44062 # enumerator 'identifier' in a switch of enum 'enumeration' is
-                # not handled
-        /w44242 # 'identifier': conversion from 'type1' to 'type2', possible
-                # loss of data
-        /permissive- # standards conformance mode for MSVC compiler.
+        /permissive- # standards conformance mode for MSVC compiler
+        # C and C++ Warnings
+        /w14242 # conversion from 'type1' to 'type1', possible loss of data
+        /w14287 # unsigned/negative constant mismatch
+        /w14296 # expression is always 'boolean_value'
+        /w14311 # pointer truncation from 'type1' to 'type2'
+        /w14826 # Conversion from 'type1' to 'type_2' is sign-extended
+        /w44062 # enumerator in a switch of enum 'enumeration' is not handled
+        /w44242 # conversion from 'type1' to 'type2', possible loss of data
+        # C++ Only
+        /w14928 # more than one implicitly user-defined conversion
+        /w14263 # function does not override any base class virtual function
+        /w14265 # class has virtual functions, but destructor is not virtual
     )
 
     set(CLANG_WARNINGS
+        # Baseline
         -Wall
         -Wextra # reasonable and standard
-        -Wshadow # warn the user if a variable declaration shadows one from a
-                 # parent context
-        -Wnon-virtual-dtor # warn the user if a class with virtual functions has
-                           # a non-virtual destructor
-        -Wold-style-cast # warn for c-style casts
-        -Wcast-align # warn for potential performance problem casts
-        -Wunused # warn on anything being unused
-        -Woverloaded-virtual # warn if you overload (not override) a virtual
-                             # function
         -Wpedantic # warn if non-standard is used
+        # C and C++ Warnings
+        -Wshadow # if a variable declaration shadows one from a parent context
+        -Wunused # warn on anything being unused
+        -Wformat=2 # warn on security issues around functions that format output
+        -Wcast-align # warn for potential performance problem casts
         -Wconversion # warn on type conversions that may lose data
         -Wnull-dereference # warn if a null dereference is detected
-        -Wformat=2 # warn on security issues around functions that format output
-                   # (ie printf)
+        # C++ Warnings
+        -Wnon-virtual-dtor # if a class with virtual func has a non-virtual dest
+        -Wold-style-cast # warn for c-style casts
+        -Woverloaded-virtual # if you overload (not override) a virtual function
     )
 
     set(GCC_WARNINGS ${CLANG_WARNINGS})
 
-    if(${target_set_warnings_AS_ERROR})
+    if(${TARGET_SET_WARNINGS_AS_ERRORS})
         set(CLANG_WARNINGS ${CLANG_WARNINGS} -Werror)
         set(GCC_WARNINGS ${GCC_WARNINGS} -Werror)
         set(MSVC_WARNINGS ${MSVC_WARNINGS} /WX)
     endif()
 
     if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-        set(PROJECT_WARNINGS ${MSVC_WARNINGS})
+        set(WARNINGS ${MSVC_WARNINGS})
     elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-        set(PROJECT_WARNINGS ${CLANG_WARNINGS})
+        set(WARNINGS ${CLANG_WARNINGS})
     elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-        set(PROJECT_WARNINGS ${GCC_WARNINGS})
+        set(WARNINGS ${GCC_WARNINGS})
     endif()
 
-    target_compile_options(${target_set_warnings_TARGET}
-                           PRIVATE ${PROJECT_WARNINGS})
+    target_compile_options(${TARGET_SET_WARNINGS_TARGET} PRIVATE ${WARNINGS})
 
 endfunction(target_set_warnings)

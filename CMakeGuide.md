@@ -54,7 +54,7 @@ If you have set some options in the CMakeLists, you can pass values in the comma
 
 ```bash
 cd build
-cmake -DMY_OPTION=[ON|OFF] .. 
+cmake -DMY_OPTION=[ON|OFF] ..
 ```
 
 ## Specify the Build Target (Option 1)

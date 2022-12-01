@@ -486,7 +486,5 @@ function(append_coverage_compiler_flags)
         "${CMAKE_Fortran_FLAGS} ${COVERAGE_COMPILER_FLAGS}"
         PARENT_SCOPE)
     message(
-        STATUS
-            "Appending code coverage compiler flags: ${COVERAGE_COMPILER_FLAGS}"
-    )
+        "---> Appending code coverage compiler flags: ${COVERAGE_COMPILER_FLAGS}")
 endfunction() # append_coverage_compiler_flags
