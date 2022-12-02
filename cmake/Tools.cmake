@@ -1,4 +1,7 @@
 function(add_cmake_format_target)
+    if(NOT ${ENABLE_CMAKE_FORMAT})
+        return()
+    endif()
     set(ROOT_CMAKE_FILES "${CMAKE_SOURCE_DIR}/CMakeLists.txt")
     file(GLOB_RECURSE CMAKE_FILES_TXT "*/CMakeLists.txt")
     file(GLOB_RECURSE CMAKE_FILES_C "cmake/*.cmake")
@@ -11,7 +14,7 @@ function(add_cmake_format_target)
     set(CMAKE_FILES ${ROOT_CMAKE_FILES} ${CMAKE_FILES_TXT} ${CMAKE_FILES_C})
     find_program(CMAKE_FORMAT cmake-format)
     if(CMAKE_FORMAT)
-        message("---> CMAKE_FORMAT FOUND")
+        message("==> Added Cmake Format")
         set(FORMATTTING_COMMANDS)
         foreach(cmake_file ${CMAKE_FILES})
             list(
@@ -29,7 +32,40 @@ function(add_cmake_format_target)
             COMMAND ${FORMATTTING_COMMANDS}
             WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     else()
-        message("---> CMAKE_FORMAT NOT FOUND")
+        message("==> CMAKE_FORMAT NOT FOUND")
+    endif()
+endfunction()
+
+function(add_clang_format_target)
+    if(NOT ${ENABLE_CLANG_FORMAT})
+        return()
+    endif()
+    file(GLOB_RECURSE CMAKE_FILES_CC "*/*.cc")
+    file(GLOB_RECURSE CMAKE_FILES_CPP "*/*.cpp")
+    file(GLOB_RECURSE CMAKE_FILES_H "*/*.h")
+    file(GLOB_RECURSE CMAKE_FILES_HPP "*/*.hpp")
+    set(CPP_FILES
+        ${CMAKE_FILES_CC}
+        ${CMAKE_FILES_CPP}
+        ${CMAKE_FILES_H}
+        ${CMAKE_FILES_HPP})
+    list(
+        FILTER
+        CPP_FILES
+        EXCLUDE
+        REGEX
+        "${CMAKE_SOURCE_DIR}/(build|external)/.*")
+    find_program(CLANGFORMAT clang-format)
+    if(CLANGFORMAT)
+        message("==> Added Clang Format")
+        add_custom_target(
+            clang_format
+            COMMAND ${CMAKE_SOURCE_DIR}/tools/run-clang-format.py ${CPP_FILES}
+                    --in-place
+            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+            USES_TERMINAL)
+    else()
+        message("==> CLANGFORMAT NOT FOUND")
     endif()
 endfunction()
 
@@ -41,8 +77,7 @@ function(add_tool_to_target target)
         TARGET_SOURCES
         INCLUDE
         REGEX
-        "\.*\.\(cc|h|cpp|hpp\)")
-
+        ".*.(cc|h|cpp|hpp)")
     if(ENABLE_INCLUDE_WHAT_YOU_USE)
         find_program(INCLUDE_WHAT_YOU_USE include-what-you-use)
         if(INCLUDE_WHAT_YOU_USE)
@@ -52,14 +87,14 @@ function(add_tool_to_target target)
                         ${CMAKE_BINARY_DIR} ${TARGET_SOURCES}
                 WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
         else()
-            message("---> INCLUDE_WHAT_YOU_USE NOT FOUND")
+            message("==> INCLUDE_WHAT_YOU_USE NOT FOUND")
         endif()
     endif()
 
     if(ENABLE_CPPCHECK)
         find_program(CPPCHECK cppcheck)
         if(CPPCHECK)
-            message("---> Added Cppcheck for Target: ${target}")
+            message("==> Added Cppcheck for Target: ${target}")
             add_custom_target(
                 ${target}_cppcheck
                 COMMAND
@@ -70,14 +105,14 @@ function(add_tool_to_target target)
                     -i${CMAKE_BINARY_DIR}/ -i${CMAKE_SOURCE_DIR}/external/
                 USES_TERMINAL)
         else()
-            message("---> CPPCHECK NOT FOUND")
+            message("==> CPPCHECK NOT FOUND")
         endif()
     endif()
 
     if(ENABLE_CLANG_TIDY)
         find_program(CLANGTIDY clang-tidy)
         if(CLANGTIDY)
-            message("---> Added Clang Tidy for Target: ${target}")
+            message("==> Added Clang Tidy for Target: ${target}")
             add_custom_target(
                 ${target}_clangtidy
                 COMMAND
@@ -90,22 +125,7 @@ function(add_tool_to_target target)
                 WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
                 USES_TERMINAL)
         else()
-            message("---> CLANGTIDY NOT FOUND")
-        endif()
-    endif()
-
-    if(ENABLE_CLANG_FORMAT)
-        find_program(CLANGFORMAT clang-format)
-        if(CLANGFORMAT)
-            message("---> Added Clang Format for Target: ${target}")
-            add_custom_target(
-                ${target}_clangformat
-                COMMAND ${CMAKE_SOURCE_DIR}/tools/run-clang-format.py
-                        ${TARGET_SOURCES} --in-place
-                WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-                USES_TERMINAL)
-        else()
-            message("---> CLANGFORMAT NOT FOUND")
+            message("==> CLANGTIDY NOT FOUND")
         endif()
     endif()
 endfunction()

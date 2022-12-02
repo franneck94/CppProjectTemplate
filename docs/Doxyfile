@@ -7,7 +7,7 @@
 #---------------------------------------------------------------------------
 DOXYFILE_ENCODING       = UTF-8
 PROJECT_NAME            = "C++ Project Template"
-PROJECT_NUMBER          = 1.0
+PROJECT_NUMBER          = 1.0.0
 PROJECT_BRIEF           =
 PROJECT_LOGO            =
 OUTPUT_DIRECTORY        = ./
@@ -31,11 +31,7 @@ INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.c \
                          *.cc \
                          *.cpp \
-                         *.c++ \
                          *.h \
                          *.hpp \
-                         *.h++ \
                          *.md \
-                         *.dox \
-                         *.doc \
                          *.txt

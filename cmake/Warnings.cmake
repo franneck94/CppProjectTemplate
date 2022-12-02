@@ -9,11 +9,11 @@ function(target_set_warnings)
         ${ARGN})
 
     if(NOT ${TARGET_SET_WARNINGS_ENABLE})
-        message("---> Warnings Disabled for: ${TARGET_SET_WARNINGS_TARGET}")
+        message("==> Warnings Disabled for: ${TARGET_SET_WARNINGS_TARGET}")
         return()
     endif()
-    message("---> Warnings Active for: ${TARGET_SET_WARNINGS_TARGET}")
-    message("---> Warnings as Errors for: ${TARGET_SET_WARNINGS_AS_ERRORS}")
+    message("==> Warnings Active for: ${TARGET_SET_WARNINGS_TARGET}")
+    message("==> Warnings as Errors for: ${TARGET_SET_WARNINGS_AS_ERRORS}")
 
     set(MSVC_WARNINGS
         # Baseline
