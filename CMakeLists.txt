@@ -13,7 +13,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Options
 option(USE_CONAN "Whether to use conan" OFF)
-option(USE_VCPKG "Whether to use vcpkg" OFF)
+option(USE_VCPKG "Whether to use vcpkg" ON)
 
 option(ENABLE_WARNINGS "Enable to add warnings to a target." ON)
 option(ENABLE_WARNINGS_AS_ERRORS "Enable to treat warnings as errors." OFF)
@@ -52,7 +52,7 @@ if(ENABLE_COVERAGE)
     append_coverage_compiler_flags()
 endif()
 if(ENABLE_LTO)
-find_lto(CXX)
+    find_lto(CXX)
 endif()
 
 # EXTERNAL LIBRARIES

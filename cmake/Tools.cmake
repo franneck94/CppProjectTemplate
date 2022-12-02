@@ -1,12 +1,15 @@
 function(add_cmake_format_target)
-    file(GLOB_RECURSE CMAKE_FILES "*/CMakeLists.txt")
-    file(GLOB_RECURSE CMAKE_FILES "cmake/*.cmake")
+    set(ROOT_CMAKE_FILES "${CMAKE_SOURCE_DIR}/CMakeLists.txt")
+    file(GLOB_RECURSE CMAKE_FILES_TXT "*/CMakeLists.txt")
+    file(GLOB_RECURSE CMAKE_FILES_C "cmake/*.cmake")
     list(
         FILTER
-        CMAKE_FILES
+        CMAKE_FILES_TXT
         EXCLUDE
         REGEX
         "${CMAKE_SOURCE_DIR}/(build|external)/.*")
+    set(CMAKE_FILES ${ROOT_CMAKE_FILES} ${CMAKE_FILES_TXT} ${CMAKE_FILES_C})
+    message("CMAKE_FILES: ${CMAKE_FILES}")
     find_program(CMAKE_FORMAT cmake-format)
     if(CMAKE_FORMAT)
         message("---> CMAKE_FORMAT FOUND")
