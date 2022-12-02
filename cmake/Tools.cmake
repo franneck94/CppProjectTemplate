@@ -9,7 +9,6 @@ function(add_cmake_format_target)
         REGEX
         "${CMAKE_SOURCE_DIR}/(build|external)/.*")
     set(CMAKE_FILES ${ROOT_CMAKE_FILES} ${CMAKE_FILES_TXT} ${CMAKE_FILES_C})
-    message("CMAKE_FILES: ${CMAKE_FILES}")
     find_program(CMAKE_FORMAT cmake-format)
     if(CMAKE_FORMAT)
         message("---> CMAKE_FORMAT FOUND")
