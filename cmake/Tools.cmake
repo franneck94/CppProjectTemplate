@@ -1,5 +1,6 @@
 function(add_cmake_format_target)
     file(GLOB_RECURSE CMAKE_FILES "*/CMakeLists.txt")
+    file(GLOB_RECURSE CMAKE_FILES "cmake/*.cmake")
     list(
         FILTER
         CMAKE_FILES
@@ -9,18 +10,28 @@ function(add_cmake_format_target)
     find_program(CMAKE_FORMAT cmake-format)
     if(CMAKE_FORMAT)
         message("---> CMAKE_FORMAT FOUND")
-        message("cmake-format -i -c ${CMAKE_SOURCE_DIR}/.cmake-format.yaml ${CMAKE_FILES}")
+        set(FORMATTTING_COMMANDS)
+        foreach(cmake_file ${CMAKE_FILES})
+            list(
+                APPEND
+                FORMATTTING_COMMANDS
+                COMMAND
+                cmake-format
+                -c
+                ${CMAKE_SOURCE_DIR}/.cmake-format.yaml
+                -i
+                ${cmake_file})
+        endforeach()
         add_custom_target(
             run_cmake_format
-            COMMAND cmake-format -i -c ${CMAKE_SOURCE_DIR}/.cmake-format.yaml
-                    ${CMAKE_FILES}
+            COMMAND ${FORMATTTING_COMMANDS}
             WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     else()
         message("---> CMAKE_FORMAT NOT FOUND")
     endif()
 endfunction()
 
-# iwyu, clang-tidy and cppcheck for certain targets
+# iwyu, clang-tidy and cppcheck
 function(add_tool_to_target target)
     get_target_property(TARGET_SOURCES ${target} SOURCES)
     list(
