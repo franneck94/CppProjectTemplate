@@ -1,4 +1,4 @@
-set(APP_SOURCES "main.cc")
+set(APP_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/main.cc")
 
 add_executable(${EXECUTABLE_NAME} ${APP_SOURCES})
 

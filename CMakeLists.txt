@@ -45,13 +45,14 @@ include(Tools)
 include(LTO)
 include(ConfigSafeGuards)
 
-# if(ENABLE_TESTING) include(CTest) endif()
+add_cmake_format_target()
+
 if(ENABLE_COVERAGE)
     include(CodeCoverage)
     append_coverage_compiler_flags()
 endif()
 if(ENABLE_LTO)
-    find_lto(CXX)
+find_lto(CXX)
 endif()
 
 # EXTERNAL LIBRARIES
