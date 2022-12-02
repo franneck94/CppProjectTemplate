@@ -12,6 +12,10 @@ install:
 install_pip:
 	pip install jinja2 Pygments cmake-format pre-commit conan --user
 
+install_doc:
+	sudo apt-get doxygen
+	pip install jinja2 Pygments
+
 setup:
 	pip install conan
 	conan user
