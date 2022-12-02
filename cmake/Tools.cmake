@@ -15,11 +15,11 @@ function(add_cmake_format_target)
     find_program(CMAKE_FORMAT cmake-format)
     if(CMAKE_FORMAT)
         message("==> Added Cmake Format")
-        set(FORMATTTING_COMMANDS)
+        set(FORMATTING_COMMANDS)
         foreach(cmake_file ${CMAKE_FILES})
             list(
                 APPEND
-                FORMATTTING_COMMANDS
+                FORMATTING_COMMANDS
                 COMMAND
                 cmake-format
                 -c
@@ -29,7 +29,7 @@ function(add_cmake_format_target)
         endforeach()
         add_custom_target(
             run_cmake_format
-            COMMAND ${FORMATTTING_COMMANDS}
+            COMMAND ${FORMATTING_COMMANDS}
             WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     else()
         message("==> CMAKE_FORMAT NOT FOUND")
@@ -38,6 +38,10 @@ endfunction()
 
 function(add_clang_format_target)
     if(NOT ${ENABLE_CLANG_FORMAT})
+        return()
+    endif()
+    find_package(Python3 COMPONENTS Interpreter)
+    if(NOT ${Python_FOUND})
         return()
     endif()
     file(GLOB_RECURSE CMAKE_FILES_CC "*/*.cc")
@@ -59,9 +63,11 @@ function(add_clang_format_target)
     if(CLANGFORMAT)
         message("==> Added Clang Format")
         add_custom_target(
-            clang_format
-            COMMAND ${CMAKE_SOURCE_DIR}/tools/run-clang-format.py ${CPP_FILES}
-                    --in-place
+            run_clang_format
+            COMMAND
+                ${Python3_EXECUTABLE}
+                ${CMAKE_SOURCE_DIR}/tools/run-clang-format.py
+                ${FORMATTING_COMMANDS} ${CPP_FILES} --in-place
             WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
             USES_TERMINAL)
     else()
@@ -71,6 +77,10 @@ endfunction()
 
 # iwyu, clang-tidy and cppcheck
 function(add_tool_to_target target)
+    if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+        message("==> Cppcheck, IWYU and Clang-Tidy do not work with MSVC")
+        return()
+    endif()
     get_target_property(TARGET_SOURCES ${target} SOURCES)
     list(
         FILTER
@@ -78,18 +88,6 @@ function(add_tool_to_target target)
         INCLUDE
         REGEX
         ".*.(cc|h|cpp|hpp)")
-    if(ENABLE_INCLUDE_WHAT_YOU_USE)
-        find_program(INCLUDE_WHAT_YOU_USE include-what-you-use)
-        if(INCLUDE_WHAT_YOU_USE)
-            add_custom_target(
-                ${target}_iwyu
-                COMMAND python ${CMAKE_SOURCE_DIR}/tools/iwyu_tool.py -p
-                        ${CMAKE_BINARY_DIR} ${TARGET_SOURCES}
-                WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
-        else()
-            message("==> INCLUDE_WHAT_YOU_USE NOT FOUND")
-        endif()
-    endif()
 
     if(ENABLE_CPPCHECK)
         find_program(CPPCHECK cppcheck)
@@ -109,6 +107,26 @@ function(add_tool_to_target target)
         endif()
     endif()
 
+    find_package(Python3 COMPONENTS Interpreter)
+    if(NOT ${Python_FOUND})
+        message("==> Python3 needed for IWYU and Clang-Tidy")
+        return()
+    endif()
+
+    if(ENABLE_INCLUDE_WHAT_YOU_USE)
+        find_program(INCLUDE_WHAT_YOU_USE include-what-you-use)
+        if(INCLUDE_WHAT_YOU_USE)
+            add_custom_target(
+                ${target}_iwyu
+                COMMAND
+                    ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/iwyu_tool.py
+                    -p ${CMAKE_BINARY_DIR} ${TARGET_SOURCES}
+                WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+        else()
+            message("==> INCLUDE_WHAT_YOU_USE NOT FOUND")
+        endif()
+    endif()
+
     if(ENABLE_CLANG_TIDY)
         find_program(CLANGTIDY clang-tidy)
         if(CLANGTIDY)
@@ -116,6 +134,7 @@ function(add_tool_to_target target)
             add_custom_target(
                 ${target}_clangtidy
                 COMMAND
+                    ${Python3_EXECUTABLE}
                     ${CMAKE_SOURCE_DIR}/tools/run-clang-tidy.py
                     ${TARGET_SOURCES}
                     -config-file=${CMAKE_SOURCE_DIR}/.clang-tidy
