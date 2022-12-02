@@ -71,23 +71,23 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aa9a494c664f262ecea24be0c1a0270c4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="my__lib_2CMakeLists_8txt.html#aa9a494c664f262ecea24be0c1a0270c4">set</a> (LIBRARY_SOURCES &quot;my_lib.cc&quot;) set(LIBRARY_HEADERS &quot;my_lib.h&quot;) set(LIBRARY_INCLUDES &quot;./&quot; &quot;$</td></tr>
-<tr class="separator:aa9a494c664f262ecea24be0c1a0270c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4be0f1ca9018e11dbdb3a1e637446288"><td class="memItemLeft" align="right" valign="top">configured_files include&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="my__lib_2CMakeLists_8txt.html#a4be0f1ca9018e11dbdb3a1e637446288">add_library</a> (${LIBRARY_NAME} STATIC ${LIBRARY_SOURCES} ${LIBRARY_HEADERS}) target_include_directories($</td></tr>
-<tr class="separator:a4be0f1ca9018e11dbdb3a1e637446288"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc4a43310046a92baeb76452c0d7ee5c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="my__lib_2CMakeLists_8txt.html#abc4a43310046a92baeb76452c0d7ee5c">set</a> (LIBRARY_SOURCES &quot;${CMAKE_CURRENT_SOURCE_DIR}/my_lib.cc&quot;) set(LIBRARY_HEADERS &quot;$</td></tr>
+<tr class="separator:abc4a43310046a92baeb76452c0d7ee5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ddbfbe904bdf0d62178df205c3e98ac"><td class="memItemLeft" align="right" valign="top">my_lib h&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="my__lib_2CMakeLists_8txt.html#a3ddbfbe904bdf0d62178df205c3e98ac">set</a> (LIBRARY_INCLUDES &quot;./&quot; &quot;${CMAKE_BINARY_DIR}/configured_files/include&quot;) add_library($</td></tr>
+<tr class="separator:a3ddbfbe904bdf0d62178df205c3e98ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a4be0f1ca9018e11dbdb3a1e637446288"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4be0f1ca9018e11dbdb3a1e637446288">&#9670;&nbsp;</a></span>add_library()</h2>
+<a id="a3ddbfbe904bdf0d62178df205c3e98ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ddbfbe904bdf0d62178df205c3e98ac">&#9670;&nbsp;</a></span>set() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">configured_files include add_library </td>
+          <td class="memname">my_lib h set </td>
           <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>${LIBRARY_NAME} STATIC ${LIBRARY_SOURCES} ${LIBRARY_HEADERS}</em></td><td>)</td>
+          <td class="paramtype">LIBRARY_INCLUDES &quot;./&quot; &quot;${CMAKE_BINARY_DIR}/configured_files/include&quot;&#160;</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -95,8 +95,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aa9a494c664f262ecea24be0c1a0270c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9a494c664f262ecea24be0c1a0270c4">&#9670;&nbsp;</a></span>set()</h2>
+<a id="abc4a43310046a92baeb76452c0d7ee5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc4a43310046a92baeb76452c0d7ee5c">&#9670;&nbsp;</a></span>set() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -104,7 +104,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">set </td>
           <td>(</td>
-          <td class="paramtype">LIBRARY_SOURCES &quot;my_lib.cc&quot;&#160;</td>
+          <td class="paramtype">LIBRARY_SOURCES &quot;${CMAKE_CURRENT_SOURCE_DIR}/my_lib.cc&quot;&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>

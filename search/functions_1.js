@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['factorial_11',['factorial',['../my__lib_8cc.html#aea62baaa1b97041829042603549ad2e1',1,'factorial(unsigned int number):&#160;my_lib.cc'],['../my__lib_8h.html#aea62baaa1b97041829042603549ad2e1',1,'factorial(unsigned int number):&#160;my_lib.cc']]]
+  ['print_5fhello_5fworld_10',['print_hello_world',['../my__lib_8cc.html#a501e98503bb06e4809928757b9b9a77c',1,'print_hello_world():&#160;my_lib.cc'],['../my__lib_8h.html#a501e98503bb06e4809928757b9b9a77c',1,'print_hello_world():&#160;my_lib.cc']]]
 ];
