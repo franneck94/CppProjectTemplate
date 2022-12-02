@@ -16,9 +16,6 @@ jobs:
     - name: Install Docs
       run: |
         make install_doc
-    - name: Setup
-      run: |
-        make setup
     - name: prepare
       run: |
         make prepare

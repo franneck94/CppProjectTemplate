@@ -11,16 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
     - name: install
       run: |
-        make install
-    - name: setup
-      run: |
-        make setup
+        make install_tests
     - name: prepare
       run: |
         make prepare
