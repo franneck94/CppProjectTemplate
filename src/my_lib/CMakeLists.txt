@@ -18,7 +18,7 @@ target_set_warnings(
     ${LIBRARY_NAME}
     ENABLE
     ${ENABLE_WARNINGS}
-    AS_ERROR
+    AS_ERRORS
     ${ENABLE_WARNINGS_AS_ERRORS})
 add_tool_to_target(${LIBRARY_NAME})
 if(${ENABLE_LTO})

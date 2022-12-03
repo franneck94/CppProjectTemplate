@@ -12,7 +12,7 @@ if(ENABLE_TESTING)
         ${UNIT_TEST_NAME}
         ENABLE
         ${ENABLE_WARNINGS}
-        AS_ERROR
+        AS_ERRORS
         ${ENABLE_WARNINGS_AS_ERRORS})
     add_tool_to_target(${UNIT_TEST_NAME})
 

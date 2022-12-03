@@ -15,7 +15,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 option(USE_CONAN "Whether to use conan" OFF)
 option(USE_VCPKG "Whether to use vcpkg" OFF)
 
-option(ENABLE_WARNINGS "Enable to add warnings to a target." OFF)
+option(ENABLE_WARNINGS "Enable to add warnings to a target." ON)
 option(ENABLE_WARNINGS_AS_ERRORS "Enable to treat warnings as errors." OFF)
 
 option(ENABLE_TESTING "Enable a Unit Testing build." ON)

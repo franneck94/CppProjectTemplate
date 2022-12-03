@@ -15,6 +15,6 @@ target_set_warnings(
     ${EXECUTABLE_NAME}
     ENABLE
     ${ENABLE_WARNINGS}
-    AS_ERROR
+    AS_ERRORS
     ${ENABLE_WARNINGS_AS_ERRORS})
 add_tool_to_target(${EXECUTABLE_NAME})
