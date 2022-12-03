@@ -66,8 +66,8 @@ function(add_clang_format_target)
             run_clang_format
             COMMAND
                 ${Python3_EXECUTABLE}
-                ${CMAKE_SOURCE_DIR}/tools/run-clang-format.py
-                ${FORMATTING_COMMANDS} ${CPP_FILES} --in-place
+                ${CMAKE_SOURCE_DIR}/tools/run-clang-format.py ${CPP_FILES}
+                --in-place
             WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
             USES_TERMINAL)
     else()
@@ -97,8 +97,8 @@ function(add_tool_to_target target)
                 ${target}_cppcheck
                 COMMAND
                     ${CPPCHECK} ${TARGET_SOURCES} --enable=all
-                    --suppress=unusedFunction, --suppress=unmatchedSuppression,
-                    --suppress=missingIncludeSystem, --suppress=toomanyconfigs,
+                    --suppress=unusedFunction --suppress=unmatchedSuppression
+                    --suppress=missingIncludeSystem --suppress=toomanyconfigs
                     --project=${CMAKE_BINARY_DIR}/compile_commands.json
                     -i${CMAKE_BINARY_DIR}/ -i${CMAKE_SOURCE_DIR}/external/
                 USES_TERMINAL)
