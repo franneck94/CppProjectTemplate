@@ -1,23 +1,23 @@
 # Template For C++ Projects
 
-![C++](https://camo.githubusercontent.com/c59efb57803dde7f352f4932a468a7f39fa2fb5f/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f632532422532422d31312f31342f31372f32302d626c75652e737667)
+![C++](https://img.shields.io/badge/C%2B%2B-11%2F14%2F17%2F20%2F23-blue)
 ![License](https://camo.githubusercontent.com/890acbdcb87868b382af9a4b1fac507b9659d9bf/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d4d49542d626c75652e737667)
-![Build CI Test](https://github.com/franneck94/CppProjectTemplate/workflows/Ubuntu%20CI%20Test/badge.svg)
+![Linux Build](https://github.com/franneck94/CppProjectTemplate/workflows/Ubuntu%20CI%20Test/badge.svg)
 [![codecov](https://codecov.io/gh/franneck94/CppProjectTemplate/branch/master/graph/badge.svg)](https://codecov.io/gh/franneck94/CppProjectTemplate)
 
 This is a template for C++ projects. What you get:
 
-- Library, executable and test code separated in distinct folders.
-- Use of modern CMake for building and compiling.
+- Library, executable and test code separated in distinct folders
+- Use of modern CMake for building and compiling
 - External libraries installed and managed by
-  - CMake's FetchContent OR
+  - CMake's [FetchContent](https://cmake.org/cmake/help/latest/module/FetchContent.html) OR
   - [Conan](https://conan.io/) Package Manager OR
-  - [VCPKG](https://github.com/microsoft/vcpkg) Package Manager.
+  - [VCPKG](https://github.com/microsoft/vcpkg) Package Manager
 - Unit testing using [Catch2](https://github.com/catchorg/Catch2)
-- General purpose libraries: [JSON](https://github.com/nlohmann/json), [spdlog](https://github.com/gabime/spdlog), [cxxopts](https://github.com/jarro2783/cxxopts) and [fmt](https://github.com/fmtlib/fmt).
-- Continuous integration testing with Github Actions.
-- Code coverage reports, including automatic upload to [Codecov](https://codecov.io).
-- Code documentation with [Doxygen](http://www.stack.nl/~dimitri/doxygen/).
+- General purpose libraries: [JSON](https://github.com/nlohmann/json), [spdlog](https://github.com/gabime/spdlog), [cxxopts](https://github.com/jarro2783/cxxopts) and [fmt](https://github.com/fmtlib/fmt)
+- Continuous integration testing with Github Actions and [pre-commit](https://pre-commit.com/)
+- Code coverage reports, including automatic upload to [Codecov](https://codecov.io)
+- Code documentation with [Doxygen](https://doxygen.nl/) and [Github Pages](https://franneck94.github.io/CppProjectTemplate/)
 
 ## Structure
 
@@ -69,7 +69,7 @@ make prepare
 cd build
 cmake -DCMAKE_BUILD_TYPE=Release ..
 cmake --build . --config Release --target main
-cd bin
+cd app
 ./main
 ```
 
@@ -79,7 +79,7 @@ cd bin
 cd build
 cmake -DCMAKE_BUILD_TYPE=Debug ..
 cmake --build . --config Debug --target unit_tests
-cd bin
+cd tests
 ./unit_tests
 ```
 

@@ -93,31 +93,25 @@ cd build
 ## Different Linking Types
 
 ```cmake
-add_library(A ...)
-add_library(B ...)
-add_library(C ...)
+add_library(A PUBLIC fmt)
+add_library(B PRIVATE spdlog)
+add_library(C)
+```
+
+```cmake
+target_link_libraries(C PUBLIC/PRIVATE A)
+target_link_libraries(C PUBLIC/PRIVATE A)
 ```
 
 ### PUBLIC
 
-```cmake
-target_link_libraries(A PUBLIC B)
-target_link_libraries(C PUBLIC A)
-```
-
-When A links in B as *PUBLIC*, it says that A uses B in its implementation, and B is also used in A's public API. Hence, C can use B since it is part of the public API of A.
+When A links fmt as *PUBLIC*, it says that A uses fmt in its implementation, and fmt is also used in A's public API.
+Hence, C can use fmt since it is part of the public API of A.
 
 ### PRIVATE
 
-```cmake
-target_link_libraries(A PRIVATE B)
-target_link_libraries(C PRIVATE A)
-```
-
-When A links in B as *PRIVATE*, it is saying that A uses B in its
-implementation, but B is not used in any part of A's public API. Any code
-that makes calls into A would not need to refer directly to anything from
-B.
+When B links spdlog as *PRIVATE*, it is saying that A uses spdlog in its
+implementation, but spdlog is not used in any part of A's public API.
 
 ### INTERFACE
 
