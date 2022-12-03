@@ -93,14 +93,13 @@ cd build
 ## Different Linking Types
 
 ```cmake
-add_library(A PUBLIC fmt)
-add_library(B PRIVATE spdlog)
-add_library(C)
+target_link_libraries(A PUBLIC fmt)
+target_link_libraries(B PRIVATE spdlog)
 ```
 
 ```cmake
 target_link_libraries(C PUBLIC/PRIVATE A)
-target_link_libraries(C PUBLIC/PRIVATE A)
+target_link_libraries(C PUBLIC/PRIVATE B)
 ```
 
 ### PUBLIC
@@ -110,8 +109,8 @@ Hence, C can use fmt since it is part of the public API of A.
 
 ### PRIVATE
 
-When B links spdlog as *PRIVATE*, it is saying that A uses spdlog in its
-implementation, but spdlog is not used in any part of A's public API.
+When B links spdlog as *PRIVATE*, it is saying that B uses spdlog in its
+implementation, but spdlog is not used in any part of B's public API.
 
 ### INTERFACE
 
