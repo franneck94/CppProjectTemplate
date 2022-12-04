@@ -18,3 +18,7 @@ target_set_warnings(
     AS_ERRORS
     ${ENABLE_WARNINGS_AS_ERRORS})
 add_tool_to_target(${EXECUTABLE_NAME})
+
+if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+    add_clang_tidy_msvc_to_target(${EXECUTABLE_NAME})
+endif()

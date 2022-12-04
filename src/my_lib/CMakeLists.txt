@@ -24,3 +24,7 @@ add_tool_to_target(${LIBRARY_NAME})
 if(${ENABLE_LTO})
     target_enable_lto(${LIBRARY_NAME} optimized)
 endif()
+
+if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+    add_clang_tidy_msvc_to_target(${LIBRARY_NAME})
+endif()
