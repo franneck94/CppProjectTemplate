@@ -18,20 +18,20 @@ option(USE_VCPKG "Whether to use vcpkg" OFF)
 option(ENABLE_WARNINGS "Enable to add warnings to a target." ON)
 option(ENABLE_WARNINGS_AS_ERRORS "Enable to treat warnings as errors." OFF)
 
-option(ENABLE_TESTING "Enable a Unit Testing build." OFF)
+option(ENABLE_TESTING "Enable a Unit Testing build." ON)
 option(ENABLE_COVERAGE "Enable a Code Coverage build." OFF)
 
 option(ENABLE_INCLUDE_WHAT_YOU_USE "Enable to add iwyu." OFF)
-option(ENABLE_CLANG_TIDY "Enable to add clang tidy." OFF)
+option(ENABLE_CLANG_TIDY "Enable to add clang tidy." ON)
 option(ENABLE_CPPCHECK "Enable to add cppcheck." OFF)
 
 option(ENABLE_SANITIZE_ADDR "Enable to sanitize address (Unix only)." OFF)
 option(ENABLE_SANITIZE_UNDEF "Enable to sanitize undefined (Unix only)." OFF)
 
 option(ENABLE_CLANG_FORMAT "Enable to add clang-format." ON)
-option(ENABLE_CMAKE_FORMAT "Enable to add cmake-format." OFF)
+option(ENABLE_CMAKE_FORMAT "Enable to add cmake-format." ON)
 
-option(ENABLE_LTO "Enable to add Link Time Optimization." OFF)
+option(ENABLE_LTO "Enable to add Link Time Optimization." ON)
 
 # Project/Library Names
 set(LIBRARY_NAME "lib")
