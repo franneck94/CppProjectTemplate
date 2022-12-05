@@ -20,11 +20,11 @@ target_set_warnings(
     ${ENABLE_WARNINGS}
     AS_ERRORS
     ${ENABLE_WARNINGS_AS_ERRORS})
-add_tool_to_target(${LIBRARY_NAME})
+
+add_linter_tool_to_target(${LIBRARY_NAME})
+
 if(${ENABLE_LTO})
     target_enable_lto(${LIBRARY_NAME} optimized)
 endif()
 
-if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-    add_clang_tidy_msvc_to_target(${LIBRARY_NAME})
-endif()
+add_clang_tidy_msvc_to_target(${LIBRARY_NAME})

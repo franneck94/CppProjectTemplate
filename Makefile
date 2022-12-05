@@ -4,7 +4,7 @@ else
   CONAN_FLAGS = -s cppstd=17 --build missing
 endif
 
-all: prepare_conan
+all: prepare
 
 install_min:
 	sudo apt-get install gcc g++ cmake make doxygen

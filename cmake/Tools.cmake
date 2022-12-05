@@ -76,7 +76,7 @@ function(add_clang_format_target)
 endfunction()
 
 # iwyu, clang-tidy and cppcheck
-function(add_tool_to_target target)
+function(add_linter_tool_to_target target)
     if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
         message("==> Cppcheck, IWYU and Clang-Tidy do not work with MSVC")
         return()
@@ -150,6 +150,9 @@ function(add_tool_to_target target)
 endfunction()
 
 function(add_clang_tidy_msvc_to_target target)
+    if(NOT CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+        return()
+    endif()
     if (ENABLE_CLANG_TIDY)
         message("==> Added MSVC ClangTidy (VS GUI only) for: ${target}")
         set_target_properties(${target} PROPERTIES VS_GLOBAL_EnableMicrosoftCodeAnalysis false)

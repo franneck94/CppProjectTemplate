@@ -22,12 +22,6 @@
 #
 # target_enable_lto(mytarget optimized)
 #
-# Note : For CMake versions < 3.9, target_link_library is used in it's non plain
-# version. You will need to specify PUBLIC/PRIVATE/INTERFACE to all your other
-# target_link_library calls for the target
-#
-# WARNING for cmake versions older than 3.9 : This module will override CMAKE_AR
-# CMAKE_RANLIB and CMAKE_NM by the gcc versions if found when building with gcc
 
 # License:
 #
