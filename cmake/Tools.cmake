@@ -78,7 +78,8 @@ endfunction()
 # iwyu, clang-tidy and cppcheck
 function(add_linter_tool_to_target target)
     if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-        message("==> Cppcheck, IWYU and Clang-Tidy do not work with MSVC")
+        message(
+            "==> Cppcheck, IWYU and Clang-Tidy Targets do not work with MSVC")
         return()
     endif()
     get_target_property(TARGET_SOURCES ${target} SOURCES)
@@ -114,16 +115,21 @@ function(add_linter_tool_to_target target)
     endif()
 
     if(ENABLE_INCLUDE_WHAT_YOU_USE)
-        find_program(INCLUDE_WHAT_YOU_USE include-what-you-use)
-        if(INCLUDE_WHAT_YOU_USE)
-            add_custom_target(
-                ${target}_iwyu
-                COMMAND
-                    ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/iwyu_tool.py
-                    -p ${CMAKE_BINARY_DIR} ${TARGET_SOURCES}
-                WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+        if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+            find_program(INCLUDE_WHAT_YOU_USE include-what-you-use)
+            if(INCLUDE_WHAT_YOU_USE)
+                add_custom_target(
+                    ${target}_iwyu
+                    COMMAND
+                        ${Python3_EXECUTABLE}
+                        ${CMAKE_SOURCE_DIR}/tools/iwyu_tool.py -p
+                        ${CMAKE_BINARY_DIR} ${TARGET_SOURCES}
+                    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+            else()
+                message("==> INCLUDE_WHAT_YOU_USE NOT FOUND")
+            endif()
         else()
-            message("==> INCLUDE_WHAT_YOU_USE NOT FOUND")
+            message("==> INCLUDE_WHAT_YOU_USE NEEDS CLANG COMPILER")
         endif()
     endif()
 
@@ -150,12 +156,17 @@ function(add_linter_tool_to_target target)
 endfunction()
 
 function(add_clang_tidy_msvc_to_target target)
-    if(NOT CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+    if(NOT
+       CMAKE_CXX_COMPILER_ID
+       MATCHES
+       "MSVC")
         return()
     endif()
-    if (ENABLE_CLANG_TIDY)
+    if(ENABLE_CLANG_TIDY)
         message("==> Added MSVC ClangTidy (VS GUI only) for: ${target}")
-        set_target_properties(${target} PROPERTIES VS_GLOBAL_EnableMicrosoftCodeAnalysis false)
-        set_target_properties(${target} PROPERTIES VS_GLOBAL_EnableClangTidyCodeAnalysis true)
+        set_target_properties(
+            ${target} PROPERTIES VS_GLOBAL_EnableMicrosoftCodeAnalysis false)
+        set_target_properties(
+            ${target} PROPERTIES VS_GLOBAL_EnableClangTidyCodeAnalysis true)
     endif()
 endfunction(add_clang_tidy_msvc_to_target)
