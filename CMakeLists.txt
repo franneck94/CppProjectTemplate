@@ -23,8 +23,8 @@ option(ENABLE_COVERAGE "Enable a Code Coverage build." OFF)
 
 option(ENABLE_CLANG_TIDY "Enable to add clang tidy." ON)
 
-option(ENABLE_SANITIZE_ADDR "Enable to sanitize address (Unix only)." OFF)
-option(ENABLE_SANITIZE_UNDEF "Enable to sanitize undefined (Unix only)." OFF)
+option(ENABLE_SANITIZE_ADDR "Enable to sanitize address (Unix only)." ON)
+option(ENABLE_SANITIZE_UNDEF "Enable to sanitize undefined (Unix only)." ON)
 
 option(ENABLE_CLANG_FORMAT "Enable to add clang-format." ON)
 option(ENABLE_CMAKE_FORMAT "Enable to add cmake-format." ON)

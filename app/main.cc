@@ -33,6 +33,7 @@ int main(int argc, char **argv)
 
     // Adress Sanitizer should see this
     int *x = new int[42];
+    x[100] = 5; // Boom!
 
     const auto welcome_message =
         fmt::format("Welcome to {} v{}\n", project_name, project_version);

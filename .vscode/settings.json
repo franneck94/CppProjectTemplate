@@ -38,7 +38,11 @@
         "**/.factorypath": true
     },
     "files.associations": {
-        ".clang*": "yaml"
+        "*.pyx": "cython",
+        ".clang*": "yaml",
+        "*.gpj": "jsonc",
+        "*.gvw": "jsonc",
+        "xstring": "cpp"
     },
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
