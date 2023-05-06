@@ -21,8 +21,6 @@ target_set_warnings(
     AS_ERRORS
     ${ENABLE_WARNINGS_AS_ERRORS})
 
-add_linter_tool_to_target(${LIBRARY_NAME})
-
 if(${ENABLE_LTO})
     target_enable_lto(
         TARGET
@@ -31,4 +29,6 @@ if(${ENABLE_LTO})
         ON)
 endif()
 
-add_clang_tidy_msvc_to_target(${LIBRARY_NAME})
+if(${ENABLE_CLANG_TIDY})
+    add_clang_tidy_to_target(${LIBRARY_NAME})
+endif()

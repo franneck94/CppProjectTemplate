@@ -75,11 +75,7 @@ function(add_clang_format_target)
     endif()
 endfunction()
 
-function(add_linter_tool_to_target target)
-    if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-        message(STATUS "Clang-Tidy for MSVC compiler does only work in VS GUI.")
-        return()
-    endif()
+function(add_clang_tidy_to_target target)
     get_target_property(TARGET_SOURCES ${target} SOURCES)
     list(
         FILTER
@@ -88,33 +84,21 @@ function(add_linter_tool_to_target target)
         REGEX
         ".*.(cc|h|cpp|hpp)")
 
-    if(ENABLE_CPPCHECK)
-        find_program(CPPCHECK cppcheck)
-        if(CPPCHECK)
-            message(STATUS "Added Cppcheck for Target: ${target}")
-            add_custom_target(
-                ${target}_cppcheck
-                COMMAND
-                    ${CPPCHECK} ${TARGET_SOURCES} --enable=all
-                    --suppress=unusedFunction --suppress=unmatchedSuppression
-                    --suppress=missingIncludeSystem --suppress=toomanyconfigs
-                    --project=${CMAKE_BINARY_DIR}/compile_commands.json
-                    -i${CMAKE_BINARY_DIR}/ -i${CMAKE_SOURCE_DIR}/external/
-                USES_TERMINAL)
-        else()
-            message(WARNING "CPPCHECK NOT FOUND")
-        endif()
-    endif()
-
     find_package(Python3 COMPONENTS Interpreter)
     if(NOT ${Python_FOUND})
         message(WARNING "Python3 needed for Clang-Tidy")
         return()
     endif()
 
-    if(ENABLE_CLANG_TIDY)
-        find_program(CLANGTIDY clang-tidy)
-        if(CLANGTIDY)
+    find_program(CLANGTIDY clang-tidy)
+    if(CLANGTIDY)
+        if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+            message(STATUS "Added MSVC ClangTidy (VS GUI only) for: ${target}")
+            set_target_properties(
+                ${target} PROPERTIES VS_GLOBAL_EnableMicrosoftCodeAnalysis false)
+            set_target_properties(
+                ${target} PROPERTIES VS_GLOBAL_EnableClangTidyCodeAnalysis true)
+        else()
             message(STATUS "Added Clang Tidy for Target: ${target}")
             add_custom_target(
                 ${target}_clangtidy
@@ -128,24 +112,8 @@ function(add_linter_tool_to_target target)
                     -p=${CMAKE_BINARY_DIR}
                 WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
                 USES_TERMINAL)
-        else()
-            message(WARNING "CLANGTIDY NOT FOUND")
         endif()
+    else()
+        message(WARNING "CLANGTIDY NOT FOUND")
     endif()
 endfunction()
-
-function(add_clang_tidy_msvc_to_target target)
-    if(NOT
-       CMAKE_CXX_COMPILER_ID
-       MATCHES
-       "MSVC")
-        return()
-    endif()
-    if(ENABLE_CLANG_TIDY)
-        message(STATUS "Added MSVC ClangTidy (VS GUI only) for: ${target}")
-        set_target_properties(
-            ${target} PROPERTIES VS_GLOBAL_EnableMicrosoftCodeAnalysis false)
-        set_target_properties(
-            ${target} PROPERTIES VS_GLOBAL_EnableClangTidyCodeAnalysis true)
-    endif()
-endfunction(add_clang_tidy_msvc_to_target)

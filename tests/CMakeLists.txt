@@ -15,8 +15,6 @@ if(ENABLE_TESTING)
         AS_ERRORS
         ${ENABLE_WARNINGS_AS_ERRORS})
 
-    add_linter_tool_to_target(${UNIT_TEST_NAME})
-
     if(ENABLE_COVERAGE)
         set(COVERAGE_MAIN "coverage")
         set(COVERAGE_EXCLUDES
