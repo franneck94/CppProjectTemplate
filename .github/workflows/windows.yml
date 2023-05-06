@@ -25,4 +25,5 @@ jobs:
         cd build
         cd tests
         cd Debug
+        dir
         .\unit_tests.exe
