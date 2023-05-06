@@ -24,7 +24,11 @@ target_set_warnings(
 add_linter_tool_to_target(${LIBRARY_NAME})
 
 if(${ENABLE_LTO})
-    target_enable_lto(${LIBRARY_NAME} optimized)
+    target_enable_lto(
+        TARGET
+        ${LIBRARY_NAME}
+        ENABLE
+        ON)
 endif()
 
 add_clang_tidy_msvc_to_target(${LIBRARY_NAME})

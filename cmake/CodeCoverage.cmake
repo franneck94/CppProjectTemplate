@@ -239,6 +239,6 @@ function(append_coverage_compiler_flags)
         "${CMAKE_CXX_FLAGS} ${COVERAGE_COMPILER_FLAGS}"
         PARENT_SCOPE)
     message(
-        "==> Appending code coverage compiler flags: ${COVERAGE_COMPILER_FLAGS}"
+        STATUS "Appending code coverage compiler flags: ${COVERAGE_COMPILER_FLAGS}"
     )
 endfunction() # append_coverage_compiler_flags

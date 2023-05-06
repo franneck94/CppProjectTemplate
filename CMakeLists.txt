@@ -37,16 +37,17 @@ set(UNIT_TEST_NAME "unit_tests")
 set(EXECUTABLE_NAME "main")
 
 # CMAKE MODULES
-
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/)
 include(FetchContent)
 
 include(AddGitSubmodule)
 include(Docs)
-include(Warnings)
 include(Tools)
-include(LTO)
 include(ConfigSafeGuards)
+
+if(ENABLE_WARNINGS)
+    include(Warnings)
+endif()
 
 add_cmake_format_target()
 add_clang_format_target()
@@ -62,13 +63,13 @@ if(ENABLE_COVERAGE)
 endif()
 
 if(ENABLE_LTO)
-    find_lto(CXX)
+    include(LTO)
 endif()
 
 # EXTERNAL LIBRARIES
 
 if(USE_CONAN)
-    message("==> Using Conan")
+    message(STATUS "Using Conan")
     include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
     find_package(nlohmann_json)
     find_package(fmt)
@@ -76,7 +77,7 @@ if(USE_CONAN)
     find_package(Catch2)
     find_package(cxxopts)
 elseif(USE_VCPKG)
-    message("==> Using VCPKG")
+    message(STATUS "Using VCPKG")
     include(${CMAKE_SOURCE_DIR}/external/vcpkg/scripts/buildsystems/vcpkg.cmake)
     find_package(nlohmann_json)
     find_package(fmt)
@@ -84,7 +85,7 @@ elseif(USE_VCPKG)
     find_package(Catch2)
     find_package(cxxopts)
 else() # Use FetchContent
-    message("==> Using FetchContent")
+    message(STATUS "Using FetchContent")
     FetchContent_Declare(
         nlohmann_json
         GIT_REPOSITORY https://github.com/nlohmann/json.git
