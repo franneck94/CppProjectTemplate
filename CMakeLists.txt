@@ -21,15 +21,15 @@ option(ENABLE_WARNINGS_AS_ERRORS "Enable to treat warnings as errors." OFF)
 option(ENABLE_TESTING "Enable a Unit Testing build." ON)
 option(ENABLE_COVERAGE "Enable a Code Coverage build." OFF)
 
-option(ENABLE_CLANG_TIDY "Enable to add clang tidy." ON)
+option(ENABLE_CLANG_TIDY "Enable to add clang tidy." OFF)
 
-option(ENABLE_SANITIZE_ADDR "Enable to sanitize address (Unix only)." ON)
-option(ENABLE_SANITIZE_UNDEF "Enable to sanitize undefined (Unix only)." ON)
+option(ENABLE_SANITIZE_ADDR "Enable to sanitize address (Unix only)." OFF)
+option(ENABLE_SANITIZE_UNDEF "Enable to sanitize undefined (Unix only)." OFF)
 
 option(ENABLE_CLANG_FORMAT "Enable to add clang-format." ON)
 option(ENABLE_CMAKE_FORMAT "Enable to add cmake-format." ON)
 
-option(ENABLE_LTO "Enable to add Link Time Optimization." ON)
+option(ENABLE_LTO "Enable to add Link Time Optimization." OFF)
 
 # Project/Library Names
 set(LIBRARY_NAME "lib")
