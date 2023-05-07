@@ -1,7 +1,7 @@
 ifeq '$(findstring ;,$(PATH))' ';'
-  CONAN_FLAGS = -s compiler='Visual Studio' -s compiler.version=16 -s cppstd=17 --build missing
+  CONAN_FLAGS = -s compiler.cppstd=17
 else
-  CONAN_FLAGS = -s cppstd=17 --build missing
+  CONAN_FLAGS = -s compiler.cppstd=17
 endif
 
 all: prepare
@@ -23,8 +23,7 @@ install_doc: install_min
 	pip install jinja2 Pygments
 
 setup:
-	pip install conan --user
-	conan user
+	pip install --user -U conan
 
 prepare:
 	rm -rf build
@@ -33,4 +32,4 @@ prepare:
 prepare_conan:
 	rm -rf build
 	mkdir build
-	cd build && conan install .. $(CONAN_FLAGS)
+	cd build && conan install .. $(CONAN_FLAGS) --build missing
