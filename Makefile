@@ -1,8 +1,4 @@
-ifeq '$(findstring ;,$(PATH))' ';'
-  CONAN_FLAGS = -s compiler.cppstd=17
-else
-  CONAN_FLAGS = -s compiler.cppstd=17
-endif
+CONAN_FLAGS = --output-folder=. --build missing -s compiler.cppstd=17
 
 all: prepare
 
@@ -29,7 +25,12 @@ prepare:
 	rm -rf build
 	mkdir build
 
-prepare_conan:
+conan_d:
 	rm -rf build
 	mkdir build
-	cd build && conan install .. $(CONAN_FLAGS) --build missing
+	cd build && conan install .. -s build_type=Debug $(CONAN_FLAGS)
+
+conan_r:
+	rm -rf build
+	mkdir build
+	cd build && conan install .. -s build_type=Release $(CONAN_FLAGS)
