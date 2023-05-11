@@ -1,0 +1,27 @@
+name: MacOS CI Test
+
+on:
+  push:
+    branches: [ main, master, dev ]
+  pull_request:
+    branches: [ main, master, dev ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: prepare
+      run: |
+        make prepare
+    - name: configure
+      run: |
+        cmake -H. -Bbuild -G "Unix Makefiles" -DCMAKE_BUILD_TYPE="Debug"
+    - name: building
+      run: |
+        cmake --build build --config Debug --target unit_tests -j4
+    - name: testing
+      run: |
+        cd build
+        cd tests
+        ./unit_tests

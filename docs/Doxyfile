@@ -1,0 +1,37 @@
+# Configuration for Doxygen for use with CMake
+# Only options that deviate from the default are included
+# To create a new Doxyfile containing all available options, call `doxygen -g`
+
+#---------------------------------------------------------------------------
+# Project related configuration options
+#---------------------------------------------------------------------------
+DOXYFILE_ENCODING       = UTF-8
+PROJECT_NAME            = "C++ Project Template"
+PROJECT_NUMBER          = 1.0.0
+PROJECT_BRIEF           =
+PROJECT_LOGO            =
+OUTPUT_DIRECTORY        = ./
+OUTPUT_LANGUAGE         = English
+MARKDOWN_SUPPORT        = YES
+
+#---------------------------------------------------------------------------
+# Build related configuration options
+#---------------------------------------------------------------------------
+EXTRACT_ALL             = YES
+RECURSIVE               = YES
+GENERATE_HTML           = YES
+GENERATE_LATEX          = NO
+
+#---------------------------------------------------------------------------
+# Configuration options related to the input files
+#---------------------------------------------------------------------------
+INPUT                  =    ../src \
+INPUT                       ../include
+INPUT_ENCODING         = UTF-8
+FILE_PATTERNS          = *.c \
+                         *.cc \
+                         *.cpp \
+                         *.h \
+                         *.hpp \
+                         *.md \
+                         *.txt
