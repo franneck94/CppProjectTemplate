@@ -25,21 +25,6 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-# USAGE:
-#
-# 1. Copy this file into your cmake modules path.
-# 1. Add the following line to your CMakeLists.txt (best inside an if-condition
-#   using a CMake option() to enable it just optionally): include(CodeCoverage)
-# 1. Append necessary compiler flags: append_coverage_compiler_flags()
-# 1. If you need to exclude additional directories from the report, specify them
-#   using full paths in the COVERAGE_EXCLUDES variable before calling
-#   setup_target_for_coverage_*(). Example: set(COVERAGE_EXCLUDES
-# '${PROJECT_SOURCE_DIR}/src/dir1/*'
-# '/path/to/my/src/dir2/*') Or, use the EXCLUDE argument to
-# setup_target_for_coverage_*(). Example: setup_target_for_coverage_lcov( NAME
-# coverage EXECUTABLE testrunner EXCLUDE "${PROJECT_SOURCE_DIR}/src/dir1/*"
-# "/path/to/my/src/dir2/*")
-#
 
 include(CMakeParseArguments)
 
@@ -60,38 +45,36 @@ if(ENABLE_COVERAGE)
         message(FATAL_ERROR "gcov not found! Aborting...")
     endif() # NOT GCOV_PATH
 
-    if("${CMAKE_CXX_COMPILER_ID}" MATCHES "(Apple)?[Cc]lang")
-        if("${CMAKE_CXX_COMPILER_VERSION}" VERSION_LESS 3)
-            message(
-                FATAL_ERROR
-                    "Clang version must be 3.0.0 or greater! Aborting...")
-        endif()
-    elseif(NOT CMAKE_COMPILER_IS_GNUCXX)
-        message(FATAL_ERROR "Compiler is not GNU gcc! Aborting...")
+    if(CMAKE_C_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+        set(IS_CLANG TRUE)
+    else()
+        set(IS_CLANG FALSE)
+    endif()
+    if(CMAKE_C_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+        set(IS_GCC TRUE)
+    else()
+        set(IS_GCC FALSE)
+    endif()
+
+    if(NOT ${IS_CLANG} AND NOT ${IS_GCC})
+        message(FATAL_ERROR "Compiler is not gcc/clang! Aborting...")
     endif()
 
     set(COVERAGE_COMPILER_FLAGS
         "-g -O0 -fprofile-arcs -ftest-coverage"
         CACHE INTERNAL "")
-
     set(CMAKE_CXX_FLAGS_COVERAGE
         ${COVERAGE_COMPILER_FLAGS}
-        CACHE STRING "Flags used by the C++ compiler during coverage builds."
-              FORCE)
+        CACHE STRING FORCE)
     set(CMAKE_C_FLAGS_COVERAGE
         ${COVERAGE_COMPILER_FLAGS}
-        CACHE STRING "Flags used by the C compiler during coverage builds."
-              FORCE)
+        CACHE STRING FORCE)
     set(CMAKE_EXE_LINKER_FLAGS_COVERAGE
         "-lgcov"
-        CACHE STRING "Flags used for linking binaries during coverage builds."
-              FORCE)
+        CACHE STRING FORCE)
     set(CMAKE_SHARED_LINKER_FLAGS_COVERAGE
         ""
-        CACHE
-            STRING
-            "Flags used by the shared libraries linker during coverage builds."
-            FORCE)
+        CACHE STRING FORCE)
     mark_as_advanced(
         CMAKE_CXX_FLAGS_COVERAGE
         CMAKE_C_FLAGS_COVERAGE
@@ -102,13 +85,10 @@ if(ENABLE_COVERAGE)
        CMAKE_BUILD_TYPE
        STREQUAL
        "Debug")
-        message(
-            WARNING
-                "Code coverage results with an optimised (non-Debug) build may be misleading"
-        )
-    endif() # NOT CMAKE_BUILD_TYPE STREQUAL "Debug"
+        message(WARNING "Cov results with non-Debug build may be misleading")
+    endif()
 
-    if(CMAKE_C_COMPILER_ID STREQUAL "GNU")
+    if(${IS_GCC})
         link_libraries(gcov)
     endif()
 endif()
@@ -137,11 +117,10 @@ function(setup_target_for_coverage_lcov)
 
     if(NOT LCOV_PATH)
         message(FATAL_ERROR "lcov not found! Aborting...")
-    endif() # NOT LCOV_PATH
-
+    endif()
     if(NOT GENHTML_PATH)
         message(FATAL_ERROR "genhtml not found! Aborting...")
-    endif() # NOT GENHTML_PATH
+    endif()
 
     # Set base directory (as absolute path), or default to PROJECT_SOURCE_DIR
     if(${Coverage_BASE_DIRECTORY})
@@ -209,8 +188,6 @@ function(setup_target_for_coverage_lcov)
         WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
         DEPENDS ${Coverage_DEPENDENCIES}
         VERBATIM # Protect arguments to commands
-        COMMENT
-            "Resetting code coverage counters to zero.\nProcessing code coverage counters and generating report."
     )
 
     # Show where to find the lcov info report
@@ -218,7 +195,6 @@ function(setup_target_for_coverage_lcov)
         TARGET ${Coverage_NAME}
         POST_BUILD
         COMMAND ;
-        COMMENT "Lcov code coverage info report saved in ${Coverage_NAME}.info."
     )
 
     # Show info where to find the report
@@ -226,10 +202,8 @@ function(setup_target_for_coverage_lcov)
         TARGET ${Coverage_NAME}
         POST_BUILD
         COMMAND ;
-        COMMENT
-            "Open ./${Coverage_NAME}/index.html in your browser to view the coverage report."
     )
-endfunction() # setup_target_for_coverage_lcov
+endfunction()
 
 function(append_coverage_compiler_flags)
     set(CMAKE_C_FLAGS
@@ -239,6 +213,7 @@ function(append_coverage_compiler_flags)
         "${CMAKE_CXX_FLAGS} ${COVERAGE_COMPILER_FLAGS}"
         PARENT_SCOPE)
     message(
-        STATUS "Appending code coverage compiler flags: ${COVERAGE_COMPILER_FLAGS}"
+        STATUS
+            "Appending code coverage compiler flags: ${COVERAGE_COMPILER_FLAGS}"
     )
-endfunction() # append_coverage_compiler_flags
+endfunction()

@@ -95,7 +95,8 @@ function(add_clang_tidy_to_target target)
         if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
             message(STATUS "Added MSVC ClangTidy (VS GUI only) for: ${target}")
             set_target_properties(
-                ${target} PROPERTIES VS_GLOBAL_EnableMicrosoftCodeAnalysis false)
+                ${target} PROPERTIES VS_GLOBAL_EnableMicrosoftCodeAnalysis
+                                     false)
             set_target_properties(
                 ${target} PROPERTIES VS_GLOBAL_EnableClangTidyCodeAnalysis true)
         else()

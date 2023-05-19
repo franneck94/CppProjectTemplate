@@ -12,8 +12,9 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Options
-option(USE_CONAN "Whether to use conan" OFF)
-option(USE_VCPKG "Whether to use vcpkg" OFF)
+option(USE_CONAN "Whether to use Conan." OFF)
+option(USE_VCPKG "Whether to use VCPKG." OFF)
+option(USE_CPM "Whether to use CPM." ON)
 
 option(ENABLE_WARNINGS "Enable to add warnings to a target." ON)
 option(ENABLE_WARNINGS_AS_ERRORS "Enable to treat warnings as errors." OFF)
@@ -23,8 +24,10 @@ option(ENABLE_COVERAGE "Enable a Code Coverage build." OFF)
 
 option(ENABLE_CLANG_TIDY "Enable to add clang tidy." OFF)
 
-option(ENABLE_SANITIZE_ADDR "Enable to sanitize address (Unix only)." OFF)
-option(ENABLE_SANITIZE_UNDEF "Enable to sanitize undefined (Unix only)." OFF)
+option(ENABLE_SANITIZE_ADDR "Enable address sanitize." OFF)
+option(ENABLE_SANITIZE_UNDEF "Enable undefined sanitize." OFF)
+option(ENABLE_SANITIZE_LEAK "Enable leak sanitize (Gcc/Clang only)." OFF)
+option(ENABLE_SANITIZE_THREAD "Enable thread sanitize (Gcc/Clang only)." OFF)
 
 option(ENABLE_CLANG_FORMAT "Enable to add clang-format." ON)
 option(ENABLE_CMAKE_FORMAT "Enable to add cmake-format." ON)
@@ -40,7 +43,6 @@ set(EXECUTABLE_NAME "main")
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/)
 include(FetchContent)
 
-include(AddGitSubmodule)
 include(Docs)
 include(Tools)
 include(ConfigSafeGuards)
@@ -84,6 +86,14 @@ elseif(USE_VCPKG)
     find_package(spdlog REQUIRED)
     find_package(Catch2 REQUIRED)
     find_package(cxxopts REQUIRED)
+elseif(USE_CPM)
+    message(STATUS "Using CPM")
+    include(CPM)
+    CPMAddPackage("gh:fmtlib/fmt#9.1.0")
+    CPMAddPackage("gh:nlohmann/json@3.11.2")
+    CPMAddPackage("gh:catchorg/Catch2@2.13.9")
+    CPMAddPackage("gh:jarro2783/cxxopts@3.1.1")
+    CPMAddPackage("gh:gabime/spdlog@1.11.0")
 else() # Use FetchContent
     message(STATUS "Using FetchContent")
     FetchContent_Declare(

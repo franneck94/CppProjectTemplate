@@ -4,21 +4,20 @@ add_executable(${EXECUTABLE_NAME} ${APP_SOURCES})
 
 target_link_libraries(
     ${EXECUTABLE_NAME}
-    PRIVATE
-        ${LIBRARY_NAME}
-        nlohmann_json::nlohmann_json
-        fmt::fmt
-        spdlog::spdlog
-        cxxopts::cxxopts)
+    PRIVATE ${LIBRARY_NAME}
+            nlohmann_json::nlohmann_json
+            fmt::fmt
+            spdlog::spdlog
+            cxxopts::cxxopts)
 
-if (${ENABLE_WARNINGS})
+if(${ENABLE_WARNINGS})
     target_set_warnings(
-    TARGET
-    ${EXECUTABLE_NAME}
-    ENABLE
-    ${ENABLE_WARNINGS}
-    AS_ERRORS
-    ${ENABLE_WARNINGS_AS_ERRORS})
+        TARGET
+        ${EXECUTABLE_NAME}
+        ENABLE
+        ${ENABLE_WARNINGS}
+        AS_ERRORS
+        ${ENABLE_WARNINGS_AS_ERRORS})
 endif()
 
 if(${ENABLE_LTO})
