@@ -62,20 +62,19 @@ if(ENABLE_COVERAGE)
     endif()
 
     set(COVERAGE_COMPILER_FLAGS
-        "-g -O0 -fprofile-arcs -ftest-coverage"
-        CACHE INTERNAL "")
+        "-g -O0 -fprofile-arcs -ftest-coverage")
     set(CMAKE_CXX_FLAGS_COVERAGE
         ${COVERAGE_COMPILER_FLAGS}
-        CACHE FORCE)
+        FORCE)
     set(CMAKE_C_FLAGS_COVERAGE
         ${COVERAGE_COMPILER_FLAGS}
-        CACHE FORCE)
+        FORCE)
     set(CMAKE_EXE_LINKER_FLAGS_COVERAGE
         "-lgcov"
-        CACHE FORCE)
+        FORCE)
     set(CMAKE_SHARED_LINKER_FLAGS_COVERAGE
         ""
-        CACHE FORCE)
+        FORCE)
     mark_as_advanced(
         CMAKE_CXX_FLAGS_COVERAGE
         CMAKE_C_FLAGS_COVERAGE
