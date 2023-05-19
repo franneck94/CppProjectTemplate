@@ -45,7 +45,8 @@ if(ENABLE_COVERAGE)
         message(FATAL_ERROR "gcov not found! Aborting...")
     endif() # NOT GCOV_PATH
 
-    if(CMAKE_C_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    if(CMAKE_C_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES
+                                              "Clang")
         set(IS_CLANG TRUE)
     else()
         set(IS_CLANG FALSE)
@@ -194,15 +195,13 @@ function(setup_target_for_coverage_lcov)
     add_custom_command(
         TARGET ${Coverage_NAME}
         POST_BUILD
-        COMMAND ;
-    )
+        COMMAND ;)
 
     # Show info where to find the report
     add_custom_command(
         TARGET ${Coverage_NAME}
         POST_BUILD
-        COMMAND ;
-    )
+        COMMAND ;)
 endfunction()
 
 function(append_coverage_compiler_flags)
