@@ -10,11 +10,10 @@ This is a template for C++ projects. What you get:
 - Library, executable and test code separated in distinct folders
 - Use of modern CMake for building and compiling
 - External libraries installed and managed by
-  - [FetchContent](https://cmake.org/cmake/help/latest/module/FetchContent.html) OR
+  - [CPM](https://github.com/cpm-cmake/CPM.cmake) Package Manager OR
   - [Conan](https://conan.io/) Package Manager OR
-  - [VCPKG](https://github.com/microsoft/vcpkg) Package Manager OR
-  - [CPM](https://github.com/cpm-cmake/CPM.cmake) Package Manager
-- Unit testing using [Catch2](https://github.com/catchorg/Catch2)
+  - [VCPKG](https://github.com/microsoft/vcpkg) Package Manager
+- Unit testing using [Catch2](https://github.com/catchorg/Catch2) v2
 - General purpose libraries: [JSON](https://github.com/nlohmann/json), [spdlog](https://github.com/gabime/spdlog), [cxxopts](https://github.com/jarro2783/cxxopts) and [fmt](https://github.com/fmtlib/fmt)
 - Continuous integration testing with Github Actions and [pre-commit](https://pre-commit.com/)
 - Code coverage reports, including automatic upload to [Codecov](https://codecov.io)
@@ -52,9 +51,7 @@ Library code goes into [src/](src/), main program code in [app/](app) and tests 
 - CMake 3.16+
 - MSVC 2017 (or higher), G++9 (or higher), Clang++9 (or higher)
 - Optional: Code Coverage (only on GNU|Clang): lcov, gcovr
-- Optional: GNU Makefile
-- Optional: Doxygen
-- Optional: Conan, VCPKG and CPM
+- Optional: Makefile, Doxygen, Conan, VCPKG
 
 ## Building
 

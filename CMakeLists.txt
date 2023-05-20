@@ -12,7 +12,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Options
-option(USE_CONAN "Whether to use Conan." ON)
+option(USE_CONAN "Whether to use Conan." OFF)
 option(USE_VCPKG "Whether to use VCPKG." OFF)
 option(USE_CPM "Whether to use CPM." OFF)
 
@@ -86,7 +86,7 @@ elseif(USE_VCPKG)
     find_package(spdlog REQUIRED)
     find_package(Catch2 REQUIRED)
     find_package(cxxopts REQUIRED)
-elseif(USE_CPM)
+else(USE_CPM)
     message(STATUS "Using CPM")
     include(CPM)
     cpmaddpackage("gh:fmtlib/fmt#9.1.0")
@@ -94,42 +94,6 @@ elseif(USE_CPM)
     cpmaddpackage("gh:catchorg/Catch2@2.13.9")
     cpmaddpackage("gh:jarro2783/cxxopts@3.1.1")
     cpmaddpackage("gh:gabime/spdlog@1.11.0")
-else()
-    message(STATUS "Using FetchContent")
-    FetchContent_Declare(
-        nlohmann_json
-        GIT_REPOSITORY https://github.com/nlohmann/json.git
-        GIT_TAG v3.11.2
-        GIT_SHALLOW TRUE)
-    FetchContent_MakeAvailable(nlohmann_json)
-
-    FetchContent_Declare(
-        fmt
-        GIT_REPOSITORY https://github.com/fmtlib/fmt.git
-        GIT_TAG 9.1.0
-        GIT_SHALLOW TRUE)
-    FetchContent_MakeAvailable(fmt)
-
-    FetchContent_Declare(
-        spdlog
-        GIT_REPOSITORY https://github.com/gabime/spdlog.git
-        GIT_TAG v1.11.0
-        GIT_SHALLOW TRUE)
-    FetchContent_MakeAvailable(spdlog)
-
-    FetchContent_Declare(
-        cxxopts
-        GIT_REPOSITORY https://github.com/jarro2783/cxxopts.git
-        GIT_TAG v3.1.1
-        GIT_SHALLOW TRUE)
-    FetchContent_MakeAvailable(cxxopts)
-
-    FetchContent_Declare(
-        Catch2
-        GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-        GIT_TAG v2.13.9
-        GIT_SHALLOW TRUE)
-    FetchContent_MakeAvailable(Catch2)
 endif()
 
 # SUB DIRECTORIES
