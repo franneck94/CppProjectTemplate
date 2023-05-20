@@ -12,7 +12,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Options
-option(USE_CONAN "Whether to use Conan." OFF)
+option(USE_CONAN "Whether to use Conan." ON)
 option(USE_VCPKG "Whether to use VCPKG." OFF)
 option(USE_CPM "Whether to use CPM." OFF)
 
@@ -94,7 +94,7 @@ elseif(USE_CPM)
     cpmaddpackage("gh:catchorg/Catch2@2.13.9")
     cpmaddpackage("gh:jarro2783/cxxopts@3.1.1")
     cpmaddpackage("gh:gabime/spdlog@1.11.0")
-else() # Use FetchContent
+else()
     message(STATUS "Using FetchContent")
     FetchContent_Declare(
         nlohmann_json

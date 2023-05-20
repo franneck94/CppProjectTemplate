@@ -13,7 +13,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: install
       run: |
-        make install_tests
+        sudo apt-get install gcovr lcov
     - name: prepare
       run: |
         make prepare
