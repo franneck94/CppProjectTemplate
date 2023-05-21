@@ -4,6 +4,7 @@
 TODO*.*
 *.pptx
 *.pdf
+CMakeUserPresets.json
 
 ################################
 ########### FOLDERS ############
