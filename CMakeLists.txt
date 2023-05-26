@@ -41,11 +41,10 @@ set(EXECUTABLE_NAME "main")
 
 # CMAKE MODULES
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/)
-include(FetchContent)
-
+include(ConfigSafeGuards)
+include(AddGitSubmodule)
 include(Docs)
 include(Tools)
-include(ConfigSafeGuards)
 
 if(ENABLE_WARNINGS)
     include(Warnings)
