@@ -52,7 +52,6 @@
         "*.md": "vscode.markdown.preview.editor",
         "*.svg": "svgPreviewer.customEditor"
     },
-    "workbench.editor.untitled.hint": "hidden",
     "git.enableSmartCommit": true,
     "git.autofetch": true,
     "git.confirmSync": false,
@@ -150,5 +149,6 @@
     "C_Cpp_Runner.cppStandard": "c++20",
     "C_Cpp_Runner.cStandard": "c11",
     "C_Cpp_Runner.enableWarnings": true,
-    "C_Cpp_Runner.warningsAsError": false
+    "C_Cpp_Runner.warningsAsError": false,
+    "workbench.editor.empty.hint": "hidden"
 }

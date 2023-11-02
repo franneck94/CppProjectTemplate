@@ -107,7 +107,6 @@ add_subdirectory(tests)
 
 install(
     TARGETS ${EXECUTABLE_NAME}
-    EXPORT ${LIBRARY_NAME}
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
     RUNTIME DESTINATION bin)
