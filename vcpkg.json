@@ -1,0 +1,33 @@
+{
+    "name": "test",
+    "version-string": "0.1.0",
+    "dependencies": [
+        {
+            "name": "nlohmann-json",
+            "version>=": "3.11.2"
+        },
+        {
+            "name": "fmt",
+            "version>=": "9.1.0"
+        },
+        {
+            "name": "spdlog",
+            "version>=": "1.11.0"
+        },
+        {
+            "name": "catch2",
+            "version>=": "2.13.9"
+        },
+        {
+            "name": "cxxopts",
+            "version>=": "3.1.1"
+        }
+    ],
+    "overrides": [
+        {
+            "name": "catch2",
+            "version": "2.13.9"
+        }
+    ],
+    "builtin-baseline": "4cb4a5c5ddcb9de0c83c85837ee6974c8333f032"
+}

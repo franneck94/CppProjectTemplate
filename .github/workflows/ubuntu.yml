@@ -1,0 +1,31 @@
+name: Ubuntu CI Test
+
+on:
+  push:
+    branches: [ main, master, dev ]
+  pull_request:
+    branches: [ main, master, dev ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: install
+      run: |
+        sudo apt-get install gcovr lcov
+    - name: prepare
+      run: |
+        make prepare
+    - name: configure
+      run: |
+        cmake -H. -Bbuild -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=On
+    - name: building
+      run: |
+        cmake --build build --config Debug --target coverage -j4
+    - name: testing
+      run: |
+        cd build
+        cd tests
+        ./unit_tests
+        bash <(curl -s https://codecov.io/bash)
