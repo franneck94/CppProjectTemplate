@@ -130,3 +130,33 @@ Shared libraries reduce the amount of code that is duplicated in each program th
 ### Static
 
 Static libraries increase the overall size of the binary, but it means that you don't need to carry along a copy of the library that is being used. As the code is connected at compile time there are not any additional run-time loading costs. The code is simply there.
+
+## Cross Compilation with Toolchain Files
+
+## ARM 32 Cross
+
+```shell
+cmake -B build_arm32 -DCMAKE_TOOLCHAIN_FILE=cmake/toolchains/arm32-cross-toolchain.cmake
+cmake --build build_arm32 -j8
+```
+
+## ARM 32 Native
+
+```shell
+cmake -B build -DCMAKE_TOOLCHAIN_FILE=cmake/toolchains/arm32-native-toolchain.cmake
+cmake --build build -j8
+```
+
+## x86 64 MingW
+
+```shell
+cmake -B build_mingw -DCMAKE_TOOLCHAIN_FILE=cmake/toolchains/x86-64-mingw-toolchain.cmake
+cmake --build build_mingw -j8
+```
+
+## x86 64 Native
+
+```shell
+cmake -B build -DCMAKE_TOOLCHAIN_FILE=cmake/toolchains/x86-64-native-toolchain.cmake
+cmake --build build -j8
+```
