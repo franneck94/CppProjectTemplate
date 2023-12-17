@@ -5,7 +5,10 @@
             "label": "Executable Call",
             "type": "shell",
             "command": [
-                "${workspaceFolder}/build/bin/main"
+                // MSVC
+                "${workspaceFolder}/build/app/Debug/main"
+                // Unix
+                // "${workspaceFolder}/build/bin/main"
             ],
             "args": [
                 "--verbose",
