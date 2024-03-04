@@ -55,7 +55,7 @@ add_clang_format_target()
 
 if(ENABLE_SANITIZE_ADDR OR ENABLE_SANITIZE_UNDEF)
     include(Sanitizer)
-    add_sanitizer_flags()
+    add_sanitizer_flags(ENABLE_SANITIZE_ADDR ENABLE_SANITIZE_UNDEF)
 endif()
 
 if(ENABLE_COVERAGE)
@@ -69,30 +69,66 @@ endif()
 
 # EXTERNAL LIBRARIES
 
-if(USE_CONAN)
+if(USE_CPM)
+    message(STATUS "Using CPM")
+    include(CPM)
+    cpmaddpackage("gh:nlohmann/json#v3.11.3")
+    cpmaddpackage("gh:fmtlib/fmt#10.2.1")
+    cpmaddpackage("gh:gabime/spdlog#v1.13.0")
+    cpmaddpackage("gh:jarro2783/cxxopts#v3.1.1")
+    cpmaddpackage("gh:catchorg/Catch2#v2.13.9")
+elseif(USE_CONAN)
     message(STATUS "Using Conan")
     include(${CMAKE_BINARY_DIR}/conan_toolchain.cmake)
     find_package(nlohmann_json REQUIRED)
     find_package(fmt REQUIRED)
     find_package(spdlog REQUIRED)
-    find_package(Catch2 REQUIRED)
     find_package(cxxopts REQUIRED)
+    find_package(Catch2 REQUIRED)
 elseif(USE_VCPKG)
     message(STATUS "Using VCPKG")
     include(${CMAKE_SOURCE_DIR}/external/vcpkg/scripts/buildsystems/vcpkg.cmake)
     find_package(nlohmann_json REQUIRED)
     find_package(fmt REQUIRED)
     find_package(spdlog REQUIRED)
-    find_package(Catch2 REQUIRED)
     find_package(cxxopts REQUIRED)
-else(USE_CPM)
-    message(STATUS "Using CPM")
-    include(CPM)
-    cpmaddpackage("gh:fmtlib/fmt#9.1.0")
-    cpmaddpackage("gh:nlohmann/json@3.11.2")
-    cpmaddpackage("gh:catchorg/Catch2@2.13.9")
-    cpmaddpackage("gh:jarro2783/cxxopts@3.1.1")
-    cpmaddpackage("gh:gabime/spdlog@1.11.0")
+    find_package(Catch2 REQUIRED)
+else()
+    message(STATUS "Using FetchContent")
+    FetchContent_Declare(
+        nlohmann_json
+        GIT_REPOSITORY https://github.com/nlohmann/json
+        GIT_TAG v3.11.3
+        GIT_SHALLOW TRUE)
+    FetchContent_MakeAvailable(nlohmann_json)
+
+    FetchContent_Declare(
+        fmt
+        GIT_REPOSITORY https://github.com/fmtlib/fmt
+        GIT_TAG 10.2.1
+        GIT_SHALLOW TRUE)
+    FetchContent_MakeAvailable(fmt)
+
+    FetchContent_Declare(
+        spdlog
+        GIT_REPOSITORY https://github.com/gabime/spdlog
+        GIT_TAG v1.13.0
+        GIT_SHALLOW TRUE)
+    FetchContent_MakeAvailable(spdlog)
+
+    FetchContent_Declare(
+        cxxopts
+        GIT_REPOSITORY https://github.com/jarro2783/cxxopts
+        GIT_TAG v3.1.1
+        GIT_SHALLOW TRUE)
+    FetchContent_MakeAvailable(cxxopts)
+
+    FetchContent_Declare(
+        Catch2
+        GIT_REPOSITORY https://github.com/catchorg/Catch2
+        GIT_TAG v2.13.9
+        GIT_SHALLOW TRUE)
+    FetchContent_MakeAvailable(Catch2)
 endif()
 
 # SUB DIRECTORIES

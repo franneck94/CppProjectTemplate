@@ -8,5 +8,6 @@
             "${workspaceFolder}/app/test.json"
         ],
         "externalConsole": true
-    }
+    },
+    "cmake.buildDirectory": "${workspaceFolder}/build-${buildKit}"
 }

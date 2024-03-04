@@ -1,0 +1,37 @@
+[
+    {
+        "name": "linux-default",
+        "compilers": {
+            "C": "gcc",
+            "CXX": "g++"
+        }
+    },
+    {
+        "name": "mac-default",
+        "compilers": {
+            "C": "clang",
+            "CXX": "clang++"
+        }
+    },
+    {
+        "name": "win32-default",
+        "visualStudio": "1ad26ee0",
+        "visualStudioArchitecture": "x86_amd64"
+    },
+    {
+        "name": "arm32-cross",
+        "toolchainFile": "${workspaceFolder}/cmake/toolchains/arm32-cross-toolchain.cmake"
+    },
+    {
+        "name": "arm32-native",
+        "toolchainFile": "${workspaceFolder}/cmake/toolchains/arm32-native-toolchain.cmake"
+    },
+    {
+        "name": "x86-64-mingw",
+        "toolchainFile": "${workspaceFolder}/cmake/toolchains/x86-64-mingw-toolchain.cmake"
+    },
+    {
+        "name": "x86-64-native",
+        "toolchainFile": "${workspaceFolder}/cmake/toolchains/x86-64-native-toolchain.cmake"
+    }
+]
