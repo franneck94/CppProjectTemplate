@@ -1,33 +1,33 @@
 {
-    "name": "test",
-    "version-string": "0.1.0",
+    "name": "cpptemplateproject",
+    "version-string": "1.0.0",
     "dependencies": [
         {
-            "name": "nlohmann-json",
-            "version>=": "3.11.2"
+            "name": "cxxopts",
+            "version>=": "3.1.1"
         },
         {
             "name": "fmt",
             "version>=": "9.1.0"
         },
         {
+            "name": "nlohmann-json",
+            "version>=": "3.11.3"
+        },
+        {
             "name": "spdlog",
-            "version>=": "1.11.0"
+            "version>=": "1.13.0"
         },
         {
             "name": "catch2",
-            "version>=": "2.13.9"
-        },
-        {
-            "name": "cxxopts",
-            "version>=": "3.1.1"
+            "version>=": "3.5.2"
         }
     ],
     "overrides": [
         {
             "name": "catch2",
-            "version": "2.13.9"
+            "version": "3.5.2"
         }
     ],
-    "builtin-baseline": "4cb4a5c5ddcb9de0c83c85837ee6974c8333f032"
+    "builtin-baseline": "40619a55c3e76dc4005c8d1b7395071471bb8b96"
 }

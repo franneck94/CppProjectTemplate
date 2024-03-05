@@ -9,5 +9,15 @@
         ],
         "externalConsole": true
     },
-    "cmake.buildDirectory": "${workspaceFolder}/build-${buildKit}"
+    // "cmake.buildDirectory": "${workspaceFolder}/build-${buildKit}",
+    "files.associations": {
+        "*.pyx": "cython",
+        ".clang*": "yaml",
+        "*.gpj": "jsonc",
+        "*.gvw": "jsonc",
+        "*.hpp.in": "cpp",
+        "string": "cpp",
+        "chrono": "cpp",
+        "filesystem": "cpp"
+    }
 }
