@@ -1,20 +1,30 @@
 include(Catch)
 
-set(TEST_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/main.cc")
-set(TEST_HEADERS "")
+add_executable(UnitTestFoo "test_foo.cc")
+target_link_libraries(UnitTestFoo PUBLIC ${LIB_FOO_NAME})
+target_link_libraries(UnitTestFoo PRIVATE Catch2::Catch2WithMain)
 
-add_executable(${UNIT_TEST_NAME} ${TEST_SOURCES} ${TEST_HEADERS})
-
-target_link_libraries(${UNIT_TEST_NAME} PUBLIC ${LIBRARY_NAME})
-target_link_libraries(${UNIT_TEST_NAME} PRIVATE Catch2::Catch2WithMain)
+add_executable(UnitTestBar "test_bar.cc")
+target_link_libraries(UnitTestBar PUBLIC ${LIB_BAR_NAME})
+target_link_libraries(UnitTestBar PRIVATE Catch2::Catch2WithMain)
 
 target_set_warnings(
     TARGET
-    ${UNIT_TEST_NAME}
+    UnitTestFoo
     ENABLE
     ${ENABLE_WARNINGS}
     AS_ERRORS
     ${ENABLE_WARNINGS_AS_ERRORS})
+target_set_warnings(
+    TARGET
+    UnitTestBar
+    ENABLE
+    ${ENABLE_WARNINGS}
+    AS_ERRORS
+    ${ENABLE_WARNINGS_AS_ERRORS})
+
+catch_discover_tests(UnitTestFoo)
+catch_discover_tests(UnitTestBar)
 
 if(ENABLE_COVERAGE)
     set(COVERAGE_MAIN "coverage")
@@ -26,7 +36,7 @@ if(ENABLE_COVERAGE)
         "${PROJECT_SOURCE_DIR}/tests/*"
         "${PROJECT_SOURCE_DIR}/build/*"
         "/usr/include/*")
-    set(COVERAGE_DEPENDENCIES ${UNIT_TEST_NAME})
+    set(COVERAGE_DEPENDENCIES UnitTestFoo UnitTestBar)
 
     setup_target_for_coverage_lcov(
         NAME
@@ -44,5 +54,3 @@ if(ENABLE_COVERAGE)
         --title
         "CPP Project Demo Coverage")
 endif()
-
-catch_discover_tests(${UNIT_TEST_NAME})

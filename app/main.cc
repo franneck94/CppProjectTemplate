@@ -8,7 +8,7 @@
 #include <spdlog/spdlog.h>
 
 #include "config.hpp"
-#include "my_lib.h"
+#include "foo.h"
 
 using json = nlohmann::json;
 namespace fs = std::filesystem;

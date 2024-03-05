@@ -1,1 +1,2 @@
-add_subdirectory(my_lib)
+add_subdirectory(foo)
+add_subdirectory(bar)

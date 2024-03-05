@@ -37,8 +37,8 @@ This is a template for C++ projects. What you get:
 │   ├── ...
 ├── src
 │   ├── CMakesLists.txt
-│   ├── my_lib.h
-│   └── my_lib.cc
+│   ├── foo/
+│   └── bar/
 └── tests
     ├── CMakeLists.txt
     └── main.cc

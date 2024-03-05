@@ -4,7 +4,7 @@ add_executable(${EXECUTABLE_NAME} ${APP_SOURCES})
 
 target_link_libraries(
     ${EXECUTABLE_NAME}
-    PRIVATE ${LIBRARY_NAME}
+    PRIVATE ${LIB_FOO_NAME}
             nlohmann_json::nlohmann_json
             fmt::fmt
             spdlog::spdlog

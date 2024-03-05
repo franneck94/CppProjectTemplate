@@ -11,10 +11,10 @@
                 // "${workspaceFolder}/build/bin/main"
             ],
             "args": [
-                "--verbose",
-                "true",
-                "--filename",
-                "${workspaceFolder}/app/test.json"
+                // "--verbose",
+                // "true",
+                // "--filename",
+                // "${workspaceFolder}/app/test.json"
             ],
             "group": {
                 "kind": "build",

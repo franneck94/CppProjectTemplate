@@ -20,7 +20,7 @@ option(ENABLE_WARNINGS "Enable to add warnings to a target." ON)
 option(ENABLE_WARNINGS_AS_ERRORS "Enable to treat warnings as errors." OFF)
 
 option(ENABLE_TESTING "Enable a Unit Testing build." ON)
-option(ENABLE_COVERAGE "Enable a Code Coverage build." OFF)
+option(ENABLE_COVERAGE "Enable a Code Coverage build." ON)
 
 option(ENABLE_CLANG_TIDY "Enable to add clang tidy." OFF)
 
@@ -35,8 +35,8 @@ option(ENABLE_CMAKE_FORMAT "Enable to add cmake-format." ON)
 option(ENABLE_LTO "Enable to add Link Time Optimization." ON)
 
 # Project/Library Names
-set(LIBRARY_NAME "lib")
-set(UNIT_TEST_NAME "unit_tests")
+set(LIB_FOO_NAME "foo")
+set(LIB_BAR_NAME "bar")
 set(EXECUTABLE_NAME "main")
 
 # CMAKE MODULES
@@ -157,6 +157,6 @@ install(
     RUNTIME DESTINATION bin)
 
 install(
-    TARGETS ${LIBRARY_NAME}
+    TARGETS ${LIB_FOO_NAME} ${LIB_BAR_NAME}
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib)
