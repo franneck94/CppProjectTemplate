@@ -17,10 +17,6 @@ jobs:
     - name: configure
       run: |
         cmake -H. -Bbuild -G "Unix Makefiles" -DCMAKE_BUILD_TYPE="Debug"
-    - name: building
+    - name: building and testing
       run: |
-        cmake --build build --config Debug --target unit_tests -j4
-    - name: testing
-      run: |
-        cd build
-        ctest
+        ctest --build-and-test
