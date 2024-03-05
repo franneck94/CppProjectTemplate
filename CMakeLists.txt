@@ -20,7 +20,7 @@ option(ENABLE_WARNINGS "Enable to add warnings to a target." ON)
 option(ENABLE_WARNINGS_AS_ERRORS "Enable to treat warnings as errors." OFF)
 
 option(ENABLE_TESTING "Enable a Unit Testing build." ON)
-option(ENABLE_COVERAGE "Enable a Code Coverage build." OFF)
+option(ENABLE_COVERAGE "Enable a Code Coverage build." ON)
 
 option(ENABLE_CLANG_TIDY "Enable to add clang tidy." OFF)
 
@@ -35,8 +35,6 @@ option(ENABLE_CMAKE_FORMAT "Enable to add cmake-format." OFF)
 option(ENABLE_LTO "Enable to add Link Time Optimization." ON)
 
 # Project/Library Names
-set(LIB_FOO_NAME "foo")
-set(LIB_BAR_NAME "bar")
 set(EXECUTABLE_NAME "main")
 
 # CMAKE MODULES
@@ -53,9 +51,12 @@ endif()
 add_cmake_format_target()
 add_clang_format_target()
 
-if(ENABLE_SANITIZE_ADDR OR ENABLE_SANITIZE_UNDEF)
+if(ENABLE_SANITIZE_ADDR
+   OR ENABLE_SANITIZE_UNDEF
+   OR ENABLE_SANITIZE_LEAK
+   OR ENABLE_SANITIZE_THREAD)
     include(Sanitizer)
-    add_sanitizer_flags(ENABLE_SANITIZE_ADDR ENABLE_SANITIZE_UNDEF)
+    add_sanitizer_flags()
 endif()
 
 if(ENABLE_TESTING AND ENABLE_COVERAGE)
@@ -157,6 +158,6 @@ install(
     RUNTIME DESTINATION bin)
 
 install(
-    TARGETS ${LIB_FOO_NAME} ${LIB_BAR_NAME}
+    TARGETS "LibFoo" "LibBar"
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib)

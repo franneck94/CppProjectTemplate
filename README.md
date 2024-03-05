@@ -53,7 +53,7 @@ Library code goes into [src/](src/), main program code in [app/](app) and tests 
 - Doxygen
 - Conan or VCPKG
 - MSVC 2017 (or higher), G++9 (or higher), Clang++9 (or higher)
-- Optional: Code Coverage (only on GNU|Clang): lcov, gcovr
+- Optional: Code Coverage (only on GNU|Clang): gcovr
 - Optional: Makefile, Doxygen, Conan, VCPKG
 
 ## Building
