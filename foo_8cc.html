@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>C++ Project Template: /home/runner/work/CppProjectTemplate/CppProjectTemplate/src/my_lib/CMakeLists.txt File Reference</title>
+<title>C++ Project Template: /home/runner/work/CppProjectTemplate/CppProjectTemplate/src/foo/foo.cc File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -60,56 +60,80 @@ $(function() {
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_97ad83a8c99cd02dc7c96faabd2cafb3.html">foo</a></li>  </ul>
+</div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">/home/runner/work/CppProjectTemplate/CppProjectTemplate/src/my_lib/CMakeLists.txt File Reference</div>  </div>
+<div class="title">foo.cc File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<table class="memberdecls">
+<div class="textblock"><code>#include &lt;iostream&gt;</code><br />
+<code>#include &quot;nlohmann/json.hpp&quot;</code><br />
+<code>#include &quot;<a class="el" href="foo_8h_source.html">foo.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for foo.cc:</div>
+<div class="dyncontent">
+<div class="center"><img src="foo_8cc__incl.png" border="0" usemap="#a_2home_2runner_2work_2CppProjectTemplate_2CppProjectTemplate_2src_2foo_2foo_8cc" alt=""/></div>
+</div>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:abc4a43310046a92baeb76452c0d7ee5c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="my__lib_2CMakeLists_8txt.html#abc4a43310046a92baeb76452c0d7ee5c">set</a> (LIBRARY_SOURCES &quot;${CMAKE_CURRENT_SOURCE_DIR}/my_lib.cc&quot;) set(LIBRARY_HEADERS &quot;$</td></tr>
-<tr class="separator:abc4a43310046a92baeb76452c0d7ee5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ddbfbe904bdf0d62178df205c3e98ac"><td class="memItemLeft" align="right" valign="top">my_lib h&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="my__lib_2CMakeLists_8txt.html#a3ddbfbe904bdf0d62178df205c3e98ac">set</a> (LIBRARY_INCLUDES &quot;./&quot; &quot;${CMAKE_BINARY_DIR}/configured_files/include&quot;) add_library($</td></tr>
-<tr class="separator:a3ddbfbe904bdf0d62178df205c3e98ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a501e98503bb06e4809928757b9b9a77c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="foo_8cc.html#a501e98503bb06e4809928757b9b9a77c">print_hello_world</a> ()</td></tr>
+<tr class="memdesc:a501e98503bb06e4809928757b9b9a77c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints hello world the console.  <a href="foo_8cc.html#a501e98503bb06e4809928757b9b9a77c">More...</a><br /></td></tr>
+<tr class="separator:a501e98503bb06e4809928757b9b9a77c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea62baaa1b97041829042603549ad2e1"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="foo_8cc.html#aea62baaa1b97041829042603549ad2e1">factorial</a> (unsigned int number)</td></tr>
+<tr class="memdesc:aea62baaa1b97041829042603549ad2e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute n faculty (n!)  <a href="foo_8cc.html#aea62baaa1b97041829042603549ad2e1">More...</a><br /></td></tr>
+<tr class="separator:aea62baaa1b97041829042603549ad2e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a3ddbfbe904bdf0d62178df205c3e98ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ddbfbe904bdf0d62178df205c3e98ac">&#9670;&nbsp;</a></span>set() <span class="overload">[1/2]</span></h2>
+<a id="aea62baaa1b97041829042603549ad2e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea62baaa1b97041829042603549ad2e1">&#9670;&nbsp;</a></span>factorial()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">my_lib h set </td>
+          <td class="memname">unsigned int factorial </td>
           <td>(</td>
-          <td class="paramtype">LIBRARY_INCLUDES &quot;./&quot; &quot;${CMAKE_BINARY_DIR}/configured_files/include&quot;&#160;</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>number</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compute n faculty (n!) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">number</td><td>Input number n </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Faculty of n </dd></dl>
+
+</div>
+</div>
+<a id="a501e98503bb06e4809928757b9b9a77c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a501e98503bb06e4809928757b9b9a77c">&#9670;&nbsp;</a></span>print_hello_world()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int print_hello_world </td>
+          <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="abc4a43310046a92baeb76452c0d7ee5c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc4a43310046a92baeb76452c0d7ee5c">&#9670;&nbsp;</a></span>set() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">set </td>
-          <td>(</td>
-          <td class="paramtype">LIBRARY_SOURCES &quot;${CMAKE_CURRENT_SOURCE_DIR}/my_lib.cc&quot;&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p>Prints hello world the console. </p>
 
 </div>
 </div>
