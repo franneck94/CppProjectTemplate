@@ -26,6 +26,5 @@ jobs:
     - name: testing
       run: |
         cd build
-        cd tests
-        ./unit_tests
+        ctest
         bash <(curl -s https://codecov.io/bash)
