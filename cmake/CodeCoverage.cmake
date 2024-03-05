@@ -45,9 +45,6 @@ if(NOT ${IS_CLANG} AND NOT ${IS_GCC})
 endif()
 
 find_program(GCOVR_PATH gcovr)
-if(NOT GCOVR_PATH)
-    message(FATAL_ERROR "gcovr not found! Aborting...")
-endif() # NOT GCOVR_PATH
 
 set(COVERAGE_COMPILER_FLAGS "-g3 -O0 --coverage")
 set(CMAKE_CXX_FLAGS_COVERAGE ${COVERAGE_COMPILER_FLAGS} FORCE)
@@ -76,6 +73,10 @@ endif()
 # executable should always have a ZERO as exit code otherwise the coverage
 # generation will not complete.
 function(setup_target_for_coverage_gcovr_html)
+    if(NOT GCOVR_PATH)
+        message(FATAL_ERROR "gcovr not found! Aborting...")
+    endif() # NOT GCOVR_PATH
+
     set(options NONE)
     set(oneValueArgs BASE_DIRECTORY NAME)
     set(multiValueArgs
