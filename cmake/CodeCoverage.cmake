@@ -135,7 +135,7 @@ function(setup_target_for_coverage_gcovr_html)
         --json-summary
         --json-summary-pretty
         --html-them
-        blue)
+        green)
     set(GCOVR_HTML_CMD
         ${GCOVR_PATH}
         ${GCOVR_EXTRA_FLAGS}
