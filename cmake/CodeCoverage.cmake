@@ -134,7 +134,7 @@ function(setup_target_for_coverage_gcovr_html)
     set(GCOVR_EXTRA_FLAGS
         --json-summary
         --json-summary-pretty
-        --html-them
+        --html-theme
         green)
     set(GCOVR_HTML_CMD
         ${GCOVR_PATH}
@@ -150,34 +150,6 @@ function(setup_target_for_coverage_gcovr_html)
         ${GCOVR_ADDITIONAL_ARGS}
         ${GCOVR_EXCLUDE_ARGS}
         --object-directory=${PROJECT_BINARY_DIR})
-
-    if(CODE_COVERAGE_VERBOSE)
-        message(STATUS "Executed command report")
-
-        message(STATUS "Command to run tests: ")
-        string(
-            REPLACE ";"
-                    " "
-                    GCOVR_HTML_EXEC_TESTS_CMD_SPACED
-                    "${GCOVR_HTML_EXEC_TESTS_CMD}")
-        message(STATUS "${GCOVR_HTML_EXEC_TESTS_CMD_SPACED}")
-
-        message(STATUS "Command to create a folder: ")
-        string(
-            REPLACE ";"
-                    " "
-                    GCOVR_HTML_FOLDER_CMD_SPACED
-                    "${GCOVR_HTML_FOLDER_CMD}")
-        message(STATUS "${GCOVR_HTML_FOLDER_CMD_SPACED}")
-
-        message(STATUS "Command to generate gcovr HTML coverage data: ")
-        string(
-            REPLACE ";"
-                    " "
-                    GCOVR_HTML_CMD_SPACED
-                    "${GCOVR_HTML_CMD}")
-        message(STATUS "${GCOVR_HTML_CMD_SPACED}")
-    endif()
 
     add_custom_target(
         ${Coverage_NAME}

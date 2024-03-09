@@ -44,6 +44,13 @@ Cmake-Format:
 pip install cmake-format # python 3.7+
 ```
 
+### Coverage Tools
+
+```bash
+sudo apt-get install gcovr
+pip install -U gcovr
+```
+
 ### Install Clang Tools
 
 It's included in the LLVM toolchain, but also installable by apt, brew, winget etc.
