@@ -31,7 +31,7 @@ jobs:
 
     - name: Test
       run: |
-        ls -la /home/runner/work/CppProjectTemplate/CppProjectTemplate/build/coverage/
+        ls -la build/
 
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@5.2.2
