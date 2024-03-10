@@ -1,0 +1,24 @@
+name: Windows CI Test
+
+on:
+  push:
+    branches: [ main, master, dev ]
+  pull_request:
+    branches: [ main, master, dev ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: prepare
+      run: |
+        make prepare
+    - name: configure
+      run: |
+        cmake -H"." -Bbuild -T host=x86 -A x64 -DCMAKE_BUILD_TYPE="Debug"
+    - name: building and testing
+      run: |
+        cmake --build build --config Debug
+        cd build
+        ctest .

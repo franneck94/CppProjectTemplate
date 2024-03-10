@@ -1,0 +1,23 @@
+{
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "cmake.debugConfig": {
+        "args": [
+            // "--verbose",
+            // "true",
+            // "--filename",
+            // "${workspaceFolder}/app/test.json"
+        ],
+        "externalConsole": true
+    },
+    // "cmake.buildDirectory": "${workspaceFolder}/build-${buildKit}",
+    "files.associations": {
+        "*.pyx": "cython",
+        ".clang*": "yaml",
+        "*.gpj": "jsonc",
+        "*.gvw": "jsonc",
+        "*.hpp.in": "cpp",
+        "string": "cpp",
+        "chrono": "cpp",
+        "filesystem": "cpp"
+    }
+}
