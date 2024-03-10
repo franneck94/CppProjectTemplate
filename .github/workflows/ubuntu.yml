@@ -23,22 +23,15 @@ jobs:
     - name: building and testing
       run: |
         ctest --build-and-test
-    - name: Code Coverage Report
-      uses: irongut/CodeCoverageSummary@v1.2.0
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v3
       with:
-        filename: coverage/coverage.cobertura.xml
-        badge: true
-        fail_below_min: true
-        format: markdown
-        hide_branch_rate: false
-        hide_complexity: true
-        indicators: true
-        output: both
-        thresholds: '60 80'
+        dotnet-version: 8.x
+        dotnet-quality: 'ga'
 
-    - name: Add Coverage PR Comment
-      uses: marocchino/sticky-pull-request-comment@v2
-      if: github.event_name == 'pull_request'
+    - name: ReportGenerator
+      uses: danielpalme/ReportGenerator-GitHub-Action@5.2.2
       with:
-        recreate: true
-        path: code-coverage-results.md
+        reports: coverage.cobertura.xml
+        targetdir: coverage
+        reporttypes: Html;Badges
