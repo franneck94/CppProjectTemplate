@@ -145,9 +145,9 @@ function(setup_target_for_coverage_gcovr_html)
         --json-summary
         ${Coverage_NAME}/summary.json
         --json-summary-pretty
-        --cobertura-pretty
-        ${Coverage_NAME}/summary_cobertura.xml
         --cobertura
+        ${Coverage_NAME}/summary_cobertura.xml
+        --cobertura-pretty
         --decisions
         -r
         ${BASEDIR}
