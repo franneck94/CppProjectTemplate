@@ -24,7 +24,7 @@ jobs:
       run: |
         ctest --build-and-test
     - name: Code Coverage Report
-      uses: irongut/CodeCoverageSummary@v1.3.0
+      uses: irongut/CodeCoverageSummary@v1.2.0
       with:
         filename: build/**/coverage.cobertura.xml
         badge: true
