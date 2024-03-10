@@ -32,6 +32,6 @@ jobs:
     - name: ReportGenerator
       uses: danielpalme/ReportGenerator-GitHub-Action@5.2.2
       with:
-        reports: build/coverage/summary_cobertura.xml
+        reports: build/coverage/coverage.cobertura.xml
         targetdir: coverage
         reporttypes: Html;Badges
