@@ -19,4 +19,6 @@ jobs:
         cmake -H. -Bbuild -G "Unix Makefiles" -DCMAKE_BUILD_TYPE="Debug"
     - name: building and testing
       run: |
-        ctest --build-and-test
+        cmake --build build --config Debug
+        cd build
+        ctest .
