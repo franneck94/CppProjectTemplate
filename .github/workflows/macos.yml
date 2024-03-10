@@ -16,7 +16,7 @@ jobs:
         make prepare
     - name: configure
       run: |
-        cmake -H. -Bbuild -G "Unix Makefiles" -DCMAKE_BUILD_TYPE="Debug"
+        cmake -H. -Bbuild -DCMAKE_BUILD_TYPE="Debug"
     - name: building and testing
       run: |
         cmake --build build --config Debug

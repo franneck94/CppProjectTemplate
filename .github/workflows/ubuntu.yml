@@ -19,18 +19,16 @@ jobs:
         make prepare
     - name: configure
       run: |
-        cmake -H. -Bbuild -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=On
-    - name: building
+        cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=On
+    - name: building and testing
       run: |
         cmake --build build --config Debug --target coverage -j4
-    - name: testing
-      run: |
         cd build
         ctest .
     - name: Code Coverage Report
       uses: irongut/CodeCoverageSummary@v1.3.0
       with:
-        filename: build/coverage/summary_cobertura.xml
+        filename: build/coverage/coverage.cobertura.xml
         badge: true
         fail_below_min: true
         format: markdown
