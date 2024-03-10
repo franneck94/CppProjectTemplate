@@ -135,7 +135,7 @@ function(setup_target_for_coverage_gcovr_html)
         --json-summary
         --json-summary-pretty
         --html-theme
-        green)
+        github.dark-green)
     set(GCOVR_HTML_CMD
         ${GCOVR_PATH}
         ${GCOVR_EXTRA_FLAGS}
@@ -145,6 +145,10 @@ function(setup_target_for_coverage_gcovr_html)
         --json-summary
         ${Coverage_NAME}/summary.json
         --json-summary-pretty
+        --cobertura-pretty
+        ${Coverage_NAME}/summary_cobertura.xml
+        --cobertura
+        --decisions
         -r
         ${BASEDIR}
         ${GCOVR_ADDITIONAL_ARGS}
