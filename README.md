@@ -4,7 +4,11 @@
 ![License](https://img.shields.io/github/license/franneck94/CppProjectTemplate)
 ![Linux Build](https://github.com/franneck94/CppProjectTemplate/workflows/Ubuntu%20CI%20Test/badge.svg)
 
-This is a template for C++ projects. What you get:
+**This is the final project of my Udemy Course**.
+See here to get the full discount to all of my Udemy Courses: [Link](https://github.com/franneck94/YoutubeVideos/blob/main/EnglishCourses.md)
+
+This is a template for modern C++ projects.
+What you get is:
 
 - Library, executable and test code separated in distinct folders
 - Use of modern CMake for building and compiling
