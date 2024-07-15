@@ -38,7 +38,7 @@ option(ENABLE_LTO "Enable to add Link Time Optimization." ON)
 set(EXECUTABLE_NAME "main")
 
 # CMAKE MODULES
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/)
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 include(ConfigSafeGuards)
 include(AddGitSubmodule)
 include(Docs)
