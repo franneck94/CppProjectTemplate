@@ -38,6 +38,12 @@ cmake -S .. -B . -G "Visual Studio 16 2019" # Option 1
 cmake .. -G "Visual Studio 16 2019" # Option 2
 ```
 
+## Get the list of Generators
+
+```bash
+cmake --help
+```
+
 ## Specify the Build Type
 
 Per default, the standard type is in most cases the debug type.
