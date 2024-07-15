@@ -93,24 +93,31 @@ cd build
 ## Different Linking Types
 
 ```cmake
-target_link_libraries(A PUBLIC fmt)
-target_link_libraries(B PRIVATE spdlog)
-```
-
-```cmake
-target_link_libraries(C PUBLIC/PRIVATE A)
-target_link_libraries(C PUBLIC/PRIVATE B)
+add_library(A ...)
+add_library(B ...)
+add_library(C ...)
 ```
 
 ### PUBLIC
 
-When A links fmt as *PUBLIC*, it says that A uses fmt in its implementation, and fmt is also used in A's public API.
-Hence, C can use fmt since it is part of the public API of A.
+```cmake
+target_link_libraries(A PUBLIC B)
+target_link_libraries(C PUBLIC A)
+```
+
+When A links in B as *PUBLIC*, it says that A uses B in its implementation, and B is also used in A's public API. Hence, C can use B since it is part of the public API of A.
 
 ### PRIVATE
 
-When B links spdlog as *PRIVATE*, it is saying that B uses spdlog in its
-implementation, but spdlog is not used in any part of B's public API.
+```cmake
+target_link_libraries(A PRIVATE B)
+target_link_libraries(C PRIVATE A)
+```
+
+When A links in B as *PRIVATE*, it is saying that A uses B in its
+implementation, but B is not used in any part of A's public API. Any code
+that makes calls into A would not need to refer directly to anything from
+B.
 
 ### INTERFACE
 
@@ -123,13 +130,103 @@ In general, used for header-only libraries.
 
 ## Different Library Types
 
+### Library
+
+A binary file that contains information about code.
+A library cannot be executed on its own.
+An application utilizes a library.
+
 ### Shared
 
-Shared libraries reduce the amount of code that is duplicated in each program that makes use of the library, keeping the binaries small. It also allows you to replace the shared object with one that is functionally equivalent, without needing to recompile the program that makes use of it. Shared libraries will however have a small additional cost for the execution.
+- Linux: \*.so
+- MacOS: \*.dylib
+- Windows: \*.dll
+
+Shared libraries reduce the amount of code that is duplicated in each program that makes use of the library, keeping the binaries small.
+Shared libraries will however have a small additional cost for the execution.
+In general the shared library is in the same directory as the executable.
 
 ### Static
 
-Static libraries increase the overall size of the binary, but it means that you don't need to carry along a copy of the library that is being used. As the code is connected at compile time there are not any additional run-time loading costs. The code is simply there.
+- Linux/MacOS: *.a
+- Windows: *.lib
+
+Static libraries increase the overall size of the binary, but it means that you don't need to carry along a copy of the library that is being used.
+As the code is connected at compile time there are not any additional run-time loading costs.
+
+## Important CMake Variables for Paths
+
+- CMAKE_SOURCE_DIR
+  - Topmost folder (source directory) that contains a CMakeList.txt file.
+- PROJECT_SOURCE_DIR
+  - Contains the full path to the root of your project source directory.
+- CMAKE_CURRENT_SOURCE_DIR
+  - The directory where the currently processed CMakeLists.txt is located in.
+- CMAKE_CURRENT_LIST_DIR
+  - The directory of the listfile currently being processed. (for example a \*.cmake Module)
+- CMAKE_MODULE_PATH
+  - Tell CMake to search first in directories listed in CMAKE_MODULE_PATH when you use FIND_PACKAGE() or INCLUDE().
+- CMAKE_BINARY_DIR
+  - The filepath to the build directory
+
+## Things you can set on targets
+
+- target_link_libraries: Other targets; can also pass library names directly
+- target_include_directories: Include directories
+- target_compile_features: The compiler features you need activated, like cxx_std_11
+- target_compile_definitions: Definitions
+- target_compile_options: More general compile flags
+- target_link_directories: Don’t use, give full paths instead (CMake 3.13+)
+- target_link_options: General link flags (CMake 3.13+)
+- target_sources: Add source files
+
+## Custom Targets and Commands
+
+- When is needed to use add_custom_target?
+Each time we need to run a command to do something in our build system different to build a library or an executable.
+
+- When is a good idea to run a command in add_custom_target?
+When the command must be executed always the target is built.
+
+- When is a good idea to use add_custom_command?
+Always we want to run the command when is needed: if we need to generate a file (or more) or regenerate it if something changed in the source folder.
+
+- When is a good idea to use execute_process?
+Running a command at configure time.
+
+## Macros vs Functions
+
+The only difference between a function and a macro is scope; macros don't have one.
+So, if you set a variable in a function and want it to be visible outside, you'll need PARENT_SCOPE.
+
+## Generator Expressions
+
+Using generator expressions one can configure the project differently for different build types in multi-configuration generators.
+For such generators the project is configured (with running cmake) once, but can be built for several build types after that.
+Example of such generators is Visual Studio.
+
+For multiconfiguration generators CMAKE_BUILD_TYPE is not known at configuration stage.
+Because of that using if-else switching doesn't work:
+
+```cmake
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    add_compile_options("/W4 /Wx")
+elif(CMAKE_BUILD_TYPE STREQUAL "Release")
+    add_compile_options("/W4")
+endif()
+```
+
+But using conditional generator expressions works:
+
+```cmake
+add_compile_options(
+    $<$<CONFIG:Debug>:/W4 /Wx>
+    $<$<CONFIG:Release>:/W4>
+)
+```
+
+The Visual Studio, XCode and Ninja Multi-Config generators let you have more than one configuration in the same build directory, and thus won't be using the CMAKE_BUILD_TYPE cache variable.
+Instead the CMAKE_CONFIGURATION_TYPES cache variable is used and contains the list of configurations to use for this build directory.
 
 ## Cross Compilation with Toolchain Files
 
