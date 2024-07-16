@@ -6,7 +6,7 @@
 
 int print_hello_world()
 {
-    std::cout << "Cout: Hello World" << '\n';
+    std::cout <<  "Cout: Hello World" << '\n';
     std::cout << NLOHMANN_JSON_VERSION_MAJOR << '\n';
 
     return 1;
